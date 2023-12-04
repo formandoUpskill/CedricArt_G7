@@ -118,6 +118,36 @@ public class DBStorage {
 
     }
 
+    public static List getAllArtworks()
+
+    {
+
+        List listArtwork = new ArrayList<>();
+        Artwork artwork;
+
+        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        {
+
+            ResultSet rs= MyDBUtils.lookup(connection, "*", "Artwork");
+            while (rs.next())
+            {
+                artwork= new Artwork();
+                artwork.setId(rs.getString("id_Artwork"));
+                artwork.setTitle(rs.getString("title"));
+                artwork.setThumbnail(rs.getString("thumbnail"));
+
+                listArtwork.add(artwork);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return listArtwork;
+
+    }
 
 
     private void insertArtworkArtist(Artwork artwork, Artist artist)

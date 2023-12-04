@@ -41,10 +41,6 @@ public class Artwork {
     private String date;
 
     private String category;
-
-    private String id_Exhibition;
-
-
     public String getId() {
         return id;
     }
@@ -71,11 +67,6 @@ public class Artwork {
     public String getUrl() {
         return url;
     }
-
-    public String getId_Exhibition() {
-        return id_Exhibition;
-    }
-
 
 
     public void setId (String id_Artwork) {
@@ -106,10 +97,6 @@ public class Artwork {
         this.url = url;
     }
 
-    public void setId_Exhibition(String id_Exhibition) {
-        this.id_Exhibition = id_Exhibition;
-    }
-
 
     public String getDate() {
         return date;
@@ -135,7 +122,6 @@ public class Artwork {
                 ", url='" + url + '\'' +
                 ", date='" + date + '\'' +
                 ", category='" + category + '\'' +
-                ", id_Exhibition='" + id_Exhibition + '\'' +
                 '}';
     }
 
