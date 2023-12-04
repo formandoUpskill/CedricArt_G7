@@ -1,8 +1,7 @@
-import adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import domain.Artwork;
+import domain.Artworkiii;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -31,10 +30,10 @@ public class MainGetAllArtworks {
 
             if(response.code() == 200) {
                 // Deserialize a list of clients
-                Type listType = new TypeToken<ArrayList<Artwork>>(){}.getType();
-                List<Artwork> all = gson.fromJson(response.body().string(), listType);
-                for (Artwork artwork : all) {
-                    System.out.println(artwork);
+                Type listType = new TypeToken<ArrayList<Artworkiii>>(){}.getType();
+                List<Artworkiii> all = gson.fromJson(response.body().string(), listType);
+                for (Artworkiii artworkiii : all) {
+                    System.out.println(artworkiii);
                 }
             } else {
                 // Something failed, maybe client does not exist

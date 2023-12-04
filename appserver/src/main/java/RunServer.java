@@ -8,11 +8,9 @@ import static spark.Spark.*;
 import adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import domain.Artwork;
+import domain.Artworkiii;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import persistence.MemoryStorage;
-import persistence.Storage;
 import util.MessageResponse;
 
 /**
@@ -40,42 +38,42 @@ public class RunServer {
 
         /*  INSTANTIATE STORAGE */
        // MemoryStorage storage = new MemoryStorage();
-        Storage storage = new Storage();
-
-        /* INSTANTIATE GSON CONVERTER */
-
-
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                //.setPrettyPrinting()
-                .create();
-
-        /* CONFIGURE END POINTS */
-        get("/artworks", (request, response) -> {
-            response.type("application/json");
-            return gson.toJson( storage.getAllArtworks() );
-        });
-
-
-        get("/artworks/:id", (request, response) -> {
-            response.type("application/json");
-            String idStr = request.params(":id");
-
-            int artworkId = 0;
-            try {
-                artworkId = Integer.parseInt(idStr);
-            } catch (NumberFormatException e) {
-                response.status(500);
-                return new MessageResponse("Invalid Artwork id (%s), expecting a number.", idStr);
-            }
-
-            Artwork artwork = storage.getArtwork(artworkId);
-            if(artwork == null) {
-                response.status(404);
-                return new MessageResponse("Artwork with id %s not found.", idStr);
-            }
-            return gson.toJson( artwork );
-        });
+//        Storage storage = new Storage();
+//
+//        /* INSTANTIATE GSON CONVERTER */
+//
+//
+//        Gson gson = new GsonBuilder()
+//                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+//                //.setPrettyPrinting()
+//                .create();
+//
+//        /* CONFIGURE END POINTS */
+//        get("/artworks", (request, response) -> {
+//            response.type("application/json");
+//            return gson.toJson( storage.getAllArtworks() );
+//        });
+//
+//
+//        get("/artworks/:id", (request, response) -> {
+//            response.type("application/json");
+//            String idStr = request.params(":id");
+//
+//            int artworkId = 0;
+//            try {
+//                artworkId = Integer.parseInt(idStr);
+//            } catch (NumberFormatException e) {
+//                response.status(500);
+//                return new MessageResponse("Invalid Artwork id (%s), expecting a number.", idStr);
+//            }
+//
+//            Artworkiii artworkiii = storage.getArtwork(artworkId);
+//            if(artworkiii == null) {
+//                response.status(404);
+//                return new MessageResponse("Artwork with id %s not found.", idStr);
+//            }
+//            return gson.toJson(artworkiii);
+//        });
 
         /*
         post("/clients", (request, response) -> {

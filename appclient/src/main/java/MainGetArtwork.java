@@ -1,8 +1,6 @@
-import adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import domain.Artwork;
-import domain.Client;
+import domain.Artworkiii;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -33,7 +31,7 @@ public class MainGetArtwork {
 
             if(response.code() == 200) {
                 // Create client object to represent the received data
-                Artwork c = gson.fromJson(response.body().string(), Artwork.class);
+                Artworkiii c = gson.fromJson(response.body().string(), Artworkiii.class);
                 System.out.println(c);
             } else {
                 // Something failed, maybe client does not exist

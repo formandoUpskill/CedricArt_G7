@@ -1,8 +1,5 @@
-import adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import domain.Address;
-import domain.Client;
 import okhttp3.*;
 
 import java.io.IOException;

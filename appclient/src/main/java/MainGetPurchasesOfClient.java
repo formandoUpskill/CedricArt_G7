@@ -1,9 +1,6 @@
-import adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import domain.Client;
-import domain.Purchase;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
