@@ -1,3 +1,4 @@
+
 import adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,10 +7,9 @@ import domain.Artwork;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +17,12 @@ public class MainGetAllArtworks {
     public static void main(String[] args) {
         OkHttpClient httpClient = new OkHttpClient();
         Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateAdapter())
                 .create();
 
         Request getRequest = new Request.Builder()
                 .url("http://localhost:4567/artworks")
                 .build();
-
-        System.out.println("MainGetAllArtworks getRequest " + getRequest.toString());
 
         try {
             Response response = httpClient.newCall(getRequest).execute();
