@@ -1,17 +1,18 @@
 
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import static spark.Spark.*;
 
-import adapters.LocalDateAdapter;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.DBStorage;
-
+import adapters.LocalDateAdapter;
 /**
  * Useful resources:
  * <p>https://dzone.com/articles/building-simple-restful-api</p>
@@ -36,59 +37,108 @@ public class RunServer {
         logger.info("Starting Main server at {localhost:4567}", new Date().toString());
 
         /*  INSTANTIATE STORAGE */
-       // MemoryStorage storage = new MemoryStorage();
-
-        System.out.println("111111");
-
+        // MemoryStorage storage = new MemoryStorage();
         DBStorage storage = new DBStorage();
 
-        System.out.println("222222");
+        //   Storage storage = new Storage();
 
         /* INSTANTIATE GSON CONVERTER */
 
 
         Gson gson = new GsonBuilder()
-               // .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateAdapter())
                 //.setPrettyPrinting()
                 .create();
 
-        System.out.println("GsonBuilder" + gson.toString());
-
         /* CONFIGURE END POINTS */
         get("/artworks", (request, response) -> {
-
-            System.out.println(  "get  artworks");
-
-
             response.type("application/json");
 
+            List artworks = storage.getAllArtworks();
 
-            System.out.println("storage.getAllArtworks() " + storage.getAllArtworks().size());
+            System.out.println("artworks.size() " + artworks.size());
 
-
-            return gson.toJson( storage.getAllArtworks() );
+            return gson.toJson( artworks );
         });
 
+/*
+        get("/artworks/:id", (request, response) -> {
+            response.type("application/json");
+            String idStr = request.params(":id");
 
-//        get("/artworks/:id", (request, response) -> {
-//            response.type("application/json");
-//            String idStr = request.params(":id");
-//
-//            int artworkId = 0;
-//            try {
-////                artworkId = Integer.parseInt(idStr);
-//            } catch (NumberFormatException e) {
-//                response.status(500);
-//                return new MessageResponse("Invalid Artwork id (%s), expecting a number.", idStr);
-//            }
-//            Artworkiii artworkiii = storage.getArtwork(artworkId);
-//            if (artworkiii == null) {
-//                response.status(404);
-//                return new MessageResponse("Artwork with id %s not found.", idStr);
-//            }
-//            return gson.toJson(artworkiii);
-//
-//        }
+            int artworkId = 0;
+            try {
+                artworkId = Integer.parseInt(idStr);
+            } catch (NumberFormatException e) {
+                response.status(500);
+                return new MessageResponse("Invalid Artwork id (%s), expecting a number.", idStr);
+            }
+
+            Artwork artwork = storage.getArtwork(artworkId);
+            if(artwork == null) {
+                response.status(404);
+                return new MessageResponse("Artwork with id %s not found.", idStr);
+            }
+            return gson.toJson( artwork );
+        });
+*/
+        /*
+        post("/clients", (request, response) -> {
+            response.type("application/json");
+
+            Client received = gson.fromJson(request.body(), Client.class);
+
+            Client created = storage.createClient(received.getName(), received.getAge(), received.getEmail(), received.getTelephoneNumber(),
+                    received.getAddress().getStreet(), received.getAddress().getCity(), received.getAddress().getCode(),
+                    received.isPremium());
+
+            return gson.toJson( created );
+        });
+
+        delete("/clients/:id", (request, response) -> {
+            response.type("application/json");
+
+            String idStr = request.params(":id");
+
+            int clientId = 0;
+            try {
+                clientId = Integer.parseInt(idStr);
+            } catch (NumberFormatException e) {
+                response.status(500);
+                return new MessageResponse("Invalid client id (%s), expecting a number.", idStr);
+            }
+
+            Client deletedClient = storage.deleteClient(clientId);
+            if(deletedClient == null) {
+                response.status(404);
+                return new MessageResponse("Client with id %s not found.", idStr);
+            }
+
+            return gson.toJson( deletedClient );
+        });
+
+        get("/clients/:id/purchases", (request, response) -> {
+            response.type("application/json");
+
+            String idStr = request.params(":id");
+
+            int clientId = 0;
+            try {
+                clientId = Integer.parseInt(idStr);
+            } catch (NumberFormatException e) {
+                response.status(500);
+                return new MessageResponse("Invalid client id (%s), expecting a number.", idStr);
+            }
+
+            Client client = storage.getClient(clientId);
+            if(client == null) {
+                response.status(404);
+                return new MessageResponse("Client with id %s not found.", idStr);
+            }
+
+            return gson.toJson( client.getPurchaseHistory() );
+        });
+        */
 
     }
 }
