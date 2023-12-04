@@ -77,6 +77,8 @@ public class DBStorage {
 
     {
 
+
+        System.out.println("getAllArtworks getAllArtworks getAllArtworks getAllArtworks");
         List listArtwork = new ArrayList<>();
         Artwork artwork;
 
@@ -99,6 +101,8 @@ public class DBStorage {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
+        System.out.println("getAllArtworks DB " + listArtwork.size());
 
         return listArtwork;
 

@@ -12,7 +12,7 @@ import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.DBStorage;
-import adapters.LocalDateAdapter;
+import g7.upskill.ips.adapters.LocalDateAdapter;
 /**
  * Useful resources:
  * <p>https://dzone.com/articles/building-simple-restful-api</p>

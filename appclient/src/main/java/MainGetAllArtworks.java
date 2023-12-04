@@ -1,5 +1,4 @@
 
-import adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -7,6 +6,7 @@ import domain.Artwork;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import g7.upskill.ips.adapters.LocalDateAdapter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
