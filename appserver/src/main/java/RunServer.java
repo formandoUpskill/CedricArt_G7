@@ -37,7 +37,12 @@ public class RunServer {
 
         /*  INSTANTIATE STORAGE */
        // MemoryStorage storage = new MemoryStorage();
+
+        System.out.println("111111");
+
         DBStorage storage = new DBStorage();
+
+        System.out.println("222222");
 
         /* INSTANTIATE GSON CONVERTER */
 
@@ -47,9 +52,20 @@ public class RunServer {
                 //.setPrettyPrinting()
                 .create();
 
+        System.out.println("GsonBuilder" + gson.toString());
+
         /* CONFIGURE END POINTS */
         get("/artworks", (request, response) -> {
+
+            System.out.println(  "get  artworks");
+
+
             response.type("application/json");
+
+
+            System.out.println("storage.getAllArtworks() " + storage.getAllArtworks().size());
+
+
             return gson.toJson( storage.getAllArtworks() );
         });
 

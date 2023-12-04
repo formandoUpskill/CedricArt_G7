@@ -17,12 +17,13 @@ public class MainGetAllArtworks {
     public static void main(String[] args) {
         OkHttpClient httpClient = new OkHttpClient();
         Gson gson = new GsonBuilder()
-               // .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
 
         Request getRequest = new Request.Builder()
                 .url("http://localhost:4567/artworks")
                 .build();
+
+        System.out.println("MainGetAllArtworks getRequest " + getRequest.toString());
 
         try {
             Response response = httpClient.newCall(getRequest).execute();
