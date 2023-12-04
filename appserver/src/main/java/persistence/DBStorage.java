@@ -4,6 +4,7 @@ import domain.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +94,10 @@ public class DBStorage {
                 artwork.setId(rs.getString("id_Artwork"));
                 artwork.setTitle(rs.getString("title"));
                 artwork.setThumbnail(rs.getString("thumbnail"));
+                artwork.setDate(rs.getString("date"));
+                artwork.setUrl(rs.getString("url"));
+           //    artwork.setCreated_at(rs.getDate("created_at").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+               // artwork.setUpdated_at(rs.getDate("updated_at").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 
                 listArtwork.add(artwork);
             }
@@ -299,11 +304,11 @@ public class DBStorage {
         String sqlInsert = "insert into Artwork (id_Artwork, title, created_at, updated_at, date, thumbnail, url) values ('" +
                 artwork.getId() + "','" +
                 artwork.getTitle() + "','" +
-                //   artwork.getCreated_at() + "','" +
-                //  artwork.getUpdated_at() + "','" +
-                //      artwork.getDate() + "','" +
-                artwork.getThumbnail() + "','" +
-                //     artwork.getUrl() +
+                   artwork.getCreated_at() + "','" +
+                artwork.getUpdated_at() + "','" +
+                    artwork.getDate() + "','" +
+                artwork.getThumbnail() +
+                   artwork.getUrl() +
                 "');";
 
         System.out.println("insert into Artwork (id_Artwork, title, created_at, updated_at, date, thumbnail, url) " + sqlInsert);
