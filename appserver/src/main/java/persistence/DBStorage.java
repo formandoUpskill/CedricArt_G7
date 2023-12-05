@@ -74,30 +74,44 @@ public class DBStorage {
      *
      * @return
      */
-   /* public List getAllArtworks()
 
-    {
 
-        List listArtwork = new ArrayList<>();
-        Artwork artwork;
+
+    public Artwork getArtwork(String artworkId)  {
+
+        Artwork artwork = new Artwork();
+        Partner partner = new Partner();
 
         try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
                 MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
         {
 
-            ResultSet rs= MyDBUtils.lookup(connection, "*", "Artwork");
+            String sqlCMD= MyDBUtils.get_select_command("artwork.id_Artwork, artwork.title, artwork.date, artwork.thumbnail," +
+                    "partner.id_Partner, partner.name, partner.region, partner.website",
+                    "artwork ,  partner",
+                    "artwork.id_Partner= partner.id_Partner AND id_Artwork= '" + artworkId + "'" );
+
+
+            ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
+
             while (rs.next())
             {
-                artwork= new Artwork();
-                artwork.setId(rs.getString("id_Artwork"));
-                artwork.setTitle(rs.getString("title"));
-                artwork.setThumbnail(rs.getString("thumbnail"));
-                artwork.setDate(rs.getString("date"));
-               // artwork.setUrl(rs.getString("url"));
-           //    artwork.setCreated_at(rs.getDate("created_at").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-               // artwork.setUpdated_at(rs.getDate("updated_at").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 
-                listArtwork.add(artwork);
+                artwork.setId(rs.getString("artwork.id_Artwork"));
+                artwork.setTitle(rs.getString("artwork.title"));
+                artwork.setThumbnail(rs.getString("artwork.thumbnail"));
+                artwork.setDate(rs.getString("artwork.date"));
+
+
+                partner.setId(rs.getString("partner.id_Partner"));
+                partner.setName(rs.getString("partner.name"));
+                partner.setRegion(rs.getString("partner.region"));
+                partner.setWebsite(rs.getString("partner.website"));
+
+                artwork.setPartner(partner);
+
+                artwork.setGeneList(getAllGenes(artwork));
+
             }
 
 
@@ -105,12 +119,9 @@ public class DBStorage {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("getAllArtworks DB " + listArtwork.size());
-
-        return listArtwork;
-
+        return artwork;
     }
-*/
+
 
     /**
      *

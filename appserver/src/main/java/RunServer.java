@@ -12,9 +12,13 @@ import static spark.Spark.get;
 import adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import domain.Artwork;
+import domain.Partner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.DBStorage;
+import util.MessageResponse;
 
 /**
  * Useful resources:
@@ -63,6 +67,28 @@ public class RunServer {
 
             return gson.toJson( artworks );
         });
+
+
+        get("/artworks/:id", (request, response) -> {
+
+                String artworkId = request.params(":id");
+
+            System.out.println("artworkId " + artworkId);
+
+                // Se o client não existir, retorna 'null'
+                Artwork artwork = storage.getArtwork(artworkId);
+
+                response.type("application/json");
+
+                if(artwork == null) {
+                    response.status(404);
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("message", "Client not found");
+                    return jsonObject.toString();
+                }
+
+                return gson.toJson(artwork);
+            });
 
 /*
         get("/artworks/:id", (request, response) -> {
