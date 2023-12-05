@@ -101,7 +101,7 @@ public class MyDBUtils {
      * @return
      * @throws SQLException
      */
-    private static ResultSet exec_query(Connection conn,String sqlCmd) throws SQLException
+    public static ResultSet exec_query(Connection conn,String sqlCmd) throws SQLException
     {
         Statement statement = conn.createStatement();
         ResultSet rs = statement.executeQuery(sqlCmd);

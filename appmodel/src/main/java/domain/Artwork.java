@@ -5,8 +5,6 @@ package domain;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
-
 
 public class Artwork {
     private String id;
@@ -17,12 +15,13 @@ public class Artwork {
 
     private String date;
 
+    private Partner partner;
+
     private transient LocalDateTime created_at;
     private transient LocalDateTime updated_at;
 
     private transient  String url;
 
-    private transient String category;
 
 
     public String getId() {
@@ -73,14 +72,6 @@ public class Artwork {
         this.date = date;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -89,17 +80,26 @@ public class Artwork {
         this.url = url;
     }
 
+
+    public Partner getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Partner partner) {
+        this.partner = partner;
+    }
+
     @Override
     public String toString() {
         return "Artwork{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
-                ", created_at=" + created_at +
-                ", updated_at=" + updated_at +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", date='" + date + '\'' +
+                ", partner=" + partner +
+                ", created_at=" + created_at +
+                ", updated_at=" + updated_at +
                 ", url='" + url + '\'' +
-                ", category='" + category + '\'' +
                 '}';
     }
 }
