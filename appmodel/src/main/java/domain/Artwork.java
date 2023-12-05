@@ -29,7 +29,7 @@ public class Artwork {
     private transient LocalDateTime created_at;
     private transient LocalDateTime updated_at;
 
-    private transient  String url;
+    private  String url;
 
 
     public Artwork(){

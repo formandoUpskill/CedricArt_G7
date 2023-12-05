@@ -43,7 +43,8 @@ public class DBStorage {
      */
     public void createArtist(Artist newArtist) {
 
-        String sql = "insert into Artist (id_Artist, location, hometown, name, biography, slug, birthyear, deathyear, thumbnail, " +
+        String sql = "insert into Artist (id_Artist, location, hometown, name, biography, slug, birthyear, " +
+                "deathyear, thumbnail, " +
                 "url, nationality)" +
                 " values ('"+ newArtist.getId() + "','" +
                 newArtist.getLocation() + "','" +
@@ -86,7 +87,8 @@ public class DBStorage {
                 MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
         {
 
-            String sqlCMD= MyDBUtils.get_select_command("Artwork.id_Artwork, Artwork.title, Artwork.date, Artwork.thumbnail," +
+            String sqlCMD= MyDBUtils.get_select_command("Artwork.id_Artwork, Artwork.title, " +
+                            "Artwork.date, Artwork.thumbnail," +
                     "Partner.id_Partner, Partner.name, Partner.region, Partner.website",
                     "Artwork ,  Partner",
                     "Artwork.id_Partner= Partner.id_Partner AND id_Artwork= '" + artworkId + "'" );
@@ -140,8 +142,9 @@ public class DBStorage {
         {
 
             String sqlCMD= MyDBUtils.get_select_command("gene.id_Gene, gene.name, gene.description",
-                    " Gene, artwork_gene", "gene.id_Gene= artwork_gene.id_Gene AND artwork_gene.id_Artwork= '"+ artwork.getId() + "'",
-                    "gene.name ASC");
+                    " Gene, Artwork_gene",
+                    "Gene.id_Gene = Artwork_gene.id_Gene AND Artwork_gene.id_Artwork= '"+ artwork.getId() + "'",
+                    "Gene.name ASC");
 
 
             System.out.println("getAllGenes " + sqlCMD );
@@ -151,9 +154,9 @@ public class DBStorage {
             while (rs.next())
             {
                 gene= new Gene();
-                gene.setId(rs.getString("gene.id_Gene"));
-                gene.setName(rs.getString("gene.name"));
-                gene.setDescription(rs.getString("gene.description"));
+                gene.setId(rs.getString("Gene.id_Gene"));
+                gene.setName(rs.getString("Gene.name"));
+                gene.setDescription(rs.getString("Gene.description"));
 
                 listGenes.add(gene);
             }
@@ -167,6 +170,10 @@ public class DBStorage {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public List getAllArtworks()
 
     {
@@ -201,11 +208,8 @@ public class DBStorage {
 
                 artwork.setPartner(partner);
 
-              //  artwork.setGeneList(getAllGenes(artwork));
-
-
                 // artwork.setUrl(rs.getString("url"));
-                //    artwork.setCreated_at(rs.getDate("created_at").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+                // artwork.setCreated_at(rs.getDate("created_at").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
                 // artwork.setUpdated_at(rs.getDate("updated_at").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 
                 listArtwork.add(artwork);
@@ -221,6 +225,53 @@ public class DBStorage {
         return listArtwork;
 
     }
+
+
+
+
+    /**
+     *
+     * @return
+     */
+    public List getAllPartners()
+
+    {
+
+        List<Partner> listPartner = new ArrayList<>();
+
+        Partner partner;
+
+
+        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        {
+
+            String sqlCMD= MyDBUtils.get_select_command("*",
+                    " Partner");
+
+            ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
+
+            while (rs.next())
+            {
+
+                partner = new Partner();
+                partner.setId(rs.getString("Partner.id_Partner"));
+                partner.setName(rs.getString("Partner.name"));
+                partner.setRegion(rs.getString("Partner.region"));
+                partner.setWebsite(rs.getString("Partner.website"));
+
+                listPartner.add(partner);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return listPartner;
+
+    }
+
 
 
 
@@ -370,7 +421,7 @@ public class DBStorage {
         try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
                 MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD);){
 
-            exists= MyDBUtils.exist(connection,"exhibition", where );
+            exists= MyDBUtils.exist(connection,"Exhibition", where );
 
         } catch (SQLException e) {
             System.out.println("exec_sql:" + where+ " Error: " + e.getMessage());
@@ -445,7 +496,7 @@ public class DBStorage {
      */
     private void updateArtworkPartner(Partner partner, Artwork artwork){
 
-        String update = "Update artwork set id_partner= '"+partner.getId() + "' WHERE id_artwork = '"+ artwork.getId() +"'";
+        String update = "Update Artwork set id_partner= '"+partner.getId() + "' WHERE id_artwork = '"+ artwork.getId() +"'";
 
         System.out.println("update " + update);
 
@@ -517,7 +568,7 @@ public class DBStorage {
                     "(select Id_Exhibition_Status from Exhibition_Status where status='" + exhibition.getStatus() +"')" +
                     ");";
 
-            System.out.println("nsert into Exhibition " + sql);
+            System.out.println("Insert into Exhibition " + sql);
 
             try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
                     MyDBUtils.DB_SERVER, MyDBUtils.DB_PORT, MyDBUtils.DB_NAME, MyDBUtils.DB_USER, MyDBUtils.DB_PWD);) {
