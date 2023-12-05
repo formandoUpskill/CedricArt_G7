@@ -112,11 +112,54 @@ public class DBStorage {
     }
 */
 
+    /**
+     *
+     * @param artwork
+     * @return
+     */
+
+    private List getAllGenes(Artwork artwork){
+
+        List<Gene> listGenes = new ArrayList<>();
+        Gene gene;
+
+        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        {
+
+            String sqlCMD= MyDBUtils.get_select_command("gene.id_Gene, gene.name, gene.description",
+                    " Gene, artwork_gene", "gene.id_Gene= artwork_gene.id_Gene AND artwork_gene.id_Artwork= '"+ artwork.getId() + "'",
+                    "gene.name ASC");
+
+
+            System.out.println("getAllGenes " + sqlCMD );
+
+            ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
+
+            while (rs.next())
+            {
+                gene= new Gene();
+                gene.setId(rs.getString("gene.id_Gene"));
+                gene.setName(rs.getString("gene.name"));
+                gene.setDescription(rs.getString("gene.description"));
+
+                listGenes.add(gene);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return listGenes;
+
+    }
+
     public List getAllArtworks()
 
     {
 
-        List listArtwork = new ArrayList<>();
+        List<Artwork> listArtwork = new ArrayList<>();
         Artwork artwork;
         Partner partner;
 
@@ -146,6 +189,8 @@ public class DBStorage {
 
                 artwork.setPartner(partner);
 
+              //  artwork.setGeneList(getAllGenes(artwork));
+
 
                 // artwork.setUrl(rs.getString("url"));
                 //    artwork.setCreated_at(rs.getDate("created_at").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
@@ -164,6 +209,9 @@ public class DBStorage {
         return listArtwork;
 
     }
+
+
+
 
     /**
      *

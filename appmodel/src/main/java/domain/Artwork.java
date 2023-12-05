@@ -5,6 +5,8 @@ package domain;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Artwork {
     private String id;
@@ -17,12 +19,34 @@ public class Artwork {
 
     private Partner partner;
 
+
+    public void setGeneList(List<Gene> geneList) {
+        this.geneList = geneList;
+    }
+
+    private List<Gene> geneList;
+
     private transient LocalDateTime created_at;
     private transient LocalDateTime updated_at;
 
     private transient  String url;
 
 
+    public Artwork(){
+        this.geneList= new ArrayList<>();
+    }
+
+    public void addGene(Gene gene) {
+        if(this.geneList == null) {
+            this.geneList = new ArrayList<>();
+        }
+
+        this.geneList.add(gene);
+    }
+
+    public List<Gene> getGeneList() {
+        return geneList;
+    }
 
     public String getId() {
         return id;
@@ -97,6 +121,7 @@ public class Artwork {
                 ", thumbnail='" + thumbnail + '\'' +
                 ", date='" + date + '\'' +
                 ", partner=" + partner +
+                ", geneList=" + geneList +
                 ", created_at=" + created_at +
                 ", updated_at=" + updated_at +
                 ", url='" + url + '\'' +

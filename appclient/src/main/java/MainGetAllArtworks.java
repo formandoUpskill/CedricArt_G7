@@ -32,7 +32,6 @@ public class MainGetAllArtworks {
             if(response.code() == 200) {
                 // Deserialize a list of clients
 
-
                 String data = response.body().string();
 
                 Type listType = new TypeToken<ArrayList<Artwork>>(){}.getType();
