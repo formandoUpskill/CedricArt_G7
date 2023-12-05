@@ -2,11 +2,9 @@
 
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
-
-import static spark.Spark.get;
 
 
 import adapters.LocalDateAdapter;
@@ -19,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.DBStorage;
 import util.MessageResponse;
+
+import static spark.Spark.*;
 
 /**
  * Useful resources:
@@ -58,7 +58,11 @@ public class RunServer {
                 .create();
 
         /* CONFIGURE END POINTS */
-        get("/artworks", (request, response) -> {
+
+
+        path("/artworks", () -> {
+
+        get("", (request, response) -> {
             response.type("application/json");
 
             List artworks = storage.getAllArtworks();
@@ -69,7 +73,7 @@ public class RunServer {
         });
 
 
-        get("/artworks/:id", (request, response) -> {
+        get("/:id", (request, response) -> {
 
                 String artworkId = request.params(":id");
 
@@ -90,84 +94,111 @@ public class RunServer {
                 return gson.toJson(artwork);
             });
 
+        });
+
 /*
-        get("/artworks/:id", (request, response) -> {
-            response.type("application/json");
-            String idStr = request.params(":id");
+        path("/clients", () -> {
 
-            int artworkId = 0;
-            try {
-                artworkId = Integer.parseInt(idStr);
-            } catch (NumberFormatException e) {
-                response.status(500);
-                return new MessageResponse("Invalid Artwork id (%s), expecting a number.", idStr);
-            }
 
-            Artwork artwork = storage.getArtwork(artworkId);
-            if(artwork == null) {
-                response.status(404);
-                return new MessageResponse("Artwork with id %s not found.", idStr);
-            }
-            return gson.toJson( artwork );
+            delete("/:id", (request, response) -> {
+                String strId = request.params(":id");
+                int clientId = Integer.parseInt(strId);
+
+                Client existing = storage.getClient(clientId);
+
+                response.type("application/json");
+
+                if(existing == null) {
+                    response.status(404);
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("message", "Client not found");
+                    return jsonObject.toString();
+                }
+
+                Client deletedClient = storage.deleteClient(clientId);
+
+                return gson.toJson(deletedClient);
+            });
+
+            put("/:id", (request, response) -> {
+                String strId = request.params(":id");
+                int clientId = Integer.parseInt(strId);
+
+                response.type("application/json");
+
+                // Validar se existe client com ID especificado
+                Client existing = storage.getClient(clientId);
+                if(existing == null) {
+                    response.status(404);
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("message", "Client not found");
+                    return jsonObject.toString();
+                }
+
+                Client clientInfo = gson.fromJson(request.body(), Client.class);
+
+                // storage.updateClient tem de ter um client com o ID atribuído
+                clientInfo.setId(clientId); // o do /:id
+                Client updatedClient = storage.updateClient(clientInfo);
+
+
+                return gson.toJson(updatedClient);
+            });
+
+            post("", (request, response) -> {
+                // Devemos receber um Client serializado em JSON (no body)
+
+                Client newClient = gson.fromJson(request.body(), Client.class);
+
+                Client createdClient = storage.createClient(newClient);
+
+                response.type("application/json");
+                return gson.toJson(createdClient);
+            });
+
+            get("", (request, response) -> {
+                response.type("application/json");
+
+                List<Client> allClients = storage.getAllClients();
+
+                String sortValue = request.queryParams("sortBy");
+                // Foi passado este query parameter? Se sim, ordenar
+                if(sortValue != null) {
+                    if(sortValue.equalsIgnoreCase("name")) {
+                        Collections.sort(allClients, (c1, c2) -> {
+                            return c1.getName().compareToIgnoreCase(c2.getName());
+                        });
+                    }
+                    // Outra ordenação
+                }
+
+                return gson.toJson(allClients);
+            });
+
+            get("/:id", (request, response) -> {
+
+                String strId = request.params(":id");
+                int clientId = Integer.parseInt(strId);
+
+                // Se o client não existir, retorna 'null'
+                Client client = storage.getClient(clientId);
+
+                response.type("application/json");
+
+                if(client == null) {
+                    response.status(404);
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("message", "Client not found");
+                    return jsonObject.toString();
+                }
+
+                return gson.toJson(client);
+            });
+
+
         });
+
 */
-        /*
-        post("/clients", (request, response) -> {
-            response.type("application/json");
-
-            Client received = gson.fromJson(request.body(), Client.class);
-
-            Client created = storage.createClient(received.getName(), received.getAge(), received.getEmail(), received.getTelephoneNumber(),
-                    received.getAddress().getStreet(), received.getAddress().getCity(), received.getAddress().getCode(),
-                    received.isPremium());
-
-            return gson.toJson( created );
-        });
-
-        delete("/clients/:id", (request, response) -> {
-            response.type("application/json");
-
-            String idStr = request.params(":id");
-
-            int clientId = 0;
-            try {
-                clientId = Integer.parseInt(idStr);
-            } catch (NumberFormatException e) {
-                response.status(500);
-                return new MessageResponse("Invalid client id (%s), expecting a number.", idStr);
-            }
-
-            Client deletedClient = storage.deleteClient(clientId);
-            if(deletedClient == null) {
-                response.status(404);
-                return new MessageResponse("Client with id %s not found.", idStr);
-            }
-
-            return gson.toJson( deletedClient );
-        });
-
-        get("/clients/:id/purchases", (request, response) -> {
-            response.type("application/json");
-
-            String idStr = request.params(":id");
-
-            int clientId = 0;
-            try {
-                clientId = Integer.parseInt(idStr);
-            } catch (NumberFormatException e) {
-                response.status(500);
-                return new MessageResponse("Invalid client id (%s), expecting a number.", idStr);
-            }
-
-            Client client = storage.getClient(clientId);
-            if(client == null) {
-                response.status(404);
-                return new MessageResponse("Client with id %s not found.", idStr);
-            }
-
-            return gson.toJson( client.getPurchaseHistory() );
-        });
-        */
 
     }
 }
