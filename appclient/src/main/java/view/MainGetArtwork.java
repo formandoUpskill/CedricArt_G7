@@ -1,3 +1,5 @@
+package view;
+
 import adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
