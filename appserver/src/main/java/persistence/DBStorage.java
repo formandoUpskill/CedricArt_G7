@@ -86,27 +86,28 @@ public class DBStorage {
                 MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
         {
 
-            String sqlCMD= MyDBUtils.get_select_command("artwork.id_Artwork, artwork.title, artwork.date, artwork.thumbnail," +
-                    "partner.id_Partner, partner.name, partner.region, partner.website",
-                    "artwork ,  partner",
-                    "artwork.id_Partner= partner.id_Partner AND id_Artwork= '" + artworkId + "'" );
+            String sqlCMD= MyDBUtils.get_select_command("Artwork.id_Artwork, Artwork.title, Artwork.date, Artwork.thumbnail," +
+                    "Partner.id_Partner, Partner.name, Partner.region, Partner.website",
+                    "Artwork ,  Partner",
+                    "Artwork.id_Partner= Partner.id_Partner AND id_Artwork= '" + artworkId + "'" );
 
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
+            System.out.println(sqlCMD);
             while (rs.next())
             {
 
-                artwork.setId(rs.getString("artwork.id_Artwork"));
-                artwork.setTitle(rs.getString("artwork.title"));
-                artwork.setThumbnail(rs.getString("artwork.thumbnail"));
-                artwork.setDate(rs.getString("artwork.date"));
+                artwork.setId(rs.getString("Artwork.id_Artwork"));
+                artwork.setTitle(rs.getString("Artwork.title"));
+                artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
+                artwork.setDate(rs.getString("Artwork.date"));
 
 
-                partner.setId(rs.getString("partner.id_Partner"));
-                partner.setName(rs.getString("partner.name"));
-                partner.setRegion(rs.getString("partner.region"));
-                partner.setWebsite(rs.getString("partner.website"));
+                partner.setId(rs.getString("Partner.id_Partner"));
+                partner.setName(rs.getString("Partner.name"));
+                partner.setRegion(rs.getString("Partner.region"));
+                partner.setWebsite(rs.getString("Partner.website"));
 
                 artwork.setPartner(partner);
 
@@ -178,25 +179,25 @@ public class DBStorage {
                 MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
         {
 
-            String sqlCMD= MyDBUtils.get_select_command("artwork.id_Artwork, artwork.title, artwork.date, artwork.thumbnail, " +
-                            "partner.id_Partner, partner.name, partner.region, partner.website",
-                    " artwork ,  partner", "artwork.id_Partner= partner.id_Partner", "title ASC");
+            String sqlCMD= MyDBUtils.get_select_command("Artwork.id_Artwork, Artwork.title, Artwork.date, Artwork.thumbnail, " +
+                            "Partner.id_Partner, Partner.name, Partner.region, Partner.website",
+                    " Artwork ,  Partner", "Artwork.id_Partner= Partner.id_Partner", "title ASC");
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
             while (rs.next())
             {
                 artwork= new Artwork();
-                artwork.setId(rs.getString("artwork.id_Artwork"));
-                artwork.setTitle(rs.getString("artwork.title"));
-                artwork.setThumbnail(rs.getString("artwork.thumbnail"));
-                artwork.setDate(rs.getString("artwork.date"));
+                artwork.setId(rs.getString("Artwork.id_Artwork"));
+                artwork.setTitle(rs.getString("Artwork.title"));
+                artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
+                artwork.setDate(rs.getString("Artwork.date"));
 
                 partner = new Partner();
-                partner.setId(rs.getString("partner.id_Partner"));
-                partner.setName(rs.getString("partner.name"));
-                partner.setRegion(rs.getString("partner.region"));
-                partner.setWebsite(rs.getString("partner.website"));
+                partner.setId(rs.getString("Partner.id_Partner"));
+                partner.setName(rs.getString("Partner.name"));
+                partner.setRegion(rs.getString("Partner.region"));
+                partner.setWebsite(rs.getString("Partner.website"));
 
                 artwork.setPartner(partner);
 

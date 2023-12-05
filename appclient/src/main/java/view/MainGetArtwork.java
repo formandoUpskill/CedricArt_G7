@@ -1,3 +1,5 @@
+package view;
+
 import adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,6 +17,7 @@ public class MainGetArtwork
 {
 
     // 4eb2eb13e742d70001007baf
+    //515b0a639562c86fb8000383
         public static void main(String[] args) {
             OkHttpClient httpClient = new OkHttpClient();
             Gson gson = new GsonBuilder()
