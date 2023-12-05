@@ -60,6 +60,50 @@ public class RunServer {
         /* CONFIGURE END POINTS */
 
 
+
+
+        // PARTNERS
+
+        path("/partners", () -> {
+
+            get("", (request, response) -> {
+                response.type("application/json");
+
+                List partners = storage.getAllPartners();
+
+                System.out.println("partners.size() " + partners.size());
+
+                return gson.toJson( partners );
+            });
+
+
+            get("/:id", (request, response) -> {
+
+                String artworkId = request.params(":id");
+
+                System.out.println("artworkId " + artworkId);
+
+                // Se o client não existir, retorna 'null'
+                Artwork artwork = storage.getArtwork(artworkId);
+
+                response.type("application/json");
+
+                if(artwork == null) {
+                    response.status(404);
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("message", "Client not found");
+                    return jsonObject.toString();
+                }
+
+                return gson.toJson(artwork);
+            });
+
+        });
+
+        // END PARTNERS
+
+        // BEGGIN ARTWORKS
+
         path("/artworks", () -> {
 
         get("", (request, response) -> {

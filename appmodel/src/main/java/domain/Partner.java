@@ -78,4 +78,18 @@ public class Partner {
     public void setId_coordinator(int id_coordinator) {
         this.id_coordinator = id_coordinator;
     }
+
+
+    @Override
+    public String toString() {
+        return "Partner{" +
+                "id='" + id + '\'' +
+                ", region='" + region + '\'' +
+                ", name='" + name + '\'' +
+                ", website='" + website + '\'' +
+                ", email='" + email + '\'' +
+                ", id_gallerist=" + id_gallerist +
+                ", id_coordinator=" + id_coordinator +
+                '}';
+    }
 }

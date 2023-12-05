@@ -170,6 +170,10 @@ public class DBStorage {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public List getAllArtworks()
 
     {
@@ -204,9 +208,6 @@ public class DBStorage {
 
                 artwork.setPartner(partner);
 
-              //  artwork.setGeneList(getAllGenes(artwork));
-
-
                 // artwork.setUrl(rs.getString("url"));
                 // artwork.setCreated_at(rs.getDate("created_at").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
                 // artwork.setUpdated_at(rs.getDate("updated_at").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
@@ -224,6 +225,53 @@ public class DBStorage {
         return listArtwork;
 
     }
+
+
+
+
+    /**
+     *
+     * @return
+     */
+    public List getAllPartners()
+
+    {
+
+        List<Partner> listPartner = new ArrayList<>();
+
+        Partner partner;
+
+
+        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        {
+
+            String sqlCMD= MyDBUtils.get_select_command("*",
+                    " Partner");
+
+            ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
+
+            while (rs.next())
+            {
+
+                partner = new Partner();
+                partner.setId(rs.getString("Partner.id_Partner"));
+                partner.setName(rs.getString("Partner.name"));
+                partner.setRegion(rs.getString("Partner.region"));
+                partner.setWebsite(rs.getString("Partner.website"));
+
+                listPartner.add(partner);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return listPartner;
+
+    }
+
 
 
 
