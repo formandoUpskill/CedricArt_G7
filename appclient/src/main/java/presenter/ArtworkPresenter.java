@@ -22,7 +22,7 @@ public class ArtworkPresenter {
      * @param artworkId
      * @return
      */
-    public Artwork getArtwork(String artworkId)
+    public Artwork getArtwork(String apiUrl, String artworkId)
     {
 
         Artwork artwork= new Artwork();
@@ -34,7 +34,7 @@ public class ArtworkPresenter {
 
 
         Request getRequest = new Request.Builder()
-                .url("http://localhost:4567/artworks/" + artworkId)
+                .url(apiUrl + artworkId)
                 .build();
 
         try {
@@ -68,9 +68,11 @@ public class ArtworkPresenter {
      *
      * @return
      */
-    public List<Artwork> getAllArtworks ()
+    public List<Artwork> getAllArtworks (String apiUrl)
     {
         List<Artwork> all = new ArrayList<>();
+
+
 
         OkHttpClient httpClient = new OkHttpClient();
         Gson gson = new GsonBuilder()
@@ -78,7 +80,7 @@ public class ArtworkPresenter {
                 .create();
 
         Request getRequest = new Request.Builder()
-                .url("http://localhost:4567/artworks")
+                .url(apiUrl)
                 .build();
 
         try {

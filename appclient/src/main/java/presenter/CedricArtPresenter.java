@@ -1,6 +1,7 @@
 package presenter;
 
 import domain.Artwork;
+import util.AppUtils;
 
 import java.util.List;
 
@@ -8,10 +9,23 @@ public class CedricArtPresenter {
 
     private ArtworkPresenter artworkPresenter;
 
+    /**
+     *
+     */
     public CedricArtPresenter(){
+
+        loadConfig();
 
         artworkPresenter= new ArtworkPresenter();
 
+    }
+
+    /**
+     *
+     */
+    private void loadConfig()
+    {
+        new AppUtils();
     }
 
     /**
@@ -20,7 +34,8 @@ public class CedricArtPresenter {
      */
     public Artwork getArtwork(String artworkId) {
 
-        Artwork artwork = this.artworkPresenter.getArtwork(artworkId);
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks/";
+        Artwork artwork = this.artworkPresenter.getArtwork(apiUrl,artworkId);
         return artwork;
 
     }
@@ -31,8 +46,9 @@ public class CedricArtPresenter {
      */
     public List<Artwork> getAllArtworks ()
     {
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks";
 
-       return this.artworkPresenter.getAllArtworks();
+       return this.artworkPresenter.getAllArtworks(apiUrl);
     }
 
 
