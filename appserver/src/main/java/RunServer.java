@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import domain.Artwork;
+import domain.Exhibition;
 import domain.Partner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,15 +62,61 @@ public class RunServer {
 
 
 
+        // BEGIN PARTNERS
 
-        // PARTNERS
+        path("/shows", () -> {
+
+            get("", (request, response) -> {
+                response.type("application/json");
+
+                List<Exhibition> shows;
+
+                String partner_id = request.queryParams("partner_id");
+
+                // Foi passado este query parameter? Se sim, procurar apenas os os shows daquele partner
+                if(partner_id != null) {
+
+                }
+
+                shows = storage.getAllExhibitions();
+
+                return gson.toJson( shows );
+            });
+
+
+            get("/:id", (request, response) -> {
+
+                String exhibitionId = request.params(":id");
+
+
+                // Se não existir, retorna 'null'
+                Exhibition exhibition = storage.getExhibition(exhibitionId);
+
+                response.type("application/json");
+
+                if(exhibition == null) {
+                    response.status(404);
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("message", "exhibition not found");
+                    return jsonObject.toString();
+                }
+
+                return gson.toJson(exhibition);
+            });
+
+        });
+
+        // END SHOWS
+
+
+        // BEGIN PARTNERS
 
         path("/partners", () -> {
 
             get("", (request, response) -> {
                 response.type("application/json");
 
-                List partners = storage.getAllPartners();
+                List<Partner> partners = storage.getAllPartners();
 
                 System.out.println("partners.size() " + partners.size());
 
@@ -109,7 +156,7 @@ public class RunServer {
         get("", (request, response) -> {
             response.type("application/json");
 
-            List artworks = storage.getAllArtworks();
+            List<Artwork> artworks = storage.getAllArtworks();
 
             System.out.println("artworks.size() " + artworks.size());
 

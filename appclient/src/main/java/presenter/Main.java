@@ -14,10 +14,17 @@ public class Main {
         //  presenter.getAllArtworks();
 
 
-        String partnerId="5035a14a6cb80200020007e0";
+      //  String partnerId="5035a14a6cb80200020007e0";
 
-        presenter.getAllPartners();
-        presenter.getPartner(partnerId);
+     //   presenter.getAllPartners();
+    //    presenter.getPartner(partnerId);
+
+
+        presenter.getAllExhibitions();
+        presenter.getExhibition("5d9643117c6d34001280d534");
+
+
+
 
     }
 

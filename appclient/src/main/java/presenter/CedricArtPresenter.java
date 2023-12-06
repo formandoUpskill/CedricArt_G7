@@ -1,6 +1,7 @@
 package presenter;
 
 import domain.Artwork;
+import domain.Exhibition;
 import domain.Partner;
 import util.AppUtils;
 
@@ -11,6 +12,8 @@ public class CedricArtPresenter {
     private ArtworkPresenter artworkPresenter;
     private PartnerPresenter partnerPresenter;
 
+    private ExhibitionPresenter exhibitionPresenter;
+
     /**
      *
      */
@@ -20,6 +23,7 @@ public class CedricArtPresenter {
 
         artworkPresenter= new ArtworkPresenter();
         partnerPresenter = new PartnerPresenter();
+        exhibitionPresenter =new ExhibitionPresenter();
 
     }
 
@@ -80,12 +84,40 @@ public class CedricArtPresenter {
     }
 
 
+    /**
+     *
+     * @param exhibitionId
+     * @return
+     */
+    public Exhibition getExhibition(String exhibitionId) {
+
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/shows/";
+        Exhibition partner = this.exhibitionPresenter.getExhibition(apiUrl,exhibitionId);
+        return partner;
+
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<Exhibition> getAllExhibitions ()
+    {
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/shows";
+
+        return this.exhibitionPresenter.getAllExhibitions(apiUrl);
+    }
+
     public ArtworkPresenter getArtworkPresenter() {
         return this.artworkPresenter;
     }
 
     public PartnerPresenter getPartnerPresenter() {
         return partnerPresenter;
+    }
+
+    public ExhibitionPresenter getExhibitionPresenter() {
+        return exhibitionPresenter;
     }
 
     public static void main(String[] args) {
