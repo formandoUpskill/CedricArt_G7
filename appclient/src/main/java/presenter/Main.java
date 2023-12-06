@@ -12,21 +12,21 @@ public class Main {
         String exhibitionId="5d9643117c6d34001280d534";
 
 
-        // presenter.getArtwork(artworkId);
-      //    presenter.getAllArtworks();
+      //   presenter.getArtwork(artworkId);
+      //   presenter.getAllArtworks();
 
-       presenter.getAllArtworksByPartner(partnerId);
+      //  presenter.getAllArtworksByPartner(partnerId);
 
-        presenter.getAllArtworksByExhibition(exhibitionId);
-
-
-     //   presenter.getAllPartners();
-    //    presenter.getPartner(partnerId);
+     //  presenter.getAllArtworksByExhibition(exhibitionId);
 
 
-       // presenter.getAllExhibitions();
-       // presenter.getExhibition(exhibitionId);
-      //  presenter.getAllExhibitionsByPartner(partnerId);
+     //  presenter.getAllPartners();
+    //   presenter.getPartner(partnerId);
+
+
+   //    presenter.getAllExhibitions();
+    //    presenter.getExhibition(exhibitionId);
+        presenter.getAllExhibitionsByPartner(partnerId);
 
 
 
