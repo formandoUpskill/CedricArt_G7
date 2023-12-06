@@ -1,5 +1,6 @@
 package view;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,9 +10,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Galeries extends Application {
     private Stage primaryStage;
+    private Button btnGallery1;
+    private Button btnGallery2;
+    private Button btnGallery3;
+    private Button btnGallery4;
+    private VBox vbGalleries;
     public static void main(String[] args) {
         launch(args);
     }
@@ -29,10 +36,11 @@ public class Galeries extends Application {
         backButtonImageView.setFitWidth(20);
 
         // Botões do segundo formulário
-        Button btnGallery1 = new Button("Gallery 1");
-        Button btnGallery2 = new Button("Gallery 2");
-        Button btnGallery3 = new Button("Gallery 3");
-        Button btnGallery4 = new Button("Gallery 4");
+        btnGallery1 = new Button("Gallery 1");
+        btnGallery2 = new Button(
+                "Gallery 2");
+        btnGallery3 = new Button("Gallery 3");
+        btnGallery4 = new Button("Gallery 4");
         Button btnBack = new Button("", backButtonImageView);
 
         btnGallery1.setOnAction(event -> openMenu("Gallery 1"));
@@ -51,7 +59,7 @@ public class Galeries extends Application {
         });
 
         // Layout do segundo formulário
-        VBox vbGalleries = new VBox(10);
+        vbGalleries = new VBox(10);
         vbGalleries.getChildren().addAll(btnGallery1, btnGallery2, btnGallery3, btnGallery4);
         vbGalleries.setAlignment(Pos.CENTER);
 
@@ -70,12 +78,20 @@ public class Galeries extends Application {
     }
 
     private void openMenu(String galleryName){
-        Menu menu = new Menu(galleryName);
-        try {
-            menu.start(new Stage());
-            primaryStage.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000), vbGalleries);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+
+        fadeTransition.setOnFinished(event -> {
+            Menu menu = new Menu(galleryName);
+            try {
+                menu.start(new Stage());
+                primaryStage.close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        fadeTransition.play();
     }
 }
