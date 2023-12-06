@@ -20,6 +20,8 @@ public class Menu extends Application {
         this.galleryName = galleryName;
     }
 
+    public Menu(){}
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -47,6 +49,16 @@ public class Menu extends Application {
             }
         });
 
+        btnArtists.setOnAction(event -> {
+            Artists artists = new Artists();
+            try {
+                artists.start(new Stage());
+                primaryStage.close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
 
         VBox vbMenu = new VBox(10);
         vbMenu.setAlignment(Pos.CENTER);
@@ -58,6 +70,7 @@ public class Menu extends Application {
         vbBack.setPadding(new Insets(5));
 
         VBox vbLayout = new VBox(10);
+        vbLayout.setStyle("-fx-background-color: fuchsia;");
         vbLayout.getChildren().addAll(vbMenu, vbBack);
         vbLayout.setAlignment(Pos.CENTER);
 

@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -20,7 +19,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         try {
-            primaryStage.setTitle("Artsy");
+            primaryStage.setTitle("CedricArt");
 
             // Adicione uma imagem de fundo
             Image backgroundImage = new Image("file:/home/RicardoReis/Desktop/Upskill/Projecto Final/Imagens/Artsy.jpg");

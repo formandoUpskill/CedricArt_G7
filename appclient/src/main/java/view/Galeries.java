@@ -14,10 +14,7 @@ import javafx.util.Duration;
 
 public class Galeries extends Application {
     private Stage primaryStage;
-    private Button btnGallery1;
-    private Button btnGallery2;
-    private Button btnGallery3;
-    private Button btnGallery4;
+    private Button[] btnGalleries;
     private VBox vbGalleries;
     public static void main(String[] args) {
         launch(args);
@@ -28,7 +25,7 @@ public class Galeries extends Application {
         this.primaryStage = primaryStage;
 
         primaryStage.setTitle("Galleries");
-        primaryStage.setResizable(false);
+//        primaryStage.setResizable(false);
 
         Image backButtonImage = new Image("file:/home/RicardoReis/Desktop/Upskill/Projecto Final/Imagens/voltar.jpeg");
         ImageView backButtonImageView = new ImageView(backButtonImage);
@@ -36,17 +33,15 @@ public class Galeries extends Application {
         backButtonImageView.setFitWidth(20);
 
         // Botões do segundo formulário
-        btnGallery1 = new Button("Gallery 1");
-        btnGallery2 = new Button(
-                "Gallery 2");
-        btnGallery3 = new Button("Gallery 3");
-        btnGallery4 = new Button("Gallery 4");
+
+        btnGalleries = new Button[10];
+        for(int i = 0; i < btnGalleries.length; i++){
+            int btnGalleryNumber = i + 1;
+            btnGalleries[i] = createGalleryBtn("Gallery " + btnGalleryNumber);
+        }
         Button btnBack = new Button("", backButtonImageView);
 
-        btnGallery1.setOnAction(event -> openMenu("Gallery 1"));
-        btnGallery2.setOnAction(event -> openMenu("Gallery 2"));
-        btnGallery3.setOnAction(event -> openMenu("Gallery 3"));
-        btnGallery4.setOnAction(event -> openMenu("Gallery 4"));
+
 
         btnBack.setOnAction(event -> {
             Main main = new Main();
@@ -60,7 +55,7 @@ public class Galeries extends Application {
 
         // Layout do segundo formulário
         vbGalleries = new VBox(10);
-        vbGalleries.getChildren().addAll(btnGallery1, btnGallery2, btnGallery3, btnGallery4);
+        vbGalleries.getChildren().addAll(btnGalleries);
         vbGalleries.setAlignment(Pos.CENTER);
 
         VBox vbBack = new VBox(10);
@@ -69,12 +64,19 @@ public class Galeries extends Application {
         vbBack.setPadding(new Insets(5));
 
         VBox vbLayout = new VBox(10);
+        vbLayout.setStyle("-fx-background-color: navy;");
         vbLayout.getChildren().addAll(vbGalleries, vbBack);
         vbLayout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(vbLayout, 300, 200);
+        Scene scene = new Scene(vbLayout, 300, 500);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private Button createGalleryBtn(String galleryName){
+        Button button = new Button(galleryName);
+        button.setOnAction(event -> openMenu(galleryName));
+        return button;
     }
 
     private void openMenu(String galleryName){
