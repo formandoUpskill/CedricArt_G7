@@ -265,9 +265,10 @@ public class DBStorage {
                             "Partner.region, " +
                             "Partner.website ",
                     " Artwork ,  Partner",
-                    "Artwork.id_Partner= Partner.id_Partner AND" +
+                    "Artwork.id_Partner= Partner.id_Partner AND " +
                             "Artwork.id_Partner = '"+  partner_id + "'" ,
                     "title ASC");
+
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
