@@ -26,8 +26,8 @@ public class Artwork {
 
     private List<Gene> geneList;
 
-    private transient LocalDateTime created_at;
-    private transient LocalDateTime updated_at;
+    private  LocalDateTime created_at;
+    private  LocalDateTime updated_at;
 
     private  String url;
 

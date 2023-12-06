@@ -39,8 +39,6 @@ public class ArtworkPresenter {
 
         try {
             Response response = httpClient.newCall(getRequest).execute();
-            System.out.println("Response code: " + response.code());
-            System.out.println("Response content type: " + response.header("content-type"));
 
             if(response.code() == 200) {
                 // Create client object to represent the received data
@@ -85,8 +83,86 @@ public class ArtworkPresenter {
 
         try {
             Response response = httpClient.newCall(getRequest).execute();
-            System.out.println("Response code: " + response.code());
-            System.out.println("Response content type: " + response.header("content-type"));
+
+
+            if(response.code() == 200) {
+                // Deserialize a list of clients
+
+                String data = response.body().string();
+
+                Type listType = new TypeToken<ArrayList<Artwork>>(){}.getType();
+                all = gson.fromJson(data, listType);
+                for (Artwork artwork : all) {
+                    System.out.println(artwork);
+                }
+            } else {
+                // Something failed, maybe client does not exist
+                System.out.println(response.body().string());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return all;
+    }
+
+
+
+    public List<Artwork> getAllArtworksByPartner (String apiUrl)
+    {
+        List<Artwork> all = new ArrayList<>();
+
+        OkHttpClient httpClient = new OkHttpClient();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateAdapter())
+                .create();
+
+        Request getRequest = new Request.Builder()
+                .url(apiUrl)
+                .build();
+
+        try {
+            Response response = httpClient.newCall(getRequest).execute();
+
+            if(response.code() == 200) {
+                // Deserialize a list of clients
+
+                String data = response.body().string();
+
+                Type listType = new TypeToken<ArrayList<Artwork>>(){}.getType();
+                all = gson.fromJson(data, listType);
+                for (Artwork artwork : all) {
+                    System.out.println(artwork);
+                }
+            } else {
+                // Something failed, maybe client does not exist
+                System.out.println(response.body().string());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return all;
+    }
+
+
+    public List<Artwork> getAllArtworksByExhibition (String apiUrl)
+    {
+        List<Artwork> all = new ArrayList<>();
+
+        OkHttpClient httpClient = new OkHttpClient();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateAdapter())
+                .create();
+
+        Request getRequest = new Request.Builder()
+                .url(apiUrl)
+                .build();
+
+        try {
+            Response response = httpClient.newCall(getRequest).execute();
 
             if(response.code() == 200) {
                 // Deserialize a list of clients

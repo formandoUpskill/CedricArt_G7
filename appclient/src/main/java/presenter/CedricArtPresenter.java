@@ -59,6 +59,27 @@ public class CedricArtPresenter {
     }
 
 
+
+    public List<Artwork> getAllArtworksByPartner (String partner_id)
+    {
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?partner_id=" + partner_id;
+
+        return this.artworkPresenter.getAllArtworksByPartner(apiUrl);
+    }
+
+
+    public List<Artwork> getAllArtworksByExhibition (String exhibition_id)
+    {
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?show_id=" + exhibition_id;
+
+        return this.artworkPresenter.getAllArtworksByExhibition(apiUrl);
+    }
+
+
+
+
+
+
     /**
      *
      * @param partnerId
@@ -82,6 +103,8 @@ public class CedricArtPresenter {
 
         return this.partnerPresenter.getAllPartners(apiUrl);
     }
+
+
 
 
     /**
