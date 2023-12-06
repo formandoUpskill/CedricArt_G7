@@ -15,7 +15,9 @@ public class Main {
         // presenter.getArtwork(artworkId);
       //    presenter.getAllArtworks();
 
-        presenter.getAllArtworksByPartner(partnerId);
+    //    presenter.getAllArtworksByPartner(partnerId);
+
+        presenter.getAllArtworksByExhibition(exhibitionId);
 
 
      //   presenter.getAllPartners();

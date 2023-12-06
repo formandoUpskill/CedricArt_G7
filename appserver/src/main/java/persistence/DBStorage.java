@@ -301,6 +301,55 @@ public class DBStorage {
         return listArtwork;
     }
 
+
+    public List<Artwork> getAllArtworksByExhibition(String exhibition_id)
+    {
+        List<Artwork> listArtwork = new ArrayList<>();
+        Artwork artwork;
+
+
+        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        {
+
+            String sqlCMD= MyDBUtils.get_select_command(
+                    "Artwork.id_Artwork, " +
+                            "Artwork.title, " +
+                            "Artwork.date, " +
+                            "Artwork.thumbnail, " +
+                            "Artwork.created_at, " +
+                            "Artwork.updated_at " ,
+                    " Artwork , Exhibition_Artwork ",
+                    "Artwork.id_Artwork= Exhibition_Artwork.id_Artwork AND " +
+                            "Exhibition_Artwork.id_Exhibition = '"+  exhibition_id + "'" ,
+                    "title ASC");
+
+
+            ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
+
+            while (rs.next())
+            {
+                artwork= new Artwork();
+                artwork.setId(rs.getString("Artwork.id_Artwork"));
+                artwork.setTitle(rs.getString("Artwork.title"));
+                artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
+                artwork.setDate(rs.getString("Artwork.date"));
+                artwork.setCreated_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("created_at")));
+                artwork.setUpdated_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("updated_at")));
+
+                listArtwork.add(artwork);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return listArtwork;
+    }
+
+
+
     /**
      *
      * @param exhibitionId

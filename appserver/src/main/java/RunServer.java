@@ -163,12 +163,18 @@ public class RunServer {
             // Foi passado este query parameter? Se sim, procurar apenas os os shows daquele partner
             if(partner_id != null) {
                 artworks= storage.getAllArtworksByPartner(partner_id);
+                return gson.toJson( artworks );
+            }
+
+            String exhibition_id = request.queryParams("show_id");
+            if(exhibition_id != null) {
+
+                System.out.println("exhibition_idexhibition_idexhibition_id " + exhibition_id);
+                artworks= storage.getAllArtworksByExhibition(exhibition_id);
+                return gson.toJson( artworks );
             }
 
             artworks = storage.getAllArtworks();
-
-
-
             return gson.toJson( artworks );
         });
 
