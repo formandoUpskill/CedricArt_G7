@@ -156,9 +156,18 @@ public class RunServer {
         get("", (request, response) -> {
             response.type("application/json");
 
-            List<Artwork> artworks = storage.getAllArtworks();
+            List<Artwork> artworks;
 
-            System.out.println("artworks.size() " + artworks.size());
+            String partner_id = request.queryParams("partner_id");
+
+            // Foi passado este query parameter? Se sim, procurar apenas os os shows daquele partner
+            if(partner_id != null) {
+                artworks= storage.getAllArtworksByPartner(partner_id);
+            }
+
+            artworks = storage.getAllArtworks();
+
+
 
             return gson.toJson( artworks );
         });
