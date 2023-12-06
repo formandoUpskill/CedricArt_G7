@@ -14,7 +14,10 @@ public class Main {
         //  presenter.getAllArtworks();
 
 
+        String partnerId="5035a14a6cb80200020007e0";
+
         presenter.getAllPartners();
+        presenter.getPartner(partnerId);
 
     }
 

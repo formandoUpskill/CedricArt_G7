@@ -272,7 +272,45 @@ public class DBStorage {
 
     }
 
+    /**
+     *
+     * @param partnerId
+     * @return
+     */
+    public Partner getPartner(String partnerId)  {
 
+
+        Partner partner = new Partner();
+
+        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        {
+
+            String sqlCMD= MyDBUtils.get_select_command("*",
+                    "Partner",
+                    " id_Partner= '" + partnerId + "'" );
+
+
+            ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
+
+            System.out.println(sqlCMD);
+            while (rs.next())
+            {
+
+                partner.setId(rs.getString("Partner.id_Partner"));
+                partner.setName(rs.getString("Partner.name"));
+                partner.setRegion(rs.getString("Partner.region"));
+                partner.setWebsite(rs.getString("Partner.website"));
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return partner;
+    }
 
 
 

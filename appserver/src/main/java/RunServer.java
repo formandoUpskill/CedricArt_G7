@@ -79,23 +79,23 @@ public class RunServer {
 
             get("/:id", (request, response) -> {
 
-                String artworkId = request.params(":id");
+                String partnerId = request.params(":id");
 
-                System.out.println("artworkId " + artworkId);
+                System.out.println("artworkId " + partnerId);
 
-                // Se o client não existir, retorna 'null'
-                Artwork artwork = storage.getArtwork(artworkId);
+                // Se não existir, retorna 'null'
+                Partner partner = storage.getPartner(partnerId);
 
                 response.type("application/json");
 
-                if(artwork == null) {
+                if(partner == null) {
                     response.status(404);
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("message", "Client not found");
                     return jsonObject.toString();
                 }
 
-                return gson.toJson(artwork);
+                return gson.toJson(partner);
             });
 
         });
