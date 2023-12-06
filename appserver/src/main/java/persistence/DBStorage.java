@@ -321,6 +321,54 @@ public class DBStorage {
 
     }
 
+
+
+
+    public List<Exhibition> getAllExhibitionsByPartner(String partner_id)
+
+    {
+
+        List<Exhibition> listExhibition = new ArrayList<>();
+
+        Exhibition exhibition;
+
+
+        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        {
+
+            String sqlCMD= MyDBUtils.get_select_command("Exhibition.id_Exhibition, Exhibition.name, Exhibition.description, Exhibition.thumbnail," +
+                            "Exhibition.start_at, Exhibition.end_at, Exhibition_Status.Status, Exhibition.id_Partner",
+                    " Exhibition, Exhibition_Status",
+                    "Exhibition.Id_Exhibition_Status = Exhibition_Status.Id_Exhibition_Status AND " +
+                            "Exhibition.id_Partner= '" + partner_id + "'" );
+
+            ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
+
+            while (rs.next())
+            {
+
+                exhibition = new Exhibition();
+                exhibition.setId(rs.getString("Exhibition.id_Exhibition"));
+                exhibition.setName(rs.getString("Exhibition.name"));
+                exhibition.setDescription(rs.getString("Exhibition.description"));
+                exhibition.setThumbnail(rs.getString("Exhibition.thumbnail"));
+                exhibition.setStart_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("Exhibition.start_at")));
+                exhibition.setEnd_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("Exhibition.end_at")));
+                exhibition.setId_Partner(rs.getString("Exhibition.id_Partner"));
+                exhibition.setStatus(rs.getString("Exhibition_Status.Status"));
+
+                listExhibition.add(exhibition);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return listExhibition;
+
+    }
     /**
      *
      * @param partnerId

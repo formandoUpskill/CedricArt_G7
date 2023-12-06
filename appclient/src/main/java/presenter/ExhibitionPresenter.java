@@ -60,6 +60,47 @@ public class ExhibitionPresenter {
 
 
 
+    public List<Exhibition> getAllExhibitionsByPartner (String apiUrl, String partner_id)
+    {
+        List<Exhibition> all = new ArrayList<>();
+
+        OkHttpClient httpClient = new OkHttpClient();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateAdapter())
+                .create();
+
+        Request getRequest = new Request.Builder()
+                .url(apiUrl)
+                .build();
+
+        try {
+            Response response = httpClient.newCall(getRequest).execute();
+
+
+            if(response.code() == 200) {
+                // Deserialize
+
+                String data = response.body().string();
+
+                Type listType = new TypeToken<ArrayList<Exhibition>>(){}.getType();
+                all = gson.fromJson(data, listType);
+                for (Exhibition exhibition : all) {
+                    System.out.println(exhibition);
+                }
+            } else {
+                // Something failed, maybe client does not exist
+                System.out.println(response.body().string());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return all;
+    }
+
+
+
     public Exhibition getExhibition(String apiUrl, String exhibitionId)
     {
 
