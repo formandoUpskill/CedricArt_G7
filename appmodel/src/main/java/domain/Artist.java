@@ -14,8 +14,18 @@ public class Artist {
     private String thumbnail;
     private String url;
     private String nationality;
+
+    private Partner partner;
     private transient int country_code;
 
+
+    public Partner getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Partner partner) {
+        this.partner = partner;
+    }
 
     @SerializedName("_links")
     private Links links;
