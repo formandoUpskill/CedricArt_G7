@@ -1,5 +1,6 @@
 package view;
 
+import domain.Partner;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,21 +12,26 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Menu extends Application {
-    private String galleryName;
+    private Partner partner;
     public static void main(String[] args) {
         launch(args);
     }
 
-    public Menu (String galleryName){
-        this.galleryName = galleryName;
+    public Menu (Partner partner){
+        this.partner = partner;
     }
 
-    public Menu(){}
+    public Menu(){
+        Partner partner = new Partner();
+        partner.setName("hhhh");
+       // partner.setId("1");
+        this.partner = partner;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        primaryStage.setTitle("Menu - " + galleryName);
+        primaryStage.setTitle("Menu - " + partner.getName());
 
         Image backButtonImage = new Image("file:/home/RicardoReis/Desktop/Upskill/Projecto Final/Imagens/voltar.jpeg");
         ImageView backButtonImageView = new ImageView(backButtonImage);

@@ -1,5 +1,7 @@
 package view;
 
+import domain.Artist;
+import domain.Partner;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,6 +18,8 @@ public class Artists extends Application {
     private ComboBox<String> cmbArtists;
     private ArtistsInfo artistsInfo;
     private Stage primaryStage;
+    private Partner partner;
+    private Artist artist;
 
     public static void main(String[] args) {
         launch(args);
