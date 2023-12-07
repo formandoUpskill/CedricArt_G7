@@ -23,7 +23,7 @@ public class MyDBUtils {
     {
         try {
             this.config= new Properties();
-            FileReader file = new FileReader("CedricArt.config");
+            FileReader file = new FileReader("resources/config/CedricArt.config");
             config.load(file);
             DB_SERVER = this.config.getProperty("DB_SERVER");
             DB_PORT = this.config.getProperty("DB_PORT");

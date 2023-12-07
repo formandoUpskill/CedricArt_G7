@@ -15,7 +15,7 @@ public class AppUtils {
 
         try {
             this.config= new Properties();
-            FileReader file = new FileReader("CedricArt.config");
+            FileReader file = new FileReader("resources/config/CedricArt.config");
             config.load(file);
             CEDRIC_ART_API_HOST = this.config.getProperty("CEDRIC_ART_API_HOST");
             file.close();
