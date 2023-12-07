@@ -14,8 +14,18 @@ public class Exhibition {
     private String url;
     private String id_Partner;
 
+    private Partner partner;
+
     private String status;
 
+
+    public Partner getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Partner partner) {
+        this.partner = partner;
+    }
 
     public String getId() {
         return id;
