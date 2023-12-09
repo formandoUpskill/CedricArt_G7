@@ -21,23 +21,7 @@ public class DBStorage {
      *
      * @param newGene
      */
-    public void createGene(Gene newGene) {
 
-        String sql = "insert into Gene (id_gene, name, description) values ('" +
-                newGene.getId()+ "','" +
-                newGene.getName() + "','" +
-                newGene.getDescription() + "');";
-
-        System.out.println("insert " + sql);
-
-        try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD);){
-
-            MyDBUtils.exec_sql(connection,sql);
-        } catch (SQLException e) {
-            System.out.println("exec_sql:" + sql + " Error: " + e.getMessage());
-        }
-    }
 
     /**
      *
@@ -87,7 +71,112 @@ public class DBStorage {
      * @return
      */
 
-    private List getAllGenes(Artwork artwork){
+
+
+    public Gene createGene(Gene newGene) {
+
+        Gene gene= new Gene();
+
+        String sql = "insert into Gene (id_gene, name, description) values ('" +
+                newGene.getId()+ "','" +
+                newGene.getName() + "','" +
+                newGene.getDescription() + "');";
+
+        System.out.println("insert " + sql);
+
+        try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD);){
+
+            MyDBUtils.exec_sql(connection,sql);
+
+            gene= getGene(newGene.getId());
+
+        } catch (SQLException e) {
+            System.out.println("exec_sql:" + sql + " Error: " + e.getMessage());
+        }
+
+        return gene;
+    }
+
+    public Gene getGene(String id){
+
+        Gene gene = new Gene();
+
+        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        {
+
+            String sqlCMD= MyDBUtils.get_select_command(
+                    "*",
+                    " Gene" ,
+                    " id_Gene='"  + id +"'"
+            );
+
+
+            System.out.println("getAllGenes " + sqlCMD );
+
+            ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
+
+            while (rs.next())
+            {
+                gene= new Gene();
+                gene.setId(rs.getString("id_Gene"));
+                gene.setName(rs.getString("name"));
+                gene.setDescription(rs.getString("description"));
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return gene;
+
+    }
+
+
+
+    public List<Gene> getAllGenes(){
+
+        List<Gene> listGenes = new ArrayList<>();
+        Gene gene;
+
+        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        {
+
+            String sqlCMD= MyDBUtils.get_select_command(
+                    "* " ,
+                    " Gene",
+                    "",
+                    "name ASC");
+
+
+            System.out.println("getAllGenes " + sqlCMD );
+
+            ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
+
+            while (rs.next())
+            {
+                gene= new Gene();
+                gene.setId(rs.getString("Gene"));
+                gene.setName(rs.getString("name"));
+                gene.setDescription(rs.getString("description"));
+
+                listGenes.add(gene);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return listGenes;
+
+    }
+
+
+    public List<Gene> getAllGenes(Artwork artwork){
 
         List<Gene> listGenes = new ArrayList<>();
         Gene gene;
@@ -129,6 +218,9 @@ public class DBStorage {
         return listGenes;
 
     }
+
+
+
 
     public Artwork getArtwork(String artworkId)  {
 

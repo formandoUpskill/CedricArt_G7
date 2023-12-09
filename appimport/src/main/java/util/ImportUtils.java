@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-public class ArtsyUtils {
+public class ImportUtils {
 
     private OkHttpClient client;
     private String xappToken;
@@ -22,8 +22,11 @@ public class ArtsyUtils {
 
     private static Properties config;
 
+    public static String CEDRIC_ART_API_HOST;
 
-    public ArtsyUtils() {
+
+
+    public ImportUtils() {
         try {
             this.config= new Properties();
             FileReader file = new FileReader("resources/config/CedricArt.config");
@@ -31,6 +34,7 @@ public class ArtsyUtils {
             CLIENT_ID = this.config.getProperty("CLIENT_ID");
             CLIENT_SECRET = this.config.getProperty("CLIENT_SECRET");
             XAPP_TOKEN  = this.config.getProperty("XAPP_TOKEN");
+            CEDRIC_ART_API_HOST = this.config.getProperty("CEDRIC_ART_API_HOST");
 
             file.close();
         } catch (IOException e) {
@@ -50,9 +54,9 @@ public class ArtsyUtils {
 
         OkHttpClient client = new OkHttpClient();
 
-        String clientId = ArtsyUtils.CLIENT_ID;
-        String clientSecret = ArtsyUtils.CLIENT_SECRET;
-        String tokenUrl = ArtsyUtils.XAPP_TOKEN;
+        String clientId = ImportUtils.CLIENT_ID;
+        String clientSecret = ImportUtils.CLIENT_SECRET;
+        String tokenUrl = ImportUtils.XAPP_TOKEN;
 
         RequestBody formBody = new FormBody.Builder()
                 .add("client_id", clientId)

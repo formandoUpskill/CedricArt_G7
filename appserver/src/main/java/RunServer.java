@@ -13,6 +13,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import domain.Artwork;
 import domain.Exhibition;
+import domain.Gene;
 import domain.Partner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -201,6 +202,60 @@ public class RunServer {
             });
 
         });
+
+
+
+        // BEGGIN GENES
+
+        path("/genes", () -> {
+
+            get("", (request, response) -> {
+                response.type("application/json");
+
+                List<Gene> genes;
+
+                genes = storage.getAllGenes();
+                return gson.toJson( genes );
+            });
+
+
+            get("/:id", (request, response) -> {
+
+                String id= request.params(":id");
+
+                System.out.println("id " + id);
+
+                // Se o gene não existir, retorna 'null'
+                Gene gene = storage.getGene(id);
+
+                response.type("application/json");
+
+                if(gene == null) {
+                    response.status(404);
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("message", "Client not found");
+                    return jsonObject.toString();
+                }
+
+                return gson.toJson(gene);
+            });
+
+
+            post("", (request, response) -> {
+                // Devemos receber um Gene serializado em JSON (no body)
+
+                Gene gene = gson.fromJson(request.body(), Gene.class);
+
+                Gene created = storage.createGene(gene);
+
+                response.type("application/json");
+                return gson.toJson(created);
+            });
+
+        });
+
+
+
 
 /*
         path("/clients", () -> {

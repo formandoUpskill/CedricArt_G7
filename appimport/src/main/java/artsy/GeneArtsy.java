@@ -6,7 +6,7 @@ import domain.Gene;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import util.ArtsyUtils;
+import util.ImportUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -50,8 +50,8 @@ public class GeneArtsy {
 
                 for (Gene gene : genes) {
 
-                    gene.setDescription(ArtsyUtils.cleanString(gene.getDescription()));
-                    gene.setName(ArtsyUtils.cleanString(gene.getName()));
+                    gene.setDescription(ImportUtils.cleanString(gene.getDescription()));
+                    gene.setName(ImportUtils.cleanString(gene.getName()));
 
                     geneList.add(gene);
 
@@ -68,5 +68,8 @@ public class GeneArtsy {
         return apiUrl;
 
     }
+
+
+
 
 }
