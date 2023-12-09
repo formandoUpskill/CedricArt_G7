@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="appserver" />
         <module name="appclient" />
+        <module name="appimport" />
         <module name="appmodel" />
       </profile>
     </annotationProcessing>

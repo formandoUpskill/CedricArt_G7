@@ -12,6 +12,7 @@
         <module>appserver</module>
         <module>appmodel</module>
         <module>appclient</module>
+        <module>appimport</module>
     </modules>
 
     <properties>
