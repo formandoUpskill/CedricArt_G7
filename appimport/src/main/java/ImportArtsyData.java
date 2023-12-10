@@ -70,6 +70,7 @@ public class ImportArtsyData {
 
         String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/artists";
 
+
         for (Artist artist : artistsList) {
             // inserir esse artista na base de dados
             this.artistService.createArtist(apiUrl,artist);

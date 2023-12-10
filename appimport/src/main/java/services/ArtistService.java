@@ -8,6 +8,7 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ArtistService {
 
@@ -17,7 +18,7 @@ public class ArtistService {
 
         OkHttpClient httpClient = new OkHttpClient();
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateAdapter())
                 .create();
 
         String json = gson.toJson(artist);

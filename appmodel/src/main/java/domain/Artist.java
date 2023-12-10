@@ -16,7 +16,6 @@ public class Artist {
     private String nationality;
 
     private Partner partner;
-    private transient int country_code;
 
 
     public Partner getPartner() {
@@ -81,9 +80,6 @@ public class Artist {
         return url;
     }
 
-    public int getCountry_code() {
-        return country_code;
-    }
 
     public void setId(String id) {
         this.id = id;
@@ -129,9 +125,6 @@ public class Artist {
         this.nationality = nationality;
     }
 
-    public void setCountry_code(int country_code) {
-        this.country_code = country_code;
-    }
 
 
     // Inner class representing the "_links" part of the JSON
@@ -187,7 +180,7 @@ public class Artist {
                 ", thumbnail='" + thumbnail + '\'' +
                 ", url='" + url + '\'' +
                 ", nationality='" + nationality + '\'' +
-                ", country_code=" + country_code +
+                ", partner=" + partner +
                 ", links=" + links +
                 '}';
     }

@@ -8,6 +8,7 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class GeneService {
 
@@ -15,7 +16,7 @@ public class GeneService {
 
         OkHttpClient httpClient = new OkHttpClient();
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateAdapter())
                 .create();
 
         String json = gson.toJson(gene);

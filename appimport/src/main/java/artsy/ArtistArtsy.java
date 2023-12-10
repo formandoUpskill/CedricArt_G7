@@ -3,6 +3,7 @@ package artsy;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import domain.Artist;
+import adapters.LocalDateAdapter;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -10,6 +11,7 @@ import util.ImportUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,8 @@ public class ArtistArtsy {
     public static String getAllArtistsIdWithArtworks(String apiUrl, String xappToken, List<Artist> artistsList) {
 
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateAdapter()).create();
 
         System.out.println(apiUrl);
 
@@ -41,9 +44,11 @@ public class ArtistArtsy {
                     apiUrl = jsonObject.getAsJsonObject("_links").getAsJsonObject("next").get("href").getAsString();
                 } catch (NullPointerException ex) {
                     apiUrl = "";
+                    return apiUrl;
                 }
 
                 JsonArray data = jsonObject.getAsJsonObject("_embedded").getAsJsonArray("artists");
+
 
                 List<Artist> artists = new ArrayList<>();
                 Type listType = new TypeToken<ArrayList<Artist>>() {
