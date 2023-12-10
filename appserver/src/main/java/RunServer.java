@@ -1,8 +1,7 @@
 
 
 
-import java.time.LocalDateTime;
-import java.util.Collections;
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.DBStorage;
-import util.MessageResponse;
 
 import static spark.Spark.*;
 
@@ -52,7 +50,7 @@ public class RunServer {
 
 
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateAdapter())
+                .registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter())
                 //.setPrettyPrinting()
                 .create();
 
@@ -184,7 +182,7 @@ public class RunServer {
             System.out.println("artworkId " + artworkId);
 
                 // Se o client não existir, retorna 'null'
-                Artwork artwork = storage.getArtwork(artworkId);
+                Artwork artwork = storage.getArtworkWithPartnerAndGenes(artworkId);
 
                 response.type("application/json");
 
@@ -196,6 +194,24 @@ public class RunServer {
                 }
 
                 return gson.toJson(artwork);
+            });
+
+
+            post("", (request, response) -> {
+                // Devemos receber um Gene serializado em JSON (no body)
+
+                String data = request.body();
+
+                System.out.println("request.body()" + data);
+
+                Artwork artwork = gson.fromJson(data, Artwork.class);
+
+                Artwork created = storage.createArtwork(artwork);
+
+                System.out.println("created" + created);
+
+                response.type("application/json");
+                return gson.toJson(created);
             });
 
         });
@@ -264,6 +280,8 @@ public class RunServer {
                 List<Artist> artists;
 
                 artists = storage.getAllArtists();
+
+                System.out.println(artists);
                 return gson.toJson( artists );
             });
 

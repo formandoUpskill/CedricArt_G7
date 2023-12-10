@@ -3,11 +3,12 @@ package domain;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 public class Exhibition {
     private String id;
-    private LocalDateTime end_at;
-    private LocalDateTime start_at;
+    private OffsetDateTime end_at;
+    private OffsetDateTime start_at;
     private String thumbnail;
     private String description;
     private String name;
@@ -35,19 +36,19 @@ public class Exhibition {
         this.id = id;
     }
 
-    public LocalDateTime getEnd_at() {
+    public OffsetDateTime getEnd_at() {
         return end_at;
     }
 
-    public void setEnd_at(LocalDateTime end_at) {
+    public void setEnd_at(OffsetDateTime end_at) {
         this.end_at = end_at;
     }
 
-    public LocalDateTime getStart_at() {
+    public OffsetDateTime getStart_at() {
         return start_at;
     }
 
-    public void setStart_at(LocalDateTime start_at) {
+    public void setStart_at(OffsetDateTime start_at) {
         this.start_at = start_at;
     }
 

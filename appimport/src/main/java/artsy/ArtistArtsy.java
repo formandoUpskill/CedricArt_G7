@@ -11,17 +11,17 @@ import util.ImportUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistArtsy {
 
-    public static String getAllArtistsIdWithArtworks(String apiUrl, String xappToken, List<Artist> artistsList) {
+    public  String getAllArtistsIdWithArtworks(String apiUrl, String xappToken, List<Artist> artistsList) {
 
 
 
-        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateAdapter()).create();
+        Gson gson = new GsonBuilder().registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter()).create();
 
         System.out.println(apiUrl);
 

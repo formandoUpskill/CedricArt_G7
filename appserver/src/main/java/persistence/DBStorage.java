@@ -5,6 +5,8 @@ import domain.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,8 +87,9 @@ public class DBStorage {
 
             String sqlCMD= MyDBUtils.get_select_command(
                     "*" ,
-                    "  Artwork ",
+                    "  Artist ",
                     " id_Artist= '" + idArtist + "'" );
+
 
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
@@ -105,7 +108,7 @@ public class DBStorage {
                 artist.setDeathyear(rs.getString("deathyear"));
                 artist.setThumbnail(rs.getString("thumbnail"));
                 artist.setUrl(rs.getString("url"));
-                artist.setNationality(rs.getString("url"));
+                artist.setNationality(rs.getString("nationality"));
 
 
             }
@@ -341,7 +344,7 @@ public class DBStorage {
      * @return
      */
 
-    public Artwork getArtwork(String artworkId)  {
+    public Artwork getArtworkWithPartnerAndGenes(String artworkId)  {
 
         Artwork artwork = new Artwork();
         Partner partner = new Partner();
@@ -377,8 +380,12 @@ public class DBStorage {
                 artwork.setTitle(rs.getString("Artwork.title"));
                 artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
                 artwork.setDate(rs.getString("Artwork.date"));
-                artwork.setCreated_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("created_at")));
-                artwork.setUpdated_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("updated_at")));
+
+             //   artwork.setCreated_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("created_at")));
+              //  artwork.setUpdated_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("updated_at")));
+
+                artwork.setCreated_at(rs.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC));
+                artwork.setUpdated_at(rs.getTimestamp("updated_at").toInstant().atOffset(ZoneOffset.UTC));
 
                 partner.setId(rs.getString("Partner.id_Partner"));
                 partner.setName(rs.getString("Partner.name"));
@@ -398,6 +405,53 @@ public class DBStorage {
 
         return artwork;
     }
+
+
+
+    public Artwork getArtwork(String artworkId)  {
+
+        Artwork artwork = new Artwork();
+        Partner partner = new Partner();
+
+        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        {
+
+            String sqlCMD= MyDBUtils.get_select_command(
+                    " * ",
+                    "  Artwork " ,
+                    " id_Artwork = '"+ artworkId +"'");
+
+
+
+            ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
+
+            System.out.println(sqlCMD);
+            while (rs.next())
+            {
+
+                artwork.setId(rs.getString("Artwork.id_Artwork"));
+                artwork.setTitle(rs.getString("Artwork.title"));
+                artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
+                artwork.setDate(rs.getString("Artwork.date"));
+
+                artwork.setCreated_at(rs.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC));
+                artwork.setUpdated_at(rs.getTimestamp("updated_at").toInstant().atOffset(ZoneOffset.UTC));
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return artwork;
+    }
+
+
+
+
+
 
 
     /**
@@ -449,8 +503,8 @@ public class DBStorage {
                 artwork.setTitle(rs.getString("Artwork.title"));
                 artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
                 artwork.setDate(rs.getString("Artwork.date"));
-                artwork.setCreated_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("created_at")));
-                artwork.setUpdated_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("updated_at")));
+                artwork.setCreated_at(rs.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC));
+                artwork.setUpdated_at(rs.getTimestamp("updated_at").toInstant().atOffset(ZoneOffset.UTC));
 
                 partner = new Partner();
                 partner.setId(rs.getString("Partner.id_Partner"));
@@ -515,8 +569,10 @@ public class DBStorage {
                 artwork.setTitle(rs.getString("Artwork.title"));
                 artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
                 artwork.setDate(rs.getString("Artwork.date"));
-                artwork.setCreated_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("created_at")));
-                artwork.setUpdated_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("updated_at")));
+
+                artwork.setCreated_at(rs.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC));
+                artwork.setUpdated_at(rs.getTimestamp("updated_at").toInstant().atOffset(ZoneOffset.UTC));
+
 
                 partner = new Partner();
                 partner.setId(rs.getString("Partner.id_Partner"));
@@ -576,8 +632,10 @@ public class DBStorage {
                 artwork.setTitle(rs.getString("Artwork.title"));
                 artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
                 artwork.setDate(rs.getString("Artwork.date"));
-                artwork.setCreated_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("created_at")));
-                artwork.setUpdated_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("updated_at")));
+
+                artwork.setCreated_at(rs.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC));
+                artwork.setUpdated_at(rs.getTimestamp("updated_at").toInstant().atOffset(ZoneOffset.UTC));
+
 
                 listArtwork.add(artwork);
             }
@@ -631,8 +689,12 @@ public class DBStorage {
                 exhibition.setName(rs.getString("Exhibition.name"));
                 exhibition.setDescription(rs.getString("Exhibition.description"));
                 exhibition.setThumbnail(rs.getString("Exhibition.thumbnail"));
-                exhibition.setStart_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("Exhibition.start_at")));
-                exhibition.setEnd_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("Exhibition.end_at")));
+
+
+                exhibition.setStart_at(rs.getTimestamp("Exhibition.start_at").toInstant().atOffset(ZoneOffset.UTC));
+                exhibition.setEnd_at(rs.getTimestamp("Exhibition.end_at").toInstant().atOffset(ZoneOffset.UTC));
+
+
                 exhibition.setId_Partner(rs.getString("Exhibition.id_Partner"));
                 exhibition.setStatus(rs.getString("Exhibition_Status.Status"));
 
@@ -687,8 +749,11 @@ public class DBStorage {
                 exhibition.setName(rs.getString("Exhibition.name"));
                 exhibition.setDescription(rs.getString("Exhibition.description"));
                 exhibition.setThumbnail(rs.getString("Exhibition.thumbnail"));
-                exhibition.setStart_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("Exhibition.start_at")));
-                exhibition.setEnd_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("Exhibition.end_at")));
+
+                exhibition.setStart_at(rs.getTimestamp("Exhibition.start_at").toInstant().atOffset(ZoneOffset.UTC));
+                exhibition.setEnd_at(rs.getTimestamp("Exhibition.end_at").toInstant().atOffset(ZoneOffset.UTC));
+
+
                 exhibition.setId_Partner(rs.getString("Exhibition.id_Partner"));
                 exhibition.setStatus(rs.getString("Exhibition_Status.Status"));
 
@@ -747,8 +812,12 @@ public class DBStorage {
                 exhibition.setName(rs.getString("Exhibition.name"));
                 exhibition.setDescription(rs.getString("Exhibition.description"));
                 exhibition.setThumbnail(rs.getString("Exhibition.thumbnail"));
-                exhibition.setStart_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("Exhibition.start_at")));
-                exhibition.setEnd_at(MyDBUtils.covertSqlDateToLocalDateTime(rs.getDate("Exhibition.end_at")));
+
+
+                exhibition.setStart_at(rs.getTimestamp("Exhibition.start_at").toInstant().atOffset(ZoneOffset.UTC));
+                exhibition.setEnd_at(rs.getTimestamp("Exhibition.end_at").toInstant().atOffset(ZoneOffset.UTC));
+
+
                 exhibition.setId_Partner(rs.getString("Exhibition.id_Partner"));
                 exhibition.setStatus(rs.getString("Exhibition_Status.Status"));
 
@@ -1028,36 +1097,77 @@ public class DBStorage {
 
     /**
      *
-     * @param artwork
+     * @param newArtwork
      * @param geneList
      * @param artist
      */
-    public void createArtwork(Artwork artwork, List<Gene> geneList, Artist artist) {
+    public void createArtwork(Artwork newArtwork, List<Gene> geneList, Artist artist) {
 
 
-        String sqlInsert = "insert into Artwork (id_Artwork, title, created_at, updated_at, date, thumbnail, url) values ('" +
-                artwork.getId() + "','" +
-                artwork.getTitle() + "','" +
-                   artwork.getCreated_at() + "','" +
-                artwork.getUpdated_at() + "','" +
-                    artwork.getDate() + "','" +
-                artwork.getThumbnail() +
-                   artwork.getUrl() +
+        String sqlInsert = "insert into Artwork (id_Artwork, title, created_at, updated_at, date, thumbnail, url) values (" +
+                "'" + newArtwork.getId() + "'," +
+                "'" + newArtwork.getTitle() + "'," +
+                newArtwork.getCreated_at() + "," +
+                newArtwork.getUpdated_at() + "," +
+                "'"+   newArtwork.getDate() + "'," +
+                "'"+   newArtwork.getThumbnail()+ "'," +
+                "'"+   newArtwork.getUrl() +
                 "');";
 
         System.out.println("insert into Artwork (id_Artwork, title, created_at, updated_at, date, thumbnail, url) " + sqlInsert);
 
         try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER, MyDBUtils.DB_PORT, MyDBUtils.DB_NAME, MyDBUtils.DB_USER, MyDBUtils.DB_PWD);) {
+                MyDBUtils.DB_SERVER, MyDBUtils.DB_PORT, MyDBUtils.DB_NAME, MyDBUtils.DB_USER, MyDBUtils.DB_PWD);)
+        {
             MyDBUtils.exec_sql(connection, sqlInsert);
+
+
         } catch (SQLException e) {
             System.out.println("exec_sql:" + sqlInsert + " Error: " + e.getMessage());
         }
 
-        insertArtworkGenes(artwork, geneList);
+        insertArtworkGenes(newArtwork, geneList);
 
-        insertArtworkArtist(artwork, artist);
+        insertArtworkArtist(newArtwork, artist);
 
+    }
+
+
+
+
+    public Artwork createArtwork(Artwork newArtwork) {
+
+        Artwork artwork= new Artwork();
+
+
+        String sqlInsert = "insert into Artwork (id_Artwork, title, created_at, updated_at, date, thumbnail, url) values (" +
+                "'" + newArtwork.getId() + "'," +
+                "'" + newArtwork.getTitle() + "'," +
+                "'" + newArtwork.getCreated_at().toString().replace("Z", "") + "'," +
+                "'" + newArtwork.getUpdated_at().toString().replace("Z", "") + "'," +
+                "'"+   newArtwork.getDate() + "'," +
+                "'"+   newArtwork.getThumbnail()+ "'," +
+                "'"+   newArtwork.getUrl() +
+                "');";
+
+
+
+        System.out.println("insert into Artwork (id_Artwork, title, created_at, updated_at, date, thumbnail, url) " + sqlInsert);
+
+        try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER, MyDBUtils.DB_PORT, MyDBUtils.DB_NAME, MyDBUtils.DB_USER, MyDBUtils.DB_PWD);) {
+
+            MyDBUtils.exec_sql(connection, sqlInsert);
+
+            artwork = getArtwork(newArtwork.getId());
+
+
+        } catch (SQLException e) {
+            System.out.println("exec_sql:" + sqlInsert + " Error: " + e.getMessage());
+        }
+
+
+        return artwork;
     }
 
     /**

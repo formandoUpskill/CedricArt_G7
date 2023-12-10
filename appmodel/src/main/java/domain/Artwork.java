@@ -5,6 +5,7 @@ package domain;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +27,14 @@ public class Artwork {
 
     private List<Gene> geneList;
 
-    private  LocalDateTime created_at;
-    private  LocalDateTime updated_at;
+    private OffsetDateTime created_at;
+    private  OffsetDateTime updated_at;
 
     private  String url;
+
+    @SerializedName("_links")
+    private Links links;
+
 
 
     public Artwork(){
@@ -64,19 +69,19 @@ public class Artwork {
         this.title = title;
     }
 
-    public LocalDateTime getCreated_at() {
+    public OffsetDateTime getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
+    public void setCreated_at(OffsetDateTime created_at) {
         this.created_at = created_at;
     }
 
-    public LocalDateTime getUpdated_at() {
+    public OffsetDateTime getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(LocalDateTime updated_at) {
+    public void setUpdated_at(OffsetDateTime updated_at) {
         this.updated_at = updated_at;
     }
 
@@ -112,6 +117,54 @@ public class Artwork {
     public void setPartner(Partner partner) {
         this.partner = partner;
     }
+
+
+
+    // Inner class representing the "_links" part of the JSON
+    public static class Links {
+        private Thumbnail thumbnail;
+
+        // Inner class for "self" link
+
+
+        // Inner class for "thumbnail" link
+        public static class Thumbnail {
+            private String href;
+
+            // Getter and setter
+            public String getHref() {
+                return href;
+            }
+
+            public void setHref(String href) {
+                this.href = href;
+            }
+
+        }
+
+
+        @Override
+        public String toString() {
+            return "Links{" +
+                    "thumbnail=" + thumbnail +
+                    '}';
+        }
+    }
+
+    public Links getLinks() {
+        return links;
+    }
+
+    public void setLinks(Links links) {
+        this.links = links;
+    }
+
+    public String getThumbnailLinks() {
+        if (links.thumbnail== null)
+            return null;
+        return links.thumbnail.href;
+    }
+
 
     @Override
     public String toString() {

@@ -40,7 +40,7 @@ public class MyDBUtils {
     }
 
 
-    public static LocalDateTime covertSqlDateToLocalDateTime(Date sqlDate) {
+    /*public static LocalDateTime covertSqlDateToLocalDateTime(Date sqlDate) {
 
         // Step 1: Convert java.sql.Date to java.util.Date
         java.util.Date utilDate = new java.util.Date(sqlDate.getTime());
@@ -55,6 +55,8 @@ public class MyDBUtils {
         return localDateTime;
 
     }
+
+*/
 
     public static String cleanString(String original) {
         if (original != null) {
