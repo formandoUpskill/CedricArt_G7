@@ -41,13 +41,18 @@ public class Galeries extends Application {
         // Botões do segundo formulário
 
         btnGalleries = new Button[NUMBER];
+
         List<Partner> partners = listPartners();
 
         for(int i = 0; i < NUMBER; i++){
             btnGalleries[i] = createGalleryBtn(partners.get(i));
             btnGalleries[i].setWrapText(true);
+            btnGalleries[i].setStyle("-fx-shape: \"M15 0 L18.09 11.36 L30 13.64 L21.82 22.11 L24.09 34.64 L15 28.18 L5.91 34.64 L8.18 22.11 L0 13.64 L11.91 11.36 Z\";");
+            btnGalleries[i].setPrefSize(100,150);
         }
         Button btnBack = new Button("", backButtonImageView);
+        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: lightgreen; ");
+        btnBack.setPrefSize(400,20);
 
 
 
@@ -90,9 +95,10 @@ public class Galeries extends Application {
         VBox vbLayout = new VBox(10);
         vbLayout.setStyle("-fx-background-color: navy;");
         vbLayout.getChildren().addAll(gpGalleries, vbBack);
+        vbLayout.setSpacing(50);
         vbLayout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(vbLayout, 800, 600);
+        Scene scene = new Scene(vbLayout, 1000, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

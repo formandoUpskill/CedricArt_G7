@@ -1,7 +1,9 @@
 package view;
 
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Main extends Application {
     private Stage primaryStage;
@@ -27,12 +30,14 @@ public class Main extends Application {
 
             // Botão "Entrar"
             Button btnStart = new Button("Enter");
-            btnStart.setPrefSize(70, 40);
-            btnStart.setStyle("-fx-background-color: red; -fx-font-weight: bold; -fx-text-fill: white;");
+            btnStart.setPrefSize(70, 44);
+            btnStart.setStyle("-fx-background-color: red; -fx-font-weight: bold; -fx-text-fill: white;" + "-fx-shape: \"M15 0 L29.39 9.39 L24.1 25.45 L9.9 25.45 L4.61 9.39 Z\";");
 
             btnStart.setOnAction(e -> {
-                openForm2();
-
+                btnStart.setStyle("-fx-border-color: green; -fx-border-width: 4px;" + "-fx-shape: \"M15 0 L29.39 9.39 L24.1 25.45 L9.9 25.45 L4.61 9.39 Z\";");
+                PauseTransition pause = new PauseTransition(Duration.millis(500));
+                pause.setOnFinished(event -> openForm2());
+                pause.play();
             });
 
 
@@ -41,7 +46,7 @@ public class Main extends Application {
             layout.getChildren().addAll(backgroundView, btnStart);
             layout.setAlignment(Pos.BOTTOM_CENTER);
 
-            Scene scene = new Scene(layout, 800, 600);
+            Scene scene = new Scene(layout, 1000, 600);
             primaryStage.setScene(scene);
             primaryStage.show();
 
