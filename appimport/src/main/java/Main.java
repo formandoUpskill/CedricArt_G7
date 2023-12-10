@@ -4,6 +4,8 @@ public class Main {
 
         ImportArtsyData importArtsyData = new ImportArtsyData();
 
-        importArtsyData.loadAllGenes();
+        // importArtsyData.loadAllGenes();
+
+        importArtsyData.loadAllArtistsWithArtworks();
     }
 }

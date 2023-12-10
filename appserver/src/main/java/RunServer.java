@@ -11,10 +11,7 @@ import adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import domain.Artwork;
-import domain.Exhibition;
-import domain.Gene;
-import domain.Partner;
+import domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.DBStorage;
@@ -247,6 +244,58 @@ public class RunServer {
                 Gene gene = gson.fromJson(request.body(), Gene.class);
 
                 Gene created = storage.createGene(gene);
+
+                response.type("application/json");
+                return gson.toJson(created);
+            });
+
+        });
+
+        // END GENES
+
+        // BEGIN
+
+
+        path("/artists", () -> {
+
+            get("", (request, response) -> {
+                response.type("application/json");
+
+                List<Artist> artists;
+
+                artists = storage.getAllArtists();
+                return gson.toJson( artists );
+            });
+
+
+            get("/:id", (request, response) -> {
+
+                String id= request.params(":id");
+
+                System.out.println("id " + id);
+
+                // Se o gene não existir, retorna 'null'
+                Artist artist = storage.getArtist(id);
+
+                response.type("application/json");
+
+                if(artist == null) {
+                    response.status(404);
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("message", "artist not found");
+                    return jsonObject.toString();
+                }
+
+                return gson.toJson(artist);
+            });
+
+
+            post("", (request, response) -> {
+                // Devemos receber um Gene serializado em JSON (no body)
+
+                Artist artist = gson.fromJson(request.body(), Artist.class);
+
+                Artist created = storage.createArtist(artist);
 
                 response.type("application/json");
                 return gson.toJson(created);

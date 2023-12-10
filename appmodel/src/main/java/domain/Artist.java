@@ -68,6 +68,10 @@ public class Artist {
     }
 
     public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public String getThumbnailLinks() {
         if (links.thumbnail== null)
             return null;
         return links.thumbnail.href;
@@ -130,37 +134,12 @@ public class Artist {
     }
 
 
-    public String getArtworksLink() {
-        return links.artworks.href;
-    }
-
-
     // Inner class representing the "_links" part of the JSON
     public static class Links {
-        private Self self;
         private Thumbnail thumbnail;
-        private Permalink permalink;
-        private Artworks artworks;
-        private PublishedArtworks publishedArtworks;
-        private SimilarArtists similarArtists;
-        private SimilarContemporaryArtists similarContemporaryArtists;
-        private Genes genes;
 
         // Inner class for "self" link
-        public static class Self {
-            public String getHref() {
-                return href;
-            }
 
-            public void setHref(String href) {
-                this.href = href;
-            }
-
-            private String href;
-
-            // Getter and settes
-
-        }
 
         // Inner class for "thumbnail" link
         public static class Thumbnail {
@@ -177,106 +156,11 @@ public class Artist {
 
         }
 
-        // Inner class for "permalink" link
-        public static class Permalink {
-            private String href;
-
-            // Getter and setter
-
-
-            public String getHref() {
-                return href;
-            }
-
-            public void setHref(String href) {
-                this.href = href;
-            }
-        }
-
-        // Inner class for "artworks" link
-        public static class Artworks {
-            private String href;
-
-            // Getter and setter
-
-
-            public String getHref() {
-                return href;
-            }
-
-            public void setHref(String href) {
-                this.href = href;
-            }
-        }
-
-        // Inner class for "published_artworks" link
-        public static class PublishedArtworks {
-            private String href;
-
-            // Getter and setter
-
-
-            public String getHref() {
-                return href;
-            }
-
-            public void setHref(String href) {
-                this.href = href;
-            }
-        }
-
-        // Inner class for "similar_artists" link
-        public static class SimilarArtists {
-            private String href;
-
-            // Getter and setter
-
-            public String getHref() {
-                return href;
-            }
-
-            public void setHref(String href) {
-                this.href = href;
-            }
-        }
-
-        // Inner class for "similar_contemporary_artists" link
-        public static class SimilarContemporaryArtists {
-            private String href;
-
-            // Getter and setter
-        }
-
-        // Inner class for "genes" link
-        public static class Genes {
-            private String href;
-
-            // Getter and setter
-
-
-            public String getHref() {
-                return href;
-            }
-
-            public void setHref(String href) {
-                this.href = href;
-            }
-        }
-
-        // Getters and setters for all links
-
 
         @Override
         public String toString() {
             return "Links{" +
-                    "self=" + self +
-                    ", thumbnail=" + thumbnail +
-                    ", permalink=" + permalink +
-                    ", artworks=" + artworks +
-                    ", publishedArtworks=" + publishedArtworks +
-                    ", similarArtists=" + similarArtists +
-                    ", similarContemporaryArtists=" + similarContemporaryArtists +
-                    ", genes=" + genes +
+                    "thumbnail=" + thumbnail +
                     '}';
         }
     }

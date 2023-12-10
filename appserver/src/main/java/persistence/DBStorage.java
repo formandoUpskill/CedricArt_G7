@@ -17,17 +17,118 @@ public class DBStorage {
         new MyDBUtils();
     }
 
+
+
+
+
+    public List<Artist> getAllArtists()
+
+    {
+
+        List<Artist> artistList = new ArrayList<>();
+
+        Artist artist;
+
+
+        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        {
+
+            String sqlCMD= MyDBUtils.get_select_command(
+                    "*",
+                    " Artist");
+
+            ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
+
+            while (rs.next())
+            {
+
+                artist = new Artist();
+
+
+                artist.setId(rs.getString("id_Artist"));
+                artist.setName(rs.getString("name"));
+                artist.setLocation(rs.getString("location"));
+                artist.setHometown(rs.getString("hometown"));
+                artist.setBiography(rs.getString("biography"));
+                artist.setSlug(rs.getString("slug"));
+                artist.setBirthyear(rs.getString("birthyear"));
+                artist.setDeathyear(rs.getString("deathyear"));
+                artist.setThumbnail(rs.getString("thumbnail"));
+                artist.setUrl(rs.getString("url"));
+                artist.setNationality(rs.getString("url"));
+
+
+                artistList.add(artist);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return artistList;
+
+    }
+
+
     /**
      *
-     * @param newGene
+     * @param idArtist
+     * @return
      */
+    public Artist getArtist(String idArtist)  {
+
+        Artist artist = new Artist();
+
+        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        {
+
+            String sqlCMD= MyDBUtils.get_select_command(
+                    "*" ,
+                    "  Artwork ",
+                    " id_Artist= '" + idArtist + "'" );
+
+
+            ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
+
+            System.out.println(sqlCMD);
+            while (rs.next())
+            {
+
+                artist.setId(rs.getString("id_Artist"));
+                artist.setName(rs.getString("name"));
+                artist.setLocation(rs.getString("location"));
+                artist.setHometown(rs.getString("hometown"));
+                artist.setBiography(rs.getString("biography"));
+                artist.setSlug(rs.getString("slug"));
+                artist.setBirthyear(rs.getString("birthyear"));
+                artist.setDeathyear(rs.getString("deathyear"));
+                artist.setThumbnail(rs.getString("thumbnail"));
+                artist.setUrl(rs.getString("url"));
+                artist.setNationality(rs.getString("url"));
+
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return artist;
+    }
+
 
 
     /**
      *
      * @param newArtist
      */
-    public void createArtist(Artist newArtist) {
+    public Artist createArtist(Artist newArtist) {
+
+        Artist artist = new Artist();
 
         String sql = "insert into Artist (" +
                 "id_Artist, " +
@@ -60,19 +161,23 @@ public class DBStorage {
                 MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD);){
 
             MyDBUtils.exec_sql(connection,sql);
+
+            artist = getArtist(newArtist.getId());
+
         } catch (SQLException e) {
             System.out.println("exec_sql:" + sql + " Error: " + e.getMessage());
         }
+
+        return artist;
     }
+
 
 
     /**
      *
+     * @param newGene
      * @return
      */
-
-
-
     public Gene createGene(Gene newGene) {
 
         Gene gene= new Gene();
@@ -98,6 +203,11 @@ public class DBStorage {
         return gene;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Gene getGene(String id){
 
         Gene gene = new Gene();
@@ -134,7 +244,10 @@ public class DBStorage {
 
     }
 
-
+    /**
+     *
+     * @return
+     */
 
     public List<Gene> getAllGenes(){
 
@@ -175,7 +288,11 @@ public class DBStorage {
 
     }
 
-
+    /**
+     *
+     * @param artwork
+     * @return
+     */
     public List<Gene> getAllGenes(Artwork artwork){
 
         List<Gene> listGenes = new ArrayList<>();
@@ -220,7 +337,11 @@ public class DBStorage {
     }
 
 
-
+    /**
+     *
+     * @param artworkId
+     * @return
+     */
 
     public Artwork getArtwork(String artworkId)  {
 
@@ -419,7 +540,11 @@ public class DBStorage {
         return listArtwork;
     }
 
-
+    /**
+     *
+     * @param exhibition_id
+     * @return
+     */
     public List<Artwork> getAllArtworksByExhibition(String exhibition_id)
     {
         List<Artwork> listArtwork = new ArrayList<>();
