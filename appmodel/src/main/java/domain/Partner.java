@@ -2,11 +2,16 @@ package domain;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Partner {
     private  String id;
     private String region;
     private String name;
     private String website;
+    private List<Artwork> artworks;
+    private List<Artist> artists;
+    private List<Exhibition> exhibitions;
 
 
     /**@// TODO: 04/12/2023
@@ -77,6 +82,18 @@ public class Partner {
 
     public void setId_coordinator(int id_coordinator) {
         this.id_coordinator = id_coordinator;
+    }
+
+    public List<Artwork> getAllArtworks(){
+        return artworks;
+    }
+
+    public List<Artist> getAllArtists(){
+        return artists;
+    }
+
+    public List<Exhibition> getAllExhibitions(){
+        return exhibitions;
     }
 
 

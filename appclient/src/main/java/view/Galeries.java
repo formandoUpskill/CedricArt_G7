@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -19,7 +20,7 @@ import java.util.List;
 public class Galeries extends Application {
     private Stage primaryStage;
     private Button[] btnGalleries;
-    private VBox vbGalleries;
+    private GridPane gpGalleries;
     private static final int NUMBER = 10;
     public static void main(String[] args) {
         launch(args);
@@ -43,9 +44,8 @@ public class Galeries extends Application {
         List<Partner> partners = listPartners();
 
         for(int i = 0; i < NUMBER; i++){
-           String name = (partners.get(i)).getName();
             btnGalleries[i] = createGalleryBtn(partners.get(i));
-
+            btnGalleries[i].setWrapText(true);
         }
         Button btnBack = new Button("", backButtonImageView);
 
@@ -64,10 +64,23 @@ public class Galeries extends Application {
 
         fetchRandomGalleries(listPartners());
 
-        // Layout do segundo formulário
-        vbGalleries = new VBox(10);
-        vbGalleries.getChildren().addAll(btnGalleries);
-        vbGalleries.setAlignment(Pos.CENTER);
+        gpGalleries = new GridPane();
+        gpGalleries.setAlignment(Pos.CENTER);
+        gpGalleries.setHgap(10);
+        gpGalleries.setVgap(10);
+
+        gpGalleries.add(btnGalleries[0], 0, 0);
+        gpGalleries.add(btnGalleries[1], 1, 2);
+        gpGalleries.add(btnGalleries[2], 2, 4);
+        gpGalleries.add(btnGalleries[3], 3, 6);
+        gpGalleries.add(btnGalleries[4], 4, 8);
+        gpGalleries.add(btnGalleries[5], 2, 10);
+        gpGalleries.add(btnGalleries[6], 5, 4);
+        gpGalleries.add(btnGalleries[7], 6, 18);
+        gpGalleries.add(btnGalleries[8], 6, 0);
+        gpGalleries.add(btnGalleries[9], 0, 18);
+        //vbGalleries.setStyle("-fx-grid-lines-visible: true; -fx-border-color: black; -fx-border-width: 1;");
+
 
         VBox vbBack = new VBox(10);
         vbBack.getChildren().add(btnBack);
@@ -76,10 +89,10 @@ public class Galeries extends Application {
 
         VBox vbLayout = new VBox(10);
         vbLayout.setStyle("-fx-background-color: navy;");
-        vbLayout.getChildren().addAll(vbGalleries, vbBack);
+        vbLayout.getChildren().addAll(gpGalleries, vbBack);
         vbLayout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(vbLayout, 300, 500);
+        Scene scene = new Scene(vbLayout, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -92,7 +105,7 @@ public class Galeries extends Application {
 
     private void openMenu(Partner partner){
 
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000), vbGalleries);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000), gpGalleries);
         fadeTransition.setFromValue(1.0);
         fadeTransition.setToValue(0.0);
 

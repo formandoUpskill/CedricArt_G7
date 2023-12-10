@@ -1,5 +1,7 @@
 package view;
 
+import domain.Artwork;
+import domain.Exhibition;
 import domain.Partner;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -10,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class Menu extends Application {
     private Partner partner;
@@ -24,7 +28,6 @@ public class Menu extends Application {
     public Menu(){
         Partner partner = new Partner();
         partner.setName("hhhh");
-       // partner.setId("1");
         this.partner = partner;
     }
 
@@ -39,10 +42,14 @@ public class Menu extends Application {
         backButtonImageView.setFitWidth(20);
 
         // Crie 4 botões na terceira forma
-        Button btnArtwork = new Button("Artwork");
+        Button btnArtwork = new Button("Artworks");
+        btnArtwork.setStyle("-fx-font-size: 30;");
         Button btnArtists = new Button("Artists");
-        Button btnExhibition = new Button("Exhibition");
+        btnArtists.setStyle("-fx-font-size: 25;");
+        Button btnExhibition = new Button("Exhibitions");
+        btnExhibition.setStyle("-fx-font-size: 30;");
         Button btnGenes = new Button("Genes");
+        btnGenes.setStyle("-fx-font-size: 25;");
         Button btnBack = new Button("", backButtonImageView);
 
         btnBack.setOnAction(event -> {
@@ -65,10 +72,32 @@ public class Menu extends Application {
             }
         });
 
+        btnArtwork.setOnAction(event -> {
+            List<Artwork> artworks = partner.getAllArtworks();
+            ArtworksList artworksList = new ArtworksList(artworks);
+            try {
+                artworksList.start(new Stage());
+                primaryStage.close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
 
-        VBox vbMenu = new VBox(10);
+        btnExhibition.setOnAction(event -> {
+            List<Exhibition> exhibitions = partner.getAllExhibitions();
+            ExhibitionsList exhibitionsList = new ExhibitionsList(exhibitions);
+            try {
+                exhibitionsList.start(new Stage());
+                primaryStage.close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
+        VBox vbMenu = new VBox(40);
         vbMenu.setAlignment(Pos.CENTER);
-        vbMenu.getChildren().addAll(btnArtwork, btnArtists, btnExhibition, btnGenes);
+        vbMenu.getChildren().addAll(btnArtwork, btnArtists, btnGenes, btnExhibition);
 
         VBox vbBack = new VBox(10);
         vbBack.getChildren().add(btnBack);
@@ -80,7 +109,7 @@ public class Menu extends Application {
         vbLayout.getChildren().addAll(vbMenu, vbBack);
         vbLayout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(vbLayout, 300, 200);
+        Scene scene = new Scene(vbLayout, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

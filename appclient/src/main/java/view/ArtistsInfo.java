@@ -61,7 +61,7 @@ public class ArtistsInfo extends Application {
         vbLayout.getChildren().addAll(vbArtistsInfo, gridPane, vbBack);
         vbLayout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(vbLayout, 300, 200);
+        Scene scene = new Scene(vbLayout, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
