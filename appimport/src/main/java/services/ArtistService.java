@@ -13,6 +13,7 @@ import java.time.LocalDate;
 public class ArtistService {
 
 
+
     public void createArtist(String apiUrl, Artist artist){
 
         OkHttpClient httpClient = new OkHttpClient();
