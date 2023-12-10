@@ -36,6 +36,8 @@ public class ArtistsInfo extends Application {
         GridPane gridPane = createGridPane();
 
         Button btnBack = new Button("", backButtonImageView);
+        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: lightgreen; ");
+        btnBack.setPrefSize(100,20);
 
         btnBack.setOnAction(event -> {
             Artists artists = new Artists();
@@ -61,7 +63,7 @@ public class ArtistsInfo extends Application {
         vbLayout.getChildren().addAll(vbArtistsInfo, gridPane, vbBack);
         vbLayout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(vbLayout, 800, 600);
+        Scene scene = new Scene(vbLayout, 1000, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

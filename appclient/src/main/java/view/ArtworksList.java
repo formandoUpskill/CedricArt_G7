@@ -40,6 +40,8 @@ public class ArtworksList extends Application {
         backButtonImageView.setFitWidth(20);
 
         Button btnBack = new Button("", backButtonImageView);
+        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: lightgreen; ");
+        btnBack.setPrefSize(100,20);
 
         btnBack.setOnAction(event -> {
             Menu menu = new Menu();
@@ -77,7 +79,7 @@ public class ArtworksList extends Application {
         vbLayout.getChildren().addAll(gpArtworks, vbBack);
         vbLayout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(vbLayout, 800, 600);
+        Scene scene = new Scene(vbLayout, 1000, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
