@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -15,16 +16,26 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArtworksList extends Application {
+public class Artworks extends Application {
     private List<Artwork> artworks;
     private GridPane gpArtworks;
+    private Artwork artworki;
+    private static final int NUMBER = 10;
 
-    public ArtworksList(List<Artwork> artworks){
+    public Artworks(List<Artwork> artworks){
         this.artworks = artworks != null ? artworks : new ArrayList<>();
     }
 
-    public ArtworksList(){
-        this(new ArrayList<>());
+    public Artworks(Artwork artwork){
+        this.artworks = new ArrayList<>();
+        this.artworks.add(artwork);
+    }
+
+    public Artworks(){
+        this.artworks = new ArrayList<>();
+        Artwork artwork = new Artwork();
+        artwork.setTitle("zzz");
+        this.artworks.add(artwork);
     }
 
     public static void main(String[] args) {
@@ -53,10 +64,12 @@ public class ArtworksList extends Application {
             }
         });
 
+
         gpArtworks = new GridPane();
         gpArtworks.setAlignment(Pos.CENTER);
         gpArtworks.setHgap(10);
         gpArtworks.setVgap(10);
+
 
         int row = 0, col = 0;
         for(Artwork artwork : artworks){
@@ -68,6 +81,8 @@ public class ArtworksList extends Application {
                 row++;
             }
         }
+
+        fetchRandomArtworks(listArtwork());
 
         VBox vbBack = new VBox(10);
         vbBack.getChildren().add(btnBack);
@@ -82,5 +97,30 @@ public class ArtworksList extends Application {
         Scene scene = new Scene(vbLayout, 1000, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void fetchRandomArtworks(List<Artwork> lArtwork ) {
+        gpArtworks.getChildren().clear();
+        for (int i = 0; i < lArtwork.size(); i++) {
+            Artwork artwork = lArtwork.get(i);
+            Label imageView = new Label(artwork.getTitle());
+            ImageView imageView1 = new ImageView(artwork.getThumbnail());
+            gpArtworks.add(imageView1, i, 0);
+            gpArtworks.add(imageView, i, 1);
+        }
+    }
+
+
+    private List<Artwork> listArtwork() {
+
+        ArrayList<Artwork> allArtworks = new ArrayList<>();
+        for (int i = 1; i <= NUMBER; i++) {
+            Artwork artwork = new Artwork();
+            artwork.setTitle("ArtworkTitle" + i);
+            artwork.setThumbnail("https://d32dm0rphc51dk.cloudfront.net/--eR7DMEH7_ZVCAE5Oh9mw/medium.jpg");
+            allArtworks.add(artwork);
+        }
+
+        return allArtworks;
     }
 }

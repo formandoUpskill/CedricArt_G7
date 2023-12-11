@@ -21,6 +21,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.FileInputStream;
+import java.net.URL;
 import java.util.List;
 
 public class Menu extends Application {
@@ -47,7 +49,8 @@ public class Menu extends Application {
 
         primaryStage.setTitle("Menu - " + partner.getName());
 
-        Image backButtonImage = new Image("file:/home/RicardoReis/Desktop/Upskill/Projecto Final/Imagens/voltar.jpeg");
+        Image backButtonImage = new Image(getClass().getResource("/images/voltar.jpeg").toExternalForm());
+
         ImageView backButtonImageView = new ImageView(backButtonImage);
         backButtonImageView.setFitHeight(20);
         backButtonImageView.setFitWidth(20);
@@ -92,7 +95,7 @@ public class Menu extends Application {
 
         btnArtwork.setOnAction(event -> {
             List<Artwork> artworks = partner.getAllArtworks();
-            ArtworksList artworksList = new ArtworksList(artworks);
+            Artworks artworksList = new Artworks();
 
             applyRotationTransition(btnArtwork, 360);
             rotate.setOnFinished(rotateFinishedEvent -> {
@@ -165,7 +168,7 @@ public class Menu extends Application {
 
     private void showMaintenanceAlert(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Maintenance!!!");
+        alert.setTitle("Construction!!!");
         alert.setHeaderText(null);
         alert.setContentText("Loading...");
         alert.getDialogPane().setBackground(new Background(new BackgroundFill(Color.FIREBRICK, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY)));
