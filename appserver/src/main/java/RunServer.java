@@ -58,7 +58,7 @@ public class RunServer {
 
 
 
-        // BEGIN PARTNERS
+        // BEGIN SHOWS
 
         path("/shows", () -> {
 
@@ -124,7 +124,7 @@ public class RunServer {
 
                 String partnerId = request.params(":id");
 
-                System.out.println("artworkId " + partnerId);
+                System.out.println("partnerId " + partnerId);
 
                 // Se não existir, retorna 'null'
                 Partner partner = storage.getPartner(partnerId);
@@ -139,6 +139,23 @@ public class RunServer {
                 }
 
                 return gson.toJson(partner);
+            });
+
+
+
+            post("", (request, response) -> {
+                // Devemos receber um Gene serializado em JSON (no body)
+
+                String data = request.body();
+
+                Partner partner = gson.fromJson(data, Partner.class);
+
+
+                Partner created = storage.createPartner(partner);
+
+
+                response.type("application/json");
+                return gson.toJson(created);
             });
 
         });
@@ -170,7 +187,12 @@ public class RunServer {
                 return gson.toJson( artworks );
             }
 
+
+
+
             artworks = storage.getAllArtworks();
+
+
             return gson.toJson( artworks );
         });
 

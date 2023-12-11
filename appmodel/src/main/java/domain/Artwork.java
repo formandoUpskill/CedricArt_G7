@@ -127,11 +127,35 @@ public class Artwork {
         this.artist = artist;
     }
 
+
+    public String getPartnerLink() {
+        if(links.partner==null)
+            return null;
+        return links.partner.href;
+    }
+
     // Inner class representing the "_links" part of the JSON
     public static class Links {
         private Thumbnail thumbnail;
 
-        // Inner class for "self" link
+        private Genes genes;
+
+        private Partner partner;
+
+
+        public static class Partner {
+            private String href;
+
+            // Getter and setter
+        }
+
+
+        // Inner class for "genes" link
+        public static class Genes {
+            private String href;
+
+            // Getter and setter
+        }
 
 
         // Inner class for "thumbnail" link
@@ -170,6 +194,10 @@ public class Artwork {
         if (links.thumbnail== null)
             return null;
         return links.thumbnail.href;
+    }
+
+    public String getGenesLink() {
+        return links.genes.href;
     }
 
 

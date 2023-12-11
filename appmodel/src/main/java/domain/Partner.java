@@ -9,6 +9,8 @@ public class Partner {
     private String region;
     private String name;
     private String website;
+
+
     private List<Artwork> artworks;
     private List<Artist> artists;
     private List<Exhibition> exhibitions;
@@ -21,12 +23,23 @@ public class Partner {
     /**@// TODO: 04/12/2023
      * mudar isto para um ojecto tipo utilizador
      */
-    private transient int id_gallerist;
+    private  int id_gallerist;
     /**@// TODO: 04/12/2023
      * mudar isto para um ojecto tipo utilizador
      */
-    private transient int id_coordinator;
+    private  int id_coordinator;
 
+
+    private Artwork artwork;
+
+
+    public Artwork getArtwork() {
+        return artwork;
+    }
+
+    public void setArtwork(Artwork artwork) {
+        this.artwork = artwork;
+    }
 
     public String getId() {
         return id;
@@ -96,6 +109,32 @@ public class Partner {
         return exhibitions;
     }
 
+    @SerializedName("_links")
+    private Links links;
+
+    public String getWebsiteLink() {
+
+        return links.website.href;
+    }
+
+
+
+    public static class Links {
+
+        private Website website;
+
+        // Inner class for "self" link
+
+
+        // Inner class for "website" link
+        public static class Website {
+            private String href;
+
+            // Getter and setter
+        }
+
+        // Getters and setters for all links
+    }
 
     @Override
     public String toString() {
@@ -104,9 +143,14 @@ public class Partner {
                 ", region='" + region + '\'' +
                 ", name='" + name + '\'' +
                 ", website='" + website + '\'' +
+                ", artworks=" + artworks +
+                ", artists=" + artists +
+                ", exhibitions=" + exhibitions +
                 ", email='" + email + '\'' +
                 ", id_gallerist=" + id_gallerist +
                 ", id_coordinator=" + id_coordinator +
+                ", artwork=" + artwork +
+                ", links=" + links +
                 '}';
     }
 }

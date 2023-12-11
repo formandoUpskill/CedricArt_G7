@@ -472,27 +472,18 @@ public class DBStorage {
 
         List<Artwork> listArtwork = new ArrayList<>();
         Artwork artwork;
-        Partner partner;
+
 
         try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
                 MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
-                    "Artwork.id_Artwork, " +
-                            "Artwork.title, " +
-                            "Artwork.date, " +
-                            "Artwork.thumbnail, " +
-                            "Artwork.created_at, " +
-                            "Artwork.updated_at, " +
-                            "Partner.id_Partner, " +
-                            "Partner.name, " +
-                            "Partner.region, " +
-                            "Partner.website ",
-                    " Artwork , " +
-                            " Partner",
-                    " Artwork.id_Partner= Partner.id_Partner",
-                    "title ASC");
+                    "*",
+                    " Artwork ");
+
+
+            System.out.println("getAllArtworksgetAllArtworks " + sqlCMD);
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
@@ -506,13 +497,6 @@ public class DBStorage {
                 artwork.setCreated_at(rs.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC));
                 artwork.setUpdated_at(rs.getTimestamp("updated_at").toInstant().atOffset(ZoneOffset.UTC));
 
-                partner = new Partner();
-                partner.setId(rs.getString("Partner.id_Partner"));
-                partner.setName(rs.getString("Partner.name"));
-                partner.setRegion(rs.getString("Partner.region"));
-                partner.setWebsite(rs.getString("Partner.website"));
-
-                artwork.setPartner(partner);
 
                 listArtwork.add(artwork);
             }
@@ -1164,7 +1148,8 @@ public class DBStorage {
             MyDBUtils.exec_sql(connection, sqlInsert);
 
             artwork = getArtwork(newArtwork.getId());
-            artwork.setArtist(newArtwork.getArtist());
+
+            // artwork.setArtist(newArtwork.getArtist());
 
 
 
@@ -1173,7 +1158,9 @@ public class DBStorage {
         }
 
         // inserir na tabela que representa a ligação entre artista e artworks
-        insertArtworkArtist(artwork, artwork.getArtist());
+        insertArtworkArtist(newArtwork, newArtwork.getArtist());
+
+        insertArtworkGenes(newArtwork, newArtwork.getGeneList());
 
         return artwork;
     }
@@ -1193,11 +1180,55 @@ public class DBStorage {
                 MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD);){
 
             MyDBUtils.exec_sql(connection,update);
+
+
         } catch (SQLException e) {
             System.out.println("exec_sql:" + update + " Error: " + e.getMessage());
         }
     }
 
+    /**
+     *
+     * @param newPartner
+     * @return
+     */
+    public Partner createPartner (Partner newPartner){
+
+        Partner partner= new Partner();
+
+        Artwork artwork = newPartner.getArtwork();
+
+        if (partnerExists(newPartner)){
+
+            updateArtworkPartner(newPartner,artwork);
+        }
+        else {
+
+            String sqlInsert = "insert into Partner (id_Partner,region, name, website, id_Gallerist, id_Coordinator ) values ('" +
+                    newPartner.getId() + "','" +
+                    newPartner.getRegion() + "','" +
+                    newPartner.getName() + "','" +
+                    newPartner.getWebsite() + "','" +
+                    newPartner.getId_gallerist() + "','" +
+                    newPartner.getId_coordinator() +
+                    "');";
+
+
+            try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                    MyDBUtils.DB_SERVER, MyDBUtils.DB_PORT, MyDBUtils.DB_NAME, MyDBUtils.DB_USER, MyDBUtils.DB_PWD);) {
+
+                MyDBUtils.exec_sql(connection, sqlInsert);
+
+
+            } catch (SQLException e) {
+                System.out.println("exec_sql:" + sqlInsert + " Error: " + e.getMessage());
+            }
+
+            updateArtworkPartner(newPartner, artwork);
+        }
+
+        return getPartner(newPartner.getId());
+    }
     /**
      *
      * @param partner
