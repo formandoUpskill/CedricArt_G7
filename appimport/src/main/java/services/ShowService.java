@@ -4,7 +4,7 @@ import adapters.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import domain.Artwork;
+import domain.Exhibition;
 import domain.Partner;
 import okhttp3.*;
 
@@ -14,16 +14,22 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PartnerService {
+public class ShowService {
 
-    public void createPartner(String apiUrl, Partner partner){
+    /**
+     *
+     * @param apiUrl
+     * @param exhibition
+     */
+
+    public void createShow(String apiUrl, Exhibition exhibition){
 
         OkHttpClient httpClient = new OkHttpClient();
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter())
                 .create();
 
-        String json = gson.toJson(partner);
+        String json = gson.toJson(exhibition);
 
         RequestBody body = RequestBody.create(
                 MediaType.parse("application/json"), json);
@@ -39,7 +45,7 @@ public class PartnerService {
 
             if(response.code() == 200) {
                 // Deserialize a client
-                Partner created = gson.fromJson(response.body().string(), Partner.class);
+                Exhibition created = gson.fromJson(response.body().string(), Exhibition.class);
 
             } else {
                 // Something failed, maybe client does not exist
@@ -52,10 +58,14 @@ public class PartnerService {
     }
 
 
-
-    public List<Partner> getAllPartners (String apiUrl)
+    /**
+     *
+     * @param apiUrl
+     * @return
+     */
+    public List<Exhibition> getAllShows(String apiUrl)
     {
-        List<Partner> all = new ArrayList<>();
+        List<Exhibition> all = new ArrayList<>();
 
         OkHttpClient httpClient = new OkHttpClient();
         Gson gson = new GsonBuilder()
@@ -75,7 +85,7 @@ public class PartnerService {
 
                 String data = response.body().string();
 
-                Type listType = new TypeToken<ArrayList<Partner>>(){}.getType();
+                Type listType = new TypeToken<ArrayList<Exhibition>>(){}.getType();
                 all = gson.fromJson(data, listType);
 
             } else {

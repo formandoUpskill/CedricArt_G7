@@ -24,6 +24,8 @@ public class ImportUtils {
 
     public static String CEDRIC_ART_API_HOST;
 
+    public static boolean IS_FAST_ARTSY_LOAD;
+
 
 
     public ImportUtils() {
@@ -35,6 +37,8 @@ public class ImportUtils {
             CLIENT_SECRET = this.config.getProperty("CLIENT_SECRET");
             XAPP_TOKEN  = this.config.getProperty("XAPP_TOKEN");
             CEDRIC_ART_API_HOST = this.config.getProperty("CEDRIC_ART_API_HOST");
+            IS_FAST_ARTSY_LOAD=  Boolean.parseBoolean(this.config.getProperty("IS_FAST_ARTSY_LOAD"));
+
 
             file.close();
         } catch (IOException e) {
