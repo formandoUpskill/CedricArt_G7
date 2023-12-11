@@ -2,15 +2,18 @@ public class Main {
 
     public static void main(String[] args) {
 
+
         ImportArtsyData importArtsyData = new ImportArtsyData();
 
-       importArtsyData.loadAllGenes();
+       // importArtsyData.loadAllGenes();
 
-        importArtsyData.loadAllArtistsWithArtworks();
+      // importArtsyData.loadAllArtistsWithArtworks();
 
-       importArtsyData.loadAllArtworksFromAllLoadedArtists();
+       // importArtsyData.loadAllArtworksFromAllLoadedArtists();
 
         importArtsyData.loadPartnerForAllArtworksLoaded();
+
+       // importArtsyData.loadShowsForAllPartnersLoaded();
 
 
 

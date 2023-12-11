@@ -26,6 +26,8 @@ public class ImportArtsyData {
 
     private PartnerService partnerService;
 
+    private boolean isFastLoad;
+
     public ImportArtsyData()
     {
         new ImportUtils();
@@ -33,6 +35,9 @@ public class ImportArtsyData {
         this.artistService = new ArtistService();
         this.artworkService = new ArtworkService();
         this.partnerService = new PartnerService();
+        isFastLoad= ImportUtils.IS_FAST_ARTSY_LOAD;
+
+
     }
 
     public void loadAllGenes() {
@@ -117,6 +122,86 @@ public class ImportArtsyData {
     /**
      *
      */
+    public void loadShowsForAllPartnersLoaded()
+    {
+
+// obter todos as os partners que estão na base de dados
+// e para cada partbner  chamar https://api.artsy.net/api/shows?partner_id=4df2262be7432d000100ba86
+
+        String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/partners";
+
+        List<Partner> partnerList =  this.partnerService.getAllPartners(apiUrl);
+
+        for(Partner partner: partnerList){
+
+            loadAllShows(partner);
+        }
+    }
+
+
+    /**
+     *
+     * @param partner
+     */
+    private void loadAllShows(Partner partner)
+    {
+
+        ArtworkArtsy artworkArtsyd = new ArtworkArtsy();
+
+        String xappToken = ImportUtils.generateXappToken();
+
+/*
+        String artsyApiUrl = "https://api.artsy.net/api/shows?partner_id" + partner.getId() +"&total_count=true";
+        List<Artwork> artworkList = new ArrayList<>();
+
+        if (this.isFastLoad)
+        {
+            artsyApiUrl = "https://api.artsy.net/api/shows?partner_id" + partner.getId();
+            artworkArtsy.getAllArtworksOfAnArtist(artsyApiUrl, xappToken, artworkList);
+        }
+        else {
+
+            do {
+                artsyApiUrl = artworkArtsy.getAllArtworksOfAnArtist(artsyApiUrl, xappToken, artworkList);
+
+            }
+            while (!artsyApiUrl.isBlank());
+        }
+
+        String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/artworks";
+
+
+        for (Artwork artwork : artworkList) {
+
+
+
+            List<Gene> geneList = new ArrayList<>();
+
+            if (this.isFastLoad)
+            {
+                artsyApiUrl = artwork.getGenesLink() ;
+                geneArtsy.getAllGenes(artsyApiUrl, xappToken, geneList);
+            }
+            else {
+                artsyApiUrl = artwork.getGenesLink() + "&total_count=true";
+                do {
+                    artsyApiUrl = geneArtsy.getAllGenes(artsyApiUrl, xappToken, geneList);
+                }
+                while (!artsyApiUrl.isBlank());
+            }
+
+            artwork.setArtist(artist);
+            artwork.setGeneList(geneList);
+
+            this.artworkService.createArtwork(apiUrl,artwork);
+
+        }
+*/
+    }
+
+    /**
+     *
+     */
 
     public void loadPartnerForAllArtworksLoaded()
     {
@@ -193,15 +278,21 @@ public class ImportArtsyData {
         String xappToken = ImportUtils.generateXappToken();
 
         String artsyApiUrl = "https://api.artsy.net/api/artworks?artist_id=" + artist.getId() +"&total_count=true";
-
         List<Artwork> artworkList = new ArrayList<>();
 
-        do {
-            artsyApiUrl = artworkArtsy.getAllArtworksOfAnArtist(artsyApiUrl, xappToken, artworkList);
-
+        if (this.isFastLoad)
+        {
+            artsyApiUrl = "https://api.artsy.net/api/artworks?artist_id=" + artist.getId();
+            artworkArtsy.getAllArtworksOfAnArtist(artsyApiUrl, xappToken, artworkList);
         }
-        while (!artsyApiUrl.isBlank());
+        else {
 
+            do {
+                artsyApiUrl = artworkArtsy.getAllArtworksOfAnArtist(artsyApiUrl, xappToken, artworkList);
+
+            }
+            while (!artsyApiUrl.isBlank());
+        }
 
         String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/artworks";
 
@@ -211,12 +302,19 @@ public class ImportArtsyData {
 
 
             List<Gene> geneList = new ArrayList<>();
-            artsyApiUrl = artwork.getGenesLink() + "&total_count=true";
-            do {
-                artsyApiUrl = geneArtsy.getAllGenes(artsyApiUrl, xappToken, geneList);
 
+            if (this.isFastLoad)
+            {
+                artsyApiUrl = artwork.getGenesLink() ;
+                geneArtsy.getAllGenes(artsyApiUrl, xappToken, geneList);
             }
-            while (!artsyApiUrl.isBlank());
+            else {
+                artsyApiUrl = artwork.getGenesLink() + "&total_count=true";
+                 do {
+                   artsyApiUrl = geneArtsy.getAllGenes(artsyApiUrl, xappToken, geneList);
+                  }
+                while (!artsyApiUrl.isBlank());
+            }
 
             artwork.setArtist(artist);
             artwork.setGeneList(geneList);
