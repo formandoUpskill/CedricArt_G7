@@ -100,6 +100,24 @@ public class RunServer {
                 return gson.toJson(exhibition);
             });
 
+
+
+            post("", (request, response) -> {
+                // Devemos receber um Gene serializado em JSON (no body)
+
+                String data = request.body();
+
+                Exhibition exhibition = gson.fromJson(data, Exhibition.class);
+
+                Partner partner = exhibition.getPartner();
+                Artwork artwork = exhibition.getPartner().getArtwork();
+
+                Exhibition created = storage.createExhibition(exhibition,partner,artwork);
+
+                response.type("application/json");
+                return gson.toJson(created);
+            });
+
         });
 
         // END SHOWS
@@ -150,9 +168,7 @@ public class RunServer {
 
                 Partner partner = gson.fromJson(data, Partner.class);
 
-
                 Partner created = storage.createPartner(partner);
-
 
                 response.type("application/json");
                 return gson.toJson(created);

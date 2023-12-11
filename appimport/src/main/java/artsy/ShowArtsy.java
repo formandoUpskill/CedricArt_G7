@@ -19,7 +19,7 @@ import java.util.List;
 public class ShowArtsy {
 
 
-    public static String getAllShows(String apiUrl, String xappToken, List exhibitionList) {
+    public  String getAllShows(String apiUrl, String xappToken, List exhibitionList) {
 
 
         Gson gson = new GsonBuilder().registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter()).create();

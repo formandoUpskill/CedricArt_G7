@@ -1268,13 +1268,17 @@ public class DBStorage {
 
     /**
      *
-     * @param exhibition
+     * @param newExhibition
      * @param partner
      * @param artwork
      */
-    public void createExhibition(Exhibition exhibition, Partner partner, Artwork artwork) {
+    public Exhibition createExhibition(Exhibition newExhibition, Partner partner, Artwork artwork) {
 
-        if (!exibitionExists(exhibition)) {
+        /**
+         * @Todo -- rever esta lógica
+         */
+
+        if (!exibitionExists(newExhibition)) {
 
             String sql = "insert into Exhibition (" +
                     "id_Exhibition, " +
@@ -1286,14 +1290,14 @@ public class DBStorage {
                     "id_Partner," +
                     "Id_Exhibition_Status)" +
                     " values ('" +
-                    exhibition.getId() + "','" +
-                    exhibition.getEnd_at() + "','" +
-                    exhibition.getStart_at() + "','" +
-                    exhibition.getThumbnail() + "','" +
-                    exhibition.getDescription() + "','" +
-                    exhibition.getName() + "','" +
+                    newExhibition.getId() + "','" +
+                    newExhibition.getEnd_at() + "','" +
+                    newExhibition.getStart_at() + "','" +
+                    newExhibition.getThumbnail() + "','" +
+                    newExhibition.getDescription() + "','" +
+                    newExhibition.getName() + "','" +
                     partner.getId() + "'," +
-                    "(select Id_Exhibition_Status from Exhibition_Status where status='" + exhibition.getStatus() +"')" +
+                    "(select Id_Exhibition_Status from Exhibition_Status where status='" + newExhibition.getStatus() +"')" +
                     ");";
 
 
@@ -1306,9 +1310,16 @@ public class DBStorage {
                 System.out.println("exec_sql:" + sql + " Error: " + e.getMessage());
             }
 
-            insertExhibitionArtwork(artwork,exhibition);
         }
+
+        insertExhibitionArtwork(artwork, newExhibition);
+
+
+        return newExhibition;
     }
+
+
+
 
 
 }
