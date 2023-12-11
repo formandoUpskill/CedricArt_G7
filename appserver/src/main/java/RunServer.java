@@ -202,13 +202,12 @@ public class RunServer {
 
                 String data = request.body();
 
-                System.out.println("request.body()" + data);
 
                 Artwork artwork = gson.fromJson(data, Artwork.class);
 
+
                 Artwork created = storage.createArtwork(artwork);
 
-                System.out.println("created" + created);
 
                 response.type("application/json");
                 return gson.toJson(created);

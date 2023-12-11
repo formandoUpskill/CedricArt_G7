@@ -4,7 +4,6 @@ package domain;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +18,8 @@ public class Artwork {
     private String date;
 
     private Partner partner;
+
+    private Artist artist;
 
 
     public void setGeneList(List<Gene> geneList) {
@@ -118,7 +119,13 @@ public class Artwork {
         this.partner = partner;
     }
 
+    public Artist getArtist() {
+        return artist;
+    }
 
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
 
     // Inner class representing the "_links" part of the JSON
     public static class Links {
@@ -174,10 +181,12 @@ public class Artwork {
                 ", thumbnail='" + thumbnail + '\'' +
                 ", date='" + date + '\'' +
                 ", partner=" + partner +
+                ", artist=" + artist +
                 ", geneList=" + geneList +
                 ", created_at=" + created_at +
                 ", updated_at=" + updated_at +
                 ", url='" + url + '\'' +
+                ", links=" + links +
                 '}';
     }
 }

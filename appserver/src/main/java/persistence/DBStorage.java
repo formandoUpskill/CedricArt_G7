@@ -1133,11 +1133,15 @@ public class DBStorage {
     }
 
 
-
-
+    /**
+     *
+     * @param newArtwork
+     * @return
+     */
     public Artwork createArtwork(Artwork newArtwork) {
 
         Artwork artwork= new Artwork();
+
 
 
         String sqlInsert = "insert into Artwork (id_Artwork, title, created_at, updated_at, date, thumbnail, url) values (" +
@@ -1160,12 +1164,16 @@ public class DBStorage {
             MyDBUtils.exec_sql(connection, sqlInsert);
 
             artwork = getArtwork(newArtwork.getId());
+            artwork.setArtist(newArtwork.getArtist());
+
 
 
         } catch (SQLException e) {
             System.out.println("exec_sql:" + sqlInsert + " Error: " + e.getMessage());
         }
 
+        // inserir na tabela que representa a ligação entre artista e artworks
+        insertArtworkArtist(artwork, artwork.getArtist());
 
         return artwork;
     }

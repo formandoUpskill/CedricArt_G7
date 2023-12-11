@@ -149,7 +149,9 @@ public class ImportArtsyData {
 
         for (Artwork artwork : artworkList) {
             // inserir esse artista na base de dados
+            artwork.setArtist(artist);
 
+            System.out.println("artworkartworkartwork "  + artwork);
             this.artworkService.createArtwork(apiUrl,artwork);
 
         }
