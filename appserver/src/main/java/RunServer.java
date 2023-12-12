@@ -214,7 +214,7 @@ public class RunServer {
 
                 String artworkId = request.params(":id");
 
-            System.out.println("artworkId " + artworkId);
+
 
                 // Se o client não existir, retorna 'null'
                 Artwork artwork = storage.getArtworkWithPartnerAndGenes(artworkId);
@@ -356,6 +356,9 @@ public class RunServer {
         });
 
 
+        /**
+         *
+         */
 
         exception(Exception.class, (exception, request, response) -> {
             response.type("application/json");

@@ -43,12 +43,12 @@ CREATE TABLE Artist
   location VARCHAR(250),
   hometown VARCHAR(250),
   id_Artist CHAR(40) NOT NULL,
-  name VARCHAR(150),
+  name VARCHAR(500),
   biography VARCHAR(2500),
-  slug VARCHAR(150),
+  slug VARCHAR(500),
   birthyear VARCHAR(4) NOT NULL,
   deathyear VARCHAR(4),
-  thumbnail VARCHAR(250),
+  thumbnail VARCHAR(500),
   url VARCHAR(250),
   nationality VARCHAR(50) NOT NULL,
   PRIMARY KEY (id_Artist)
@@ -57,7 +57,7 @@ CREATE TABLE Artist
 CREATE TABLE Gene
 (
   id_Gene CHAR(40) NOT NULL,
-  name VARCHAR(150) NOT NULL,
+  name VARCHAR(500) NOT NULL,
   description VARCHAR(2500),
   PRIMARY KEY (id_Gene)
 );
@@ -75,9 +75,9 @@ CREATE TABLE Partner
 (
   region VARCHAR(250),
   url VARCHAR(250),
-  name VARCHAR(250) NOT NULL,
+  name VARCHAR(500) NOT NULL,
   id_Partner CHAR(40) NOT NULL,
-  website VARCHAR(250),
+  website VARCHAR(500),
   id_Gallerist INT NOT NULL,
   id_Coordinator INT NOT NULL,
   PRIMARY KEY (id_Partner),
@@ -87,10 +87,10 @@ CREATE TABLE Partner
 
 CREATE TABLE Artwork
 (
-  title VARCHAR(200) NOT NULL,
+  title VARCHAR(500) NOT NULL,
   date VARCHAR(100) NOT NULL,
   id_Artwork CHAR(40) NOT NULL,
-  thumbnail VARCHAR(250) NOT NULL,
+  thumbnail VARCHAR(500) NOT NULL,
   url VARCHAR(250),
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL,
@@ -103,11 +103,11 @@ CREATE TABLE Exhibition
 (
   end_at TIMESTAMP,
   start_at TIMESTAMP NOT NULL,
-  thumbnail VARCHAR(250),
+  thumbnail VARCHAR(500),
   description VARCHAR(2500),
   id_Exhibition CHAR(40) NOT NULL,
-  name VARCHAR(150) NOT NULL,
-  url VARCHAR(250),
+  name VARCHAR(500) NOT NULL,
+  url VARCHAR(500),
   id_Partner CHAR(40) NOT NULL,
   Id_Exhibition_Status INT NOT NULL,
   PRIMARY KEY (id_Exhibition),
