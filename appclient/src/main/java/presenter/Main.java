@@ -1,6 +1,7 @@
 package presenter;
 
 import domain.Artwork;
+import domain.Partner;
 
 import java.util.List;
 
@@ -18,24 +19,38 @@ public class Main {
         Artwork artwork;
         List<Artwork> artworks;
 
+        Partner partner;
+        List<Partner> partners;
+
         artwork=  presenter.getArtwork(artworkId);
         System.out.println(artwork);
 
        // artworks= presenter.getAllArtworks();
 
        artworks= presenter.getAllArtworksByPartner(partnerId);
-
+/*
         for (Artwork aArtwork: artworks)
         {
             System.out.println(aArtwork);
         }
+*/
 
-       // presenter.getExhibition(exhibitionId);
+
+      //  System.out.println(presenter.getExhibition(exhibitionId));
       //   presenter.getAllArtworksByExhibition(exhibitionId);
 
 
- //     presenter.getAllPartners();
-     // presenter.getPartner(partnerId);
+     partners= presenter.getAllPartners();
+/*
+        for (Partner aPartner: partners)
+        {
+            System.out.println(aPartner);
+        }
+
+        */
+
+        System.out.println((presenter.getPartner(partnerId)));
+
 
 
    // presenter.getAllExhibitions();
