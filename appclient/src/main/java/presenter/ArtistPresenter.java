@@ -61,7 +61,7 @@ public class ArtistPresenter {
      *
      * @return
      */
-    public List<Artist> getAllArtists (String apiUrl)
+    public List<Artist> getArtists (String apiUrl)
     {
         List<Artist> all = new ArrayList<>();
 
