@@ -46,8 +46,6 @@ public class ArtworkPresenter {
                 String data = response.body().string();
 
                 artwork = gson.fromJson(data, Artwork.class);
-                System.out.println(artwork);
-                System.out.println("lista de genes + " + artwork.getGeneList().size());
 
             } else {
                 // Something failed, maybe client does not exist
@@ -67,7 +65,7 @@ public class ArtworkPresenter {
      *
      * @return
      */
-    public List<Artwork> getAllArtworks (String apiUrl)
+    public List<Artwork> getArtworks (String apiUrl)
     {
         List<Artwork> all = new ArrayList<>();
 
@@ -93,9 +91,7 @@ public class ArtworkPresenter {
 
                 Type listType = new TypeToken<ArrayList<Artwork>>(){}.getType();
                 all = gson.fromJson(data, listType);
-                for (Artwork artwork : all) {
-                    System.out.println(artwork);
-                }
+
             } else {
                 // Something failed, maybe client does not exist
                 System.out.println(response.body().string());
@@ -108,7 +104,7 @@ public class ArtworkPresenter {
         return all;
     }
 
-
+/*
 
     public List<Artwork> getAllArtworksByPartner (String apiUrl)
     {
@@ -133,9 +129,7 @@ public class ArtworkPresenter {
 
                 Type listType = new TypeToken<ArrayList<Artwork>>(){}.getType();
                 all = gson.fromJson(data, listType);
-                for (Artwork artwork : all) {
-                    System.out.println(artwork);
-                }
+
             } else {
                 // Something failed, maybe client does not exist
                 System.out.println(response.body().string());
@@ -148,6 +142,10 @@ public class ArtworkPresenter {
         return all;
     }
 
+
+ */
+
+    /*
 
     public List<Artwork> getAllArtworksByExhibition (String apiUrl)
     {
@@ -170,13 +168,10 @@ public class ArtworkPresenter {
 
                 String data = response.body().string();
 
-                System.out.println(data);
 
                 Type listType = new TypeToken<ArrayList<Artwork>>(){}.getType();
                 all = gson.fromJson(data, listType);
-                for (Artwork artwork : all) {
-                    System.out.println(artwork);
-                }
+
             } else {
                 // Something failed, maybe client does not exist
                 System.out.println(response.body().string());
@@ -188,4 +183,7 @@ public class ArtworkPresenter {
 
         return all;
     }
+
+    */
+
 }

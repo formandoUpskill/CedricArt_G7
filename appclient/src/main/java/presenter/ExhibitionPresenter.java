@@ -43,9 +43,7 @@ public class ExhibitionPresenter {
 
                 Type listType = new TypeToken<ArrayList<Exhibition>>(){}.getType();
                 all = gson.fromJson(data, listType);
-                for (Exhibition exhibition : all) {
-                    System.out.println(exhibition);
-                }
+
             } else {
                 // Something failed, maybe client does not exist
                 System.out.println(response.body().string());
@@ -84,9 +82,7 @@ public class ExhibitionPresenter {
 
                 Type listType = new TypeToken<ArrayList<Exhibition>>(){}.getType();
                 all = gson.fromJson(data, listType);
-                for (Exhibition exhibition : all) {
-                    System.out.println(exhibition);
-                }
+
             } else {
                 // Something failed, maybe client does not exist
                 System.out.println(response.body().string());
@@ -100,7 +96,12 @@ public class ExhibitionPresenter {
     }
 
 
-
+    /**
+     *
+     * @param apiUrl
+     * @param exhibitionId
+     * @return
+     */
     public Exhibition getExhibition(String apiUrl, String exhibitionId)
     {
 
@@ -124,7 +125,7 @@ public class ExhibitionPresenter {
                 String data = response.body().string();
 
                 exhibition = gson.fromJson(data, Exhibition.class);
-                System.out.println(exhibition);
+
 
             } else {
                 // Something failed, maybe client does not exist
