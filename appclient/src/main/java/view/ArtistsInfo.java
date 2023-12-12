@@ -1,5 +1,7 @@
 package view;
 
+import domain.Artist;
+import domain.Artwork;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -13,9 +15,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class ArtistsInfo extends Application {
     private Label lblBiography;
     private Label lblArtwork;
+    private GridPane gridPane;
 
     public static void main(String[] args) {
         launch(args);
@@ -25,7 +30,7 @@ public class ArtistsInfo extends Application {
 
         primaryStage.setTitle("ArtistsInfo");
 
-        Image backButtonImage = new Image("file:/home/RicardoReis/Desktop/Upskill/Projecto Final/Imagens/voltar.jpeg");
+        Image backButtonImage = new Image(getClass().getResource("/images/voltar.jpeg").toExternalForm());
         ImageView backButtonImageView = new ImageView(backButtonImage);
         backButtonImageView.setFitHeight(20);
         backButtonImageView.setFitWidth(20);
@@ -33,10 +38,10 @@ public class ArtistsInfo extends Application {
         lblBiography = new Label("Biography");
         lblArtwork = new Label("Artwork");
 
-        GridPane gridPane = createGridPane();
+        gridPane = createGridPane();
 
         Button btnBack = new Button("", backButtonImageView);
-        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: lightgreen; ");
+        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: YellowGreen; ");
         btnBack.setPrefSize(100,20);
 
         btnBack.setOnAction(event -> {
@@ -68,13 +73,27 @@ public class ArtistsInfo extends Application {
         primaryStage.show();
     }
 
-    public void updateInfo(String artistName) {
+    public void updateInfo(Artist artist, List<Artwork> artworks) {
         Platform.runLater(() ->{
-            String biographyText = "Biography of ";
-            String artworkText = "Artwork by ";
-
+            String biographyText = "Biography of " + artist.getName();
             lblBiography.setText(biographyText);
-            lblArtwork.setText(artworkText);
+            gridPane.getChildren().clear();
+
+            int col = 0, row = 0;
+            for (Artwork artwork : artworks){
+                Label lblArtwork = new Label(artwork.getTitle());
+                Image artworkImage = new Image(artwork.getThumbnail());
+                ImageView artworkImageView = new ImageView(artworkImage);
+                artworkImageView.setFitWidth(50);
+                artworkImageView.setFitHeight(50);
+                gridPane.add(lblArtwork, col, row);
+                gridPane.add(artworkImageView, col, row + 1);
+                col++;
+                if (col == 4){
+                    col = 0;
+                    row += 2;
+                }
+            }
         });
     }
 
@@ -84,30 +103,9 @@ public class ArtistsInfo extends Application {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        // Adicionar rótulos e imagens
-        for (int row = 0; row < 2; row++) {
-            for (int col = 0; col < 2; col++) {
-                Label label = new Label("Item " + (row * 2 + col + 1));
-
-                // Exemplo de imagem (substitua pelo caminho correto)
-                Image image1 = new Image("file:/home/RicardoReis/Desktop/Upskill/Projecto Final/Imagens/GridExemplo" + (row * 1 + col + 1) + ".jpeg");
-                ImageView imageView1 = new ImageView(image1);
-                imageView1.setFitWidth(50);
-                imageView1.setFitHeight(50);
-
-                Image image2 = new Image("file:/home/RicardoReis/Desktop/Upskill/Projecto Final/Imagens/GridExemplo2" + (row * 1 + col + 2) + ".jpeg");
-                ImageView imageView2 = new ImageView(image2);
-                imageView2.setFitWidth(50);
-                imageView2.setFitHeight(50);
-
-                // Adicionar rótulo e imagem à GridPane
-                gridPane.add(label, col * 2, row);
-                gridPane.add(imageView1, col * 2, row + 1); // Iniciar abaixo dos rótulos
-                gridPane.add(imageView2, col * 2 + 1, row + 1);
-            }
-        }
+        int col = 0;
+        int row = 0;
 
         return gridPane;
     }
-
 }

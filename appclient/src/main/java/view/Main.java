@@ -25,7 +25,7 @@ public class Main extends Application {
             primaryStage.setTitle("CedricArt");
 
             // Adicione uma imagem de fundo
-            Image backgroundImage = new Image("file:/home/RicardoReis/Desktop/Upskill/Projecto Final/Imagens/Artsy.jpg");
+            Image backgroundImage = new Image(getClass().getResource("/images/Artsy.jpg").toExternalForm());
             ImageView backgroundView = new ImageView(backgroundImage);
 
             // Botão "Entrar"

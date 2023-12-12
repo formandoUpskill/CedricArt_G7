@@ -18,11 +18,10 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.FileInputStream;
-import java.net.URL;
 import java.util.List;
 
 public class Menu extends Application {
@@ -57,7 +56,9 @@ public class Menu extends Application {
 
         // Crie 4 botões na terceira forma
         Button btnArtwork = new Button("Artworks");
-        btnArtwork.setStyle("-fx-font-size: 30;" + "-fx-shape: \"M15 0 A15 15 0 1 0 30 0 A15 15 0 1 0 0 0 Z\";");
+        btnArtwork.setStyle("-fx-font-size: 30;");
+        Circle circle = new Circle(50);
+        btnArtwork.setShape(circle);
         Button btnArtists = new Button("Artists");
         btnArtists.setStyle("-fx-font-size: 25;");
         Button btnExhibition = new Button("Exhibitions");
@@ -65,7 +66,7 @@ public class Menu extends Application {
         Button btnGenes = new Button("Genes");
         btnGenes.setStyle("-fx-font-size: 25;" + "-fx-shape: \"M15 0 A15 15 0 1 0 30 0 A15 15 0 1 0 0 0 Z\";");
         Button btnBack = new Button("", backButtonImageView);
-        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: lightgreen; ");
+        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: YellowGreen; ");
         btnBack.setPrefSize(200,20);
 
         btnBack.setOnAction(event -> {
@@ -111,7 +112,7 @@ public class Menu extends Application {
 
         btnExhibition.setOnAction(event -> {
             List<Exhibition> exhibitions = partner.getAllExhibitions();
-            ExhibitionsList exhibitionsList = new ExhibitionsList(exhibitions);
+            Exhibitions exhibitionsList = new Exhibitions(exhibitions);
 
             applyRotationTransition(btnExhibition, -360);
             rotate.setOnFinished(rotateFinishedEvent ->{
@@ -144,7 +145,7 @@ public class Menu extends Application {
         vbBack.setPadding(new Insets(5));
 
         VBox vbLayout = new VBox(10);
-        vbLayout.setStyle("-fx-background-color: fuchsia;");
+        vbLayout.setStyle("-fx-background-color: gold;");
         vbLayout.getChildren().addAll(vbMenu, vbBack);
         vbLayout.setAlignment(Pos.CENTER);
         vbLayout.setSpacing(100);

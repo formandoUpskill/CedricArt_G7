@@ -33,7 +33,7 @@ public class Galeries extends Application {
         primaryStage.setTitle("Galleries");
 //        primaryStage.setResizable(false);
 
-        Image backButtonImage = new Image("file:/home/RicardoReis/Desktop/Upskill/Projecto Final/Imagens/voltar.jpeg");
+        Image backButtonImage = new Image(getClass().getResource("/images/voltar.jpeg").toExternalForm());
         ImageView backButtonImageView = new ImageView(backButtonImage);
         backButtonImageView.setFitHeight(20);
         backButtonImageView.setFitWidth(20);
@@ -51,7 +51,7 @@ public class Galeries extends Application {
             btnGalleries[i].setPrefSize(100,150);
         }
         Button btnBack = new Button("", backButtonImageView);
-        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: lightgreen; ");
+        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: YellowGreen; ");
         btnBack.setPrefSize(400,20);
 
 
