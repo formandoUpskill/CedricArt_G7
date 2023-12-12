@@ -1,5 +1,9 @@
 package presenter;
 
+import domain.Artwork;
+
+import java.util.List;
+
 public class Main {
 
 
@@ -11,10 +15,21 @@ public class Main {
         String partnerId="5035a14a6cb80200020007e0";
         String exhibitionId="4ea1e81bb5482b000100437c";
 
-      //  presenter.getArtwork(artworkId);
-       // presenter.getAllArtworks();
+        Artwork artwork;
+        List<Artwork> artworks;
 
-      //  presenter.getAllArtworksByPartner(partnerId);
+        artwork=  presenter.getArtwork(artworkId);
+        System.out.println(artwork);
+
+       // artworks= presenter.getAllArtworks();
+
+       artworks= presenter.getAllArtworksByPartner(partnerId);
+
+        for (Artwork aArtwork: artworks)
+        {
+            System.out.println(aArtwork);
+        }
+
        // presenter.getExhibition(exhibitionId);
       //   presenter.getAllArtworksByExhibition(exhibitionId);
 

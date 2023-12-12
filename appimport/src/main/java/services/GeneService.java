@@ -30,13 +30,12 @@ public class GeneService {
 
         try {
             Response response = httpClient.newCall(postRequest).execute();
-            System.out.println("Response code: " + response.code());
-            System.out.println("Response content type: " + response.header("content-type"));
+
 
             if(response.code() == 200) {
                 // Deserialize a client
                 Gene created = gson.fromJson(response.body().string(), Gene.class);
-                System.out.println(created);
+
             } else {
                 // Something failed, maybe client does not exist
                 System.out.println(response.body().string());

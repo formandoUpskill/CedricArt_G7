@@ -41,7 +41,10 @@ public class ArtistArtsy {
 
 
                 try {
-                    apiUrl = jsonObject.getAsJsonObject("_links").getAsJsonObject("next").get("href").getAsString();
+                    apiUrl = jsonObject.getAsJsonObject("_links").
+                            getAsJsonObject("next").
+                            get("href").getAsString();
+
                 } catch (NullPointerException ex) {
                     apiUrl = "";
                     return apiUrl;

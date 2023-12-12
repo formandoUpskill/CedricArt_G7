@@ -34,8 +34,6 @@ public class PartnerPresenter {
 
         try {
             Response response = httpClient.newCall(getRequest).execute();
-            System.out.println("Response code: " + response.code());
-            System.out.println("Response content type: " + response.header("content-type"));
 
             if(response.code() == 200) {
                 // Deserialize a list of clients
@@ -44,9 +42,7 @@ public class PartnerPresenter {
 
                 Type listType = new TypeToken<ArrayList<Partner>>(){}.getType();
                 all = gson.fromJson(data, listType);
-                for (Partner partner : all) {
-                    System.out.println(partner);
-                }
+
             } else {
                 // Something failed, maybe client does not exist
                 System.out.println(response.body().string());
@@ -60,7 +56,12 @@ public class PartnerPresenter {
     }
 
 
-
+    /**
+     *
+     * @param apiUrl
+     * @param partnerId
+     * @return
+     */
     public Partner getPartner(String apiUrl, String partnerId)
     {
 
@@ -78,15 +79,13 @@ public class PartnerPresenter {
 
         try {
             Response response = httpClient.newCall(getRequest).execute();
-            System.out.println("Response code: " + response.code());
-            System.out.println("Response content type: " + response.header("content-type"));
+
 
             if(response.code() == 200) {
                 // Create client object to represent the received data
                 String data = response.body().string();
 
                 partner = gson.fromJson(data, Partner.class);
-                System.out.println(partner);
 
             } else {
                 // Something failed, maybe client does not exist

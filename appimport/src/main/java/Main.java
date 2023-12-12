@@ -5,13 +5,13 @@ public class Main {
 
         ImportArtsyData importArtsyData = new ImportArtsyData();
 
-       // importArtsyData.loadAllGenes();
+       importArtsyData.loadAllGenes();
 
-      // importArtsyData.loadAllArtistsWithArtworks();
+      importArtsyData.loadAllArtistsWithArtworks();
 
-       // importArtsyData.loadAllArtworksFromAllLoadedArtists();
+     importArtsyData.loadAllArtworksFromAllLoadedArtists();
 
-      //  importArtsyData.loadPartnerForAllArtworksLoaded();
+       importArtsyData.loadPartnerForAllArtworksLoaded();
 
         importArtsyData.loadShowsForAllPartnersLoaded();
 

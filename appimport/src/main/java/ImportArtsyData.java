@@ -22,7 +22,9 @@ public class ImportArtsyData {
 
     private boolean isFastLoad;
 
-
+    /**
+     *
+     */
     public ImportArtsyData()
     {
         new ImportUtils();
@@ -35,6 +37,9 @@ public class ImportArtsyData {
 
     }
 
+    /**
+     *
+     */
     public void loadAllGenes() {
 
 
@@ -208,7 +213,11 @@ public class ImportArtsyData {
         }
     }
 
-
+    /**
+     *
+     * @param partnerlink
+     * @param artwork
+     */
     private void loadPartner(String partnerlink, Artwork artwork)
     {
 
@@ -288,6 +297,7 @@ public class ImportArtsyData {
 
             List<Gene> geneList = new ArrayList<>();
 
+            /* @todo: no fim retirar este comentário do código -- é apenas para carregar mais depressa os genes
             if (this.isFastLoad)
             {
                 artsyApiUrl = artwork.getGenesLink() ;
@@ -300,6 +310,11 @@ public class ImportArtsyData {
                   }
                 while (!artsyApiUrl.isBlank());
             }
+            */
+        /* @todo: no fim descpmentar o código acima e apagar este código-- é apenas para carregar mais depresa os genes */
+            artsyApiUrl = artwork.getGenesLink() ;
+            geneArtsy.getAllGenes(artsyApiUrl, xappToken, geneList);
+
 
             artwork.setArtist(artist);
             artwork.setGeneList(geneList);

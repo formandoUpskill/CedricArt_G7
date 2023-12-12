@@ -1,5 +1,6 @@
 package presenter;
 
+import domain.Artist;
 import domain.Artwork;
 import domain.Exhibition;
 import domain.Partner;
@@ -14,6 +15,7 @@ public class CedricArtPresenter {
 
     private ExhibitionPresenter exhibitionPresenter;
 
+    private ArtistPresenter artistPresenter;
     /**
      *
      */
@@ -24,6 +26,7 @@ public class CedricArtPresenter {
         artworkPresenter= new ArtworkPresenter();
         partnerPresenter = new PartnerPresenter();
         exhibitionPresenter =new ExhibitionPresenter();
+        artistPresenter = new ArtistPresenter();
 
     }
 
@@ -34,6 +37,53 @@ public class CedricArtPresenter {
     {
         new AppUtils();
     }
+
+
+    /**
+     *
+     * @param artistId
+     * @return
+     */
+    public Artist getArtist(String artistId) {
+
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artists/";
+        Artist artist = this.artistPresenter.getArtist(apiUrl,artistId);
+        return artist;
+
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<Artist> getAllArtists ()
+    {
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artists";
+
+        return this.artistPresenter.getArtists(apiUrl);
+    }
+
+
+
+    public List<Artist> getAllArtistsByPartner (String partner_id)
+    {
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artists?partner_id=" + partner_id;
+
+        return this.artistPresenter.getArtists(apiUrl);
+    }
+
+
+    public List<Artist> getAllArtistsByExhibition (String exhibition_id)
+    {
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artists?show_id=" + exhibition_id;
+
+        return this.artistPresenter.getArtists(apiUrl);
+    }
+
+
+
+
+
 
     /**
      *
@@ -55,7 +105,7 @@ public class CedricArtPresenter {
     {
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks";
 
-       return this.artworkPresenter.getAllArtworks(apiUrl);
+       return this.artworkPresenter.getArtworks(apiUrl);
     }
 
 
@@ -64,7 +114,7 @@ public class CedricArtPresenter {
     {
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?partner_id=" + partner_id;
 
-        return this.artworkPresenter.getAllArtworksByPartner(apiUrl);
+        return this.artworkPresenter.getArtworks(apiUrl);
     }
 
 
@@ -72,7 +122,7 @@ public class CedricArtPresenter {
     {
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?show_id=" + exhibition_id;
 
-        return this.artworkPresenter.getAllArtworksByExhibition(apiUrl);
+        return this.artworkPresenter.getArtworks(apiUrl);
     }
 
 
