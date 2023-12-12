@@ -357,110 +357,12 @@ public class RunServer {
 
 
 
+        exception(Exception.class, (exception, request, response) -> {
+            response.type("application/json");
+            response.status(400);
+            response.body("{\"message\":\"Custom internal server error message\"}");
 
-/*
-        path("/clients", () -> {
-
-
-            delete("/:id", (request, response) -> {
-                String strId = request.params(":id");
-                int clientId = Integer.parseInt(strId);
-
-                Client existing = storage.getClient(clientId);
-
-                response.type("application/json");
-
-                if(existing == null) {
-                    response.status(404);
-                    JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("message", "Client not found");
-                    return jsonObject.toString();
-                }
-
-                Client deletedClient = storage.deleteClient(clientId);
-
-                return gson.toJson(deletedClient);
-            });
-
-            put("/:id", (request, response) -> {
-                String strId = request.params(":id");
-                int clientId = Integer.parseInt(strId);
-
-                response.type("application/json");
-
-                // Validar se existe client com ID especificado
-                Client existing = storage.getClient(clientId);
-                if(existing == null) {
-                    response.status(404);
-                    JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("message", "Client not found");
-                    return jsonObject.toString();
-                }
-
-                Client clientInfo = gson.fromJson(request.body(), Client.class);
-
-                // storage.updateClient tem de ter um client com o ID atribuído
-                clientInfo.setId(clientId); // o do /:id
-                Client updatedClient = storage.updateClient(clientInfo);
-
-
-                return gson.toJson(updatedClient);
-            });
-
-            post("", (request, response) -> {
-                // Devemos receber um Client serializado em JSON (no body)
-
-                Client newClient = gson.fromJson(request.body(), Client.class);
-
-                Client createdClient = storage.createClient(newClient);
-
-                response.type("application/json");
-                return gson.toJson(createdClient);
-            });
-
-            get("", (request, response) -> {
-                response.type("application/json");
-
-                List<Client> allClients = storage.getAllClients();
-
-                String sortValue = request.queryParams("sortBy");
-                // Foi passado este query parameter? Se sim, ordenar
-                if(sortValue != null) {
-                    if(sortValue.equalsIgnoreCase("name")) {
-                        Collections.sort(allClients, (c1, c2) -> {
-                            return c1.getName().compareToIgnoreCase(c2.getName());
-                        });
-                    }
-                    // Outra ordenação
-                }
-
-                return gson.toJson(allClients);
-            });
-
-            get("/:id", (request, response) -> {
-
-                String strId = request.params(":id");
-                int clientId = Integer.parseInt(strId);
-
-                // Se o client não existir, retorna 'null'
-                Client client = storage.getClient(clientId);
-
-                response.type("application/json");
-
-                if(client == null) {
-                    response.status(404);
-                    JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("message", "Client not found");
-                    return jsonObject.toString();
-                }
-
-                return gson.toJson(client);
-            });
-
-
+            exception.printStackTrace();
         });
-
-*/
-
     }
 }

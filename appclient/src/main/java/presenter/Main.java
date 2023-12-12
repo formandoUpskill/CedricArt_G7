@@ -11,8 +11,8 @@ public class Main {
         String partnerId="5035a14a6cb80200020007e0";
         String exhibitionId="4ea1e81bb5482b000100437c";
 
-      //  presenter.getArtwork(artworkId);
-       // presenter.getAllArtworks();
+       // presenter.getArtwork(artworkId);
+        presenter.getAllArtworks();
 
       //  presenter.getAllArtworksByPartner(partnerId);
        // presenter.getExhibition(exhibitionId);
