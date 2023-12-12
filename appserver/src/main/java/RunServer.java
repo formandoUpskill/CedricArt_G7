@@ -109,10 +109,7 @@ public class RunServer {
 
                 Exhibition exhibition = gson.fromJson(data, Exhibition.class);
 
-                Partner partner = exhibition.getPartner();
-                Artwork artwork = exhibition.getPartner().getArtwork();
-
-                Exhibition created = storage.createExhibition(exhibition,partner,artwork);
+                Exhibition created = storage.createExhibition(exhibition);
 
                 response.type("application/json");
                 return gson.toJson(created);
@@ -131,8 +128,6 @@ public class RunServer {
                 response.type("application/json");
 
                 List<Partner> partners = storage.getAllPartners();
-
-                System.out.println("partners.size() " + partners.size());
 
                 return gson.toJson( partners );
             });
@@ -198,12 +193,10 @@ public class RunServer {
             String exhibition_id = request.queryParams("show_id");
             if(exhibition_id != null) {
 
-                System.out.println("exhibition_idexhibition_idexhibition_id " + exhibition_id);
+
                 artworks= storage.getAllArtworksByExhibition(exhibition_id);
                 return gson.toJson( artworks );
             }
-
-
 
 
             artworks = storage.getAllArtworks();

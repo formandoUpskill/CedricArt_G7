@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 public class Exhibition {
     private String id;
@@ -17,8 +18,17 @@ public class Exhibition {
 
     private Partner partner;
 
+    private List<Artwork> artworks;
+
     private String status;
 
+    public List<Artwork> getArtworks() {
+        return artworks;
+    }
+
+    public void setArtworks(List<Artwork> artworks) {
+        this.artworks = artworks;
+    }
 
     public Partner getPartner() {
         return partner;
@@ -111,6 +121,8 @@ public class Exhibition {
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 ", id_Partner='" + id_Partner + '\'' +
+                ", partner=" + partner +
+                ", artworks=" + artworks +
                 ", status='" + status + '\'' +
                 '}';
     }

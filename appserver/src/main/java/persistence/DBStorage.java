@@ -1269,14 +1269,13 @@ public class DBStorage {
     /**
      *
      * @param newExhibition
-     * @param partner
-     * @param artwork
-     */
-    public Exhibition createExhibition(Exhibition newExhibition, Partner partner, Artwork artwork) {
 
-        /**
-         * @Todo -- rever esta lógica
-         */
+     */
+    public Exhibition createExhibition(Exhibition newExhibition) {
+
+
+        Partner partner = newExhibition.getPartner();
+        List<Artwork> artworks = newExhibition.getArtworks();
 
         if (!exibitionExists(newExhibition)) {
 
@@ -1291,8 +1290,8 @@ public class DBStorage {
                     "Id_Exhibition_Status)" +
                     " values ('" +
                     newExhibition.getId() + "','" +
-                    newExhibition.getEnd_at() + "','" +
-                    newExhibition.getStart_at() + "','" +
+                    newExhibition.getEnd_at().toString().replace("Z", "") + "','" +
+                    newExhibition.getStart_at().toString().replace("Z", "") + "','" +
                     newExhibition.getThumbnail() + "','" +
                     newExhibition.getDescription() + "','" +
                     newExhibition.getName() + "','" +
@@ -1311,9 +1310,11 @@ public class DBStorage {
             }
 
         }
+        // para cada artwork fazer a correspondência na tabela Exhibition_Artwork
+        for (Artwork artwork: artworks) {
 
-        insertExhibitionArtwork(artwork, newExhibition);
-
+            insertExhibitionArtwork(artwork, newExhibition);
+        }
 
         return newExhibition;
     }

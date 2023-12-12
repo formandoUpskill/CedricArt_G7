@@ -39,7 +39,6 @@ public class ImportUtils {
             CEDRIC_ART_API_HOST = this.config.getProperty("CEDRIC_ART_API_HOST");
             IS_FAST_ARTSY_LOAD=  Boolean.parseBoolean(this.config.getProperty("IS_FAST_ARTSY_LOAD"));
 
-
             file.close();
         } catch (IOException e) {
             System.out.println("Config file not found "+  e.getMessage());

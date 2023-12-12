@@ -58,7 +58,7 @@ public class ArtworkArtsy {
 
     }
 
-    public  String getAllArtworksOfAnArtist(String apiUrl,String xappToken, List<Artwork> artworkList)
+    public  String getAllArtworks(String apiUrl, String xappToken, List<Artwork> artworkList)
     {
 
         Gson gson = new GsonBuilder().registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter()).create();

@@ -31,9 +31,7 @@ public class ImportArtsyData {
         this.artworkService = new ArtworkService();
         this.partnerService = new PartnerService();
         this.showService = new ShowService();
-
         isFastLoad= ImportUtils.IS_FAST_ARTSY_LOAD;
-
 
     }
 
@@ -170,17 +168,17 @@ public class ImportArtsyData {
 
         String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/shows";
 
-
         for (Exhibition exhibition : exhibitionList) {
-            // Inserir o show na tabela exibibion e levar o id_partner (fk)
+            // colocar o partner desse show
+            exhibition.setPartner(partner);
 
+            // colocar a lista de obras de arte desse show
 
-            /**
-             * @todo falta colocar os dados nenessários do partner e da artwork no ojjeto exhibition
-             */
+            // para cada exibição obter as obras de arte desse exibição
+            // https://api.artsy.net/api/artworks?show_id=4ea19ee97bab1a0001001908
+            exhibition.setArtworks(getAllArtworks(exhibition));
 
             this.showService.createShow(apiUrl,exhibition);
-            // this.storage.createExhibition(exhibition, partner, artwork);
 
         }
 
@@ -270,12 +268,12 @@ public class ImportArtsyData {
         if (this.isFastLoad)
         {
             artsyApiUrl = "https://api.artsy.net/api/artworks?artist_id=" + artist.getId();
-            artworkArtsy.getAllArtworksOfAnArtist(artsyApiUrl, xappToken, artworkList);
+            artworkArtsy.getAllArtworks(artsyApiUrl, xappToken, artworkList);
         }
         else {
 
             do {
-                artsyApiUrl = artworkArtsy.getAllArtworksOfAnArtist(artsyApiUrl, xappToken, artworkList);
+                artsyApiUrl = artworkArtsy.getAllArtworks(artsyApiUrl, xappToken, artworkList);
 
             }
             while (!artsyApiUrl.isBlank());
@@ -312,7 +310,36 @@ public class ImportArtsyData {
 
     }
 
+    /**
+     *
+     * @param exhibition
+     * @return
+     */
+    private List<Artwork> getAllArtworks(Exhibition exhibition)
+    {
+        ArtworkArtsy artworkArtsy = new ArtworkArtsy();
 
+        String xappToken = ImportUtils.generateXappToken();
+
+        String artsyApiUrl = "https://api.artsy.net/api/artworks?show_id=" + exhibition.getId() +"&total_count=true";
+        List<Artwork> artworkList = new ArrayList<>();
+
+        if (this.isFastLoad)
+        {
+            artsyApiUrl = "https://api.artsy.net/api/artworks?show_id=" + exhibition.getId();
+            artworkArtsy.getAllArtworks(artsyApiUrl, xappToken, artworkList);
+        }
+        else {
+
+            do {
+                artsyApiUrl = artworkArtsy.getAllArtworks(artsyApiUrl, xappToken, artworkList);
+
+            }
+            while (!artsyApiUrl.isBlank());
+        }
+
+        return artworkList;
+    }
 
 
 }
