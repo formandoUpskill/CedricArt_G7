@@ -6,5 +6,7 @@ class CedricArtPresenterTest {
 
     @org.junit.jupiter.api.Test
     void getAllArtworks() {
+
+
     }
 }

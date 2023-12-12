@@ -113,6 +113,7 @@ public class RunServer {
 
                 Exhibition exhibition = gson.fromJson(data, Exhibition.class);
 
+
                 Exhibition created = storage.createExhibition(exhibition);
 
                 response.type("application/json");

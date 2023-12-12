@@ -47,6 +47,7 @@ public class ShowService {
                 // Deserialize a client
                 Exhibition created = gson.fromJson(response.body().string(), Exhibition.class);
 
+
             } else {
                 // Something failed, maybe client does not exist
                 System.out.println(response.body().string());

@@ -1054,6 +1054,7 @@ public class DBStorage {
 
             exists= MyDBUtils.exist(connection,"Exhibition", where );
 
+
         } catch (SQLException e) {
             System.out.println("exec_sql:" + where+ " Error: " + e.getMessage());
         }
@@ -1239,6 +1240,9 @@ public class DBStorage {
                     MyDBUtils.DB_SERVER, MyDBUtils.DB_PORT, MyDBUtils.DB_NAME, MyDBUtils.DB_USER, MyDBUtils.DB_PWD);) {
 
                 MyDBUtils.exec_sql(connection, sql);
+
+                System.out.println("createExhibition " + sql);
+
             } catch (SQLException e) {
                 System.out.println("exec_sql:" + sql + " Error: " + e.getMessage());
             }
@@ -1247,6 +1251,7 @@ public class DBStorage {
         // para cada artwork fazer a correspondência na tabela Exhibition_Artwork
         for (Artwork artwork: artworks) {
 
+            System.out.println("createExhibition" + artwork);
             insertExhibitionArtwork(artwork, newExhibition);
         }
 

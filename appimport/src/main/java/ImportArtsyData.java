@@ -132,6 +132,7 @@ public class ImportArtsyData {
 
         List<Partner> partnerList =  this.partnerService.getAllPartners(apiUrl);
 
+
         for(Partner partner: partnerList){
 
             loadAllShows(partner);
@@ -153,11 +154,11 @@ public class ImportArtsyData {
         String xappToken = ImportUtils.generateXappToken();
 
 
-        String artsyApiUrl = "https://api.artsy.net/api/shows?partner_id" + partner.getId() +"&total_count=true";
+        String artsyApiUrl = "https://api.artsy.net/api/shows?partner_id=" + partner.getId() +"&total_count=true";
 
         if (this.isFastLoad)
         {
-            artsyApiUrl = "https://api.artsy.net/api/shows?partner_id" + partner.getId();
+            artsyApiUrl = "https://api.artsy.net/api/shows?partner_id=" + partner.getId();
             showArtsy.getAllShows (artsyApiUrl, xappToken, exhibitionList);
         }
         else {
@@ -169,6 +170,7 @@ public class ImportArtsyData {
             }
             while (!artsyApiUrl.isBlank());
         }
+
 
 
         String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/shows";
