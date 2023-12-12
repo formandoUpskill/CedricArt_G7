@@ -38,9 +38,10 @@ public class Menu extends Application {
 
     public Menu(){
         Partner partner = new Partner();
-        partner.setName("hhhh");
+
         this.partner = partner;
     }
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -96,7 +97,7 @@ public class Menu extends Application {
 
         btnArtwork.setOnAction(event -> {
             List<Artwork> artworks = partner.getAllArtworks();
-            Artworks artworksList = new Artworks();
+            Artworks artworksList = new Artworks(partner);
 
             applyRotationTransition(btnArtwork, 360);
             rotate.setOnFinished(rotateFinishedEvent -> {

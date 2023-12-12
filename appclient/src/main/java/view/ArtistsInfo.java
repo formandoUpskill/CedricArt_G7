@@ -103,9 +103,6 @@ public class ArtistsInfo extends Application {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        int col = 0;
-        int row = 0;
-
         return gridPane;
     }
 }

@@ -13,15 +13,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import presenter.CedricArtPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Galeries extends Application {
     private Stage primaryStage;
     private Button[] btnGalleries;
     private GridPane gpGalleries;
-    private static final int NUMBER = 10;
+    private int numberPartners;
+    private List<Partner> partners;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -29,6 +31,7 @@ public class Galeries extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         this.primaryStage = primaryStage;
+        partners = listPartners();
 
         primaryStage.setTitle("Galleries");
 //        primaryStage.setResizable(false);
@@ -40,15 +43,15 @@ public class Galeries extends Application {
 
         // Botões do segundo formulário
 
-        btnGalleries = new Button[NUMBER];
+        btnGalleries = new Button[numberPartners];
 
         List<Partner> partners = listPartners();
 
-        for(int i = 0; i < NUMBER; i++){
+        for(int i = 0; i < numberPartners; i++){
             btnGalleries[i] = createGalleryBtn(partners.get(i));
-            btnGalleries[i].setWrapText(true);
             btnGalleries[i].setStyle("-fx-shape: \"M15 0 L18.09 11.36 L30 13.64 L21.82 22.11 L24.09 34.64 L15 28.18 L5.91 34.64 L8.18 22.11 L0 13.64 L11.91 11.36 Z\";");
-            btnGalleries[i].setPrefSize(100,150);
+            btnGalleries[i].setPrefSize(100,250);
+            btnGalleries[i].setWrapText(true);
         }
         Button btnBack = new Button("", backButtonImageView);
         btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: YellowGreen; ");
@@ -67,23 +70,26 @@ public class Galeries extends Application {
         });
 
 
-        fetchRandomGalleries(listPartners());
+        fetchRandomGalleries(partners);
 
         gpGalleries = new GridPane();
         gpGalleries.setAlignment(Pos.CENTER);
         gpGalleries.setHgap(10);
         gpGalleries.setVgap(10);
 
-        gpGalleries.add(btnGalleries[0], 0, 0);
-        gpGalleries.add(btnGalleries[1], 1, 2);
-        gpGalleries.add(btnGalleries[2], 2, 4);
-        gpGalleries.add(btnGalleries[3], 3, 6);
-        gpGalleries.add(btnGalleries[4], 4, 8);
-        gpGalleries.add(btnGalleries[5], 2, 10);
-        gpGalleries.add(btnGalleries[6], 5, 4);
-        gpGalleries.add(btnGalleries[7], 6, 18);
-        gpGalleries.add(btnGalleries[8], 6, 0);
-        gpGalleries.add(btnGalleries[9], 0, 18);
+        for (int i = 0; i < this.numberPartners; i++){
+            gpGalleries.add(btnGalleries[i], i, i);
+        }
+//        gpGalleries.add(btnGalleries[0], 0, 0);
+//        gpGalleries.add(btnGalleries[1], 1, 2);
+//        gpGalleries.add(btnGalleries[2], 2, 4);
+//        gpGalleries.add(btnGalleries[3], 3, 6);
+//        gpGalleries.add(btnGalleries[4], 4, 8);
+//        gpGalleries.add(btnGalleries[5], 2, 10);
+//        gpGalleries.add(btnGalleries[6], 5, 4);
+//        gpGalleries.add(btnGalleries[7], 6, 18);
+//        gpGalleries.add(btnGalleries[8], 6, 0);
+//        gpGalleries.add(btnGalleries[9], 0, 18);
         //vbGalleries.setStyle("-fx-grid-lines-visible: true; -fx-border-color: black; -fx-border-width: 1;");
 
 
@@ -128,7 +134,8 @@ public class Galeries extends Application {
     }
 
     private void fetchRandomGalleries(List<Partner> lPartners ) {
-        for (int i = 0; i < lPartners.size(); i++) {
+
+        for (int i = 0; i < this.numberPartners; i++) {
             Partner partner = lPartners.get(i);
             btnGalleries[i].setText(partner.getName());
         }
@@ -136,15 +143,10 @@ public class Galeries extends Application {
 
 
     private List<Partner> listPartners(){
-
-        ArrayList<Partner> allPartners = new ArrayList<>();
-        for(int i = 1; i <= NUMBER; i++) {
-            Partner partner = new Partner();
-            partner.setName("partnerName" + i);
-            partner.setId(String.valueOf(i));
-            allPartners.add(partner);
-        }
-
+        CedricArtPresenter presenter = new CedricArtPresenter();
+        List<Partner> allPartners = presenter.getAllPartners();
+        this.numberPartners = allPartners.size();
+        System.out.println(this.numberPartners);
         return allPartners;
     }
 }

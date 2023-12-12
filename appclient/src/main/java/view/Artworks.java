@@ -1,6 +1,7 @@
 package view;
 
 import domain.Artwork;
+import domain.Partner;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +27,7 @@ public class Artworks extends Application {
     private Stage primaryStage;
     private ArtworkInfo artworkInfo;
     private ObservableList<Artwork> overArtwork;
+    private Partner partner;
 
     public Artworks(List<Artwork> artworks){
         this.artworks = artworks != null ? artworks : new ArrayList<>();
@@ -36,10 +38,16 @@ public class Artworks extends Application {
         this.artworks.add(artwork);
     }
 
+    public Artworks(Partner partner){
+
+        this.artworks = new ArrayList<>();
+        Artwork artwork = new Artwork();
+        this.partner = partner;
+        this.artworks.add(artwork);
+    }
     public Artworks(){
         this.artworks = new ArrayList<>();
         Artwork artwork = new Artwork();
-        artwork.setTitle("zzz");
         this.artworks.add(artwork);
     }
 
@@ -69,7 +77,7 @@ public class Artworks extends Application {
         btnBack.setPrefSize(100,20);
 
         btnBack.setOnAction(event -> {
-            Menu menu = new Menu();
+            Menu menu = new Menu(partner);
             try {
                 primaryStage.close();
                 menu.start(new Stage());
