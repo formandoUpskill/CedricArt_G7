@@ -12,6 +12,7 @@ import okhttp3.Response;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class PartnerPresenter {
 
         OkHttpClient httpClient = new OkHttpClient();
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateAdapter())
+                .registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter())
                 .create();
 
         Request getRequest = new Request.Builder()
@@ -67,7 +68,7 @@ public class PartnerPresenter {
 
         OkHttpClient httpClient = new OkHttpClient();
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateAdapter())
+                .registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter())
                 .create();
 
 

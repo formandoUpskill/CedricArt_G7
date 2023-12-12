@@ -88,6 +88,10 @@ public class RunServer {
                 // Se não existir, retorna 'null'
                 Exhibition exhibition = storage.getExhibition(exhibitionId);
 
+
+                System.out.println("shows get /:id " + exhibition );
+
+
                 response.type("application/json");
 
                 if(exhibition == null) {

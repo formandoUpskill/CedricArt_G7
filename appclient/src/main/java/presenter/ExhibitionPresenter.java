@@ -25,7 +25,7 @@ public class ExhibitionPresenter {
 
         OkHttpClient httpClient = new OkHttpClient();
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateAdapter())
+                .registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter())
                 .create();
 
         Request getRequest = new Request.Builder()
@@ -66,7 +66,7 @@ public class ExhibitionPresenter {
 
         OkHttpClient httpClient = new OkHttpClient();
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateAdapter())
+                .registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter())
                 .create();
 
         Request getRequest = new Request.Builder()
