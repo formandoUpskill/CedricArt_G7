@@ -16,6 +16,11 @@ import java.util.List;
 
 public class ArtworkService {
 
+    /**
+     *
+     * @param apiUrl
+     * @param artwork
+     */
     public void createArtwork(String apiUrl, Artwork artwork){
 
         OkHttpClient httpClient = new OkHttpClient();

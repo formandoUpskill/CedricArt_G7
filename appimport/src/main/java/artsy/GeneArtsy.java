@@ -16,6 +16,7 @@ import java.util.List;
 public class GeneArtsy {
 
     public String getAllGenes(String apiUrl, String xappToken, List<Gene> geneList) {
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         System.out.println(apiUrl);
 
@@ -35,12 +36,15 @@ public class GeneArtsy {
 
 
                 try {
-                    apiUrl = jsonObject.getAsJsonObject("_links").getAsJsonObject("next").get("href").getAsString();
+                    apiUrl = jsonObject.getAsJsonObject("_links")
+                            .getAsJsonObject("next")
+                            .get("href").getAsString();
                 } catch (NullPointerException ex) {
                     apiUrl = "";
                 }
 
                 JsonArray data = jsonObject.getAsJsonObject("_embedded").getAsJsonArray("genes");
+
                 // Deserialize a list of genes
                 List<Gene> genes = new ArrayList<>();
                 Type listType = new TypeToken<ArrayList<Gene>>() {

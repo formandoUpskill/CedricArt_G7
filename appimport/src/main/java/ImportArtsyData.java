@@ -22,7 +22,9 @@ public class ImportArtsyData {
 
     private boolean isFastLoad;
 
-
+    /**
+     *
+     */
     public ImportArtsyData()
     {
         new ImportUtils();
@@ -35,6 +37,9 @@ public class ImportArtsyData {
 
     }
 
+    /**
+     *
+     */
     public void loadAllGenes() {
 
 
@@ -208,7 +213,11 @@ public class ImportArtsyData {
         }
     }
 
-
+    /**
+     *
+     * @param partnerlink
+     * @param artwork
+     */
     private void loadPartner(String partnerlink, Artwork artwork)
     {
 
