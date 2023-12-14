@@ -118,7 +118,6 @@ public class Menu extends Application {
         });
 
         btnExhibition.setOnAction(event -> {
-            List<Exhibition> exhibitions = partner.getAllExhibitions();
 
             Exhibitions exhibitionsList = new Exhibitions(partner);
 

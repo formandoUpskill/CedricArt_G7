@@ -1,6 +1,7 @@
 package view;
 
 
+import domain.Artwork;
 import domain.Exhibition;
 import domain.Partner;
 import javafx.application.Application;
@@ -16,6 +17,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import presenter.CedricArtPresenter;
+import util.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,10 @@ public class Exhibitions extends Application {
     private ExhibitionInfo exhibitionInfo;
     private ObservableList<Exhibition> overExhibition;
     private Stage primaryStage;
+    private Exhibition exhibition;
     private Partner partner;
+    private static final int NUM_MAX_EXHIBITIONS_TO_DISPLAY = 10;
+    private int numberExhibitions;
 
     public Exhibitions(List<Exhibition> exhibitions){
         this.exhibitions = exhibitions != null ? exhibitions : new ArrayList<>();
@@ -116,16 +122,20 @@ public class Exhibitions extends Application {
     }
 
 
-    private List<Exhibition> listExhibitions() {
+    private List<Exhibition> listExhibitions(){
+        CedricArtPresenter presenter = new CedricArtPresenter();
+        List<Exhibition> selectExhibition;
+        List<Exhibition> allExhibitions = presenter.getAllExhibitionsByPartner(partner.getId());
 
-        ArrayList<Exhibition> allExhibitions = new ArrayList<>();
-        for (int i = 1; i <= NUMBER; i++) {
-            Exhibition exhibition = new Exhibition();
-            exhibition.setDescription("ExhibitionDescription" + i);
-            exhibition.setId(String.valueOf(i));
-            allExhibitions.add(exhibition);
+        if (allExhibitions.size() < NUM_MAX_EXHIBITIONS_TO_DISPLAY){
+            selectExhibition = allExhibitions;
+        }else {
+            selectExhibition = AppUtils.getRandomExhibitions(allExhibitions, NUM_MAX_EXHIBITIONS_TO_DISPLAY);
+
         }
-        return allExhibitions;
+        this.numberExhibitions = selectExhibition.size();
+        System.out.println(this.numberExhibitions);
+        return selectExhibition;
     }
 
     private void showExhibitionInfoForm(){

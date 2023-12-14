@@ -1,6 +1,7 @@
 package util;
 
 import domain.Artwork;
+import domain.Exhibition;
 import domain.Partner;
 
 import java.io.FileReader;
@@ -69,6 +70,22 @@ public class AppUtils {
         }
 
         return randomArtwoks;
+    }
+
+    public static ArrayList<Exhibition> getRandomExhibitions(List<Exhibition> exhibitions, int numExhibitions) {
+        ArrayList<Exhibition> randomExhibitions = new ArrayList<>();
+        Random random = new Random();
+
+        while (randomExhibitions.size() < numExhibitions) {
+            int randomIndex = random.nextInt(exhibitions.size());
+            Exhibition randomExhibition = exhibitions.get(randomIndex);
+
+            if (!randomExhibitions.contains(randomExhibition)) {
+                randomExhibitions.add(randomExhibition);
+            }
+        }
+
+        return randomExhibitions;
     }
 
 }
