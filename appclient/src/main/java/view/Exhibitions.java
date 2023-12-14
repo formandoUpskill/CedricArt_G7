@@ -88,7 +88,7 @@ public class Exhibitions extends Application {
         cmbExhibition.setConverter(new StringConverter<Exhibition>() {
             @Override
             public String toString(Exhibition exhibition) {
-                return (exhibition != null) ? exhibition.getDescription() : null;
+                return (exhibition != null) ? exhibition.getName() : null;
             }
 
             @Override
@@ -127,15 +127,9 @@ public class Exhibitions extends Application {
         List<Exhibition> selectExhibition;
         List<Exhibition> allExhibitions = presenter.getAllExhibitionsByPartner(partner.getId());
 
-        if (allExhibitions.size() < NUM_MAX_EXHIBITIONS_TO_DISPLAY){
-            selectExhibition = allExhibitions;
-        }else {
-            selectExhibition = AppUtils.getRandomExhibitions(allExhibitions, NUM_MAX_EXHIBITIONS_TO_DISPLAY);
-
-        }
-        this.numberExhibitions = selectExhibition.size();
+        this.numberExhibitions = allExhibitions.size();
         System.out.println(this.numberExhibitions);
-        return selectExhibition;
+        return allExhibitions;
     }
 
     private void showExhibitionInfoForm(){

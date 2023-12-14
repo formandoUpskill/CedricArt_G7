@@ -144,7 +144,7 @@ public class Galeries extends Application {
         if (allPartners.size() < NUM_MAX_PARTNERS_TO_DISPLAY){
             selectPartners = allPartners;
         }else {
-            selectPartners = AppUtils.getRandomPartners(allPartners, NUM_MAX_PARTNERS_TO_DISPLAY);
+            selectPartners = AppUtils.getRandomNumberOfElementsOfAList(allPartners, NUM_MAX_PARTNERS_TO_DISPLAY);
 
         }
             this.numberPartners = selectPartners.size();

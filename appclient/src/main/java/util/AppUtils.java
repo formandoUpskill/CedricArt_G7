@@ -35,57 +35,27 @@ public class AppUtils {
 
 
     /**
-     *
-     * @param partners
-     * @param numPartners
+     * 
+     * @param elements
+     * @param numElements
      * @return
+     * @param <T>
      */
-    public static ArrayList<Partner> getRandomPartners(List<Partner> partners, int numPartners) {
-        ArrayList<Partner> randomPartners = new ArrayList<>();
+    public static <T> ArrayList<T> getRandomNumberOfElementsOfAList(List<T> elements, int numElements) {
+        ArrayList<T> randomElements = new ArrayList<>();
         Random random = new Random();
 
-        while (randomPartners.size() < numPartners) {
-            int randomIndex = random.nextInt(partners.size());
-            Partner randomPartner = partners.get(randomIndex);
+        while (randomElements.size() < numElements) {
+            int randomIndex = random.nextInt(elements.size());
+            T randomElement = elements.get(randomIndex);
 
-            if (!randomPartners.contains(randomPartner)) {
-                randomPartners.add(randomPartner);
+            if (!randomElements.contains(randomElement)) {
+                randomElements.add(randomElement);
             }
         }
 
-        return randomPartners;
+        return randomElements;
     }
 
-    public static ArrayList<Artwork> getRandomArtworks(List<Artwork> artworks, int numArtworks) {
-        ArrayList<Artwork> randomArtwoks = new ArrayList<>();
-        Random random = new Random();
-
-        while (randomArtwoks.size() < numArtworks) {
-            int randomIndex = random.nextInt(artworks.size());
-            Artwork randomArtwork = artworks.get(randomIndex);
-
-            if (!randomArtwoks.contains(randomArtwork)) {
-                randomArtwoks.add(randomArtwork);
-            }
-        }
-
-        return randomArtwoks;
-    }
-
-    public static ArrayList<Exhibition> getRandomExhibitions(List<Exhibition> exhibitions, int numExhibitions) {
-        ArrayList<Exhibition> randomExhibitions = new ArrayList<>();
-        Random random = new Random();
-
-        while (randomExhibitions.size() < numExhibitions) {
-            int randomIndex = random.nextInt(exhibitions.size());
-            Exhibition randomExhibition = exhibitions.get(randomIndex);
-
-            if (!randomExhibitions.contains(randomExhibition)) {
-                randomExhibitions.add(randomExhibition);
-            }
-        }
-
-        return randomExhibitions;
-    }
 
 }

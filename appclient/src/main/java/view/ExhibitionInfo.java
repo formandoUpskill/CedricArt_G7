@@ -74,9 +74,9 @@ public class ExhibitionInfo extends Application {
 
     public void updateInfo(Exhibition exhibition) {
         Platform.runLater(() ->{
-            String biographyText = exhibition.getDescription();
+            String description = exhibition.getDescription();
 
-            lblDescription.setText(biographyText);
+            lblDescription.setText(description);
         });
     }
 }
