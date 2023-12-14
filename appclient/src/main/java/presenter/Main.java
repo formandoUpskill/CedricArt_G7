@@ -1,5 +1,6 @@
 package presenter;
 
+import domain.Artist;
 import domain.Artwork;
 import domain.Partner;
 
@@ -14,6 +15,7 @@ public class Main {
 
         CedricArtPresenter presenter = new CedricArtPresenter();
 
+
         String artworkId= "4eb2eb13e742d70001007baf";
         String partnerId="5035a14a6cb80200020007e0";
         String exhibitionId="4ea1e81bb5482b000100437c";
@@ -24,8 +26,12 @@ public class Main {
         Partner partner;
         List<Partner> partners;
 
-        artwork=  presenter.getArtwork(artworkId);
-        System.out.println(artwork);
+        Artist artist;
+        List<Artist> artists;
+
+
+      //  artwork=  presenter.getArtwork(artworkId);
+       // System.out.println(artwork);
 
        // artworks= presenter.getAllArtworks();
 
@@ -42,10 +48,10 @@ public class Main {
       //   presenter.getAllArtworksByExhibition(exhibitionId);
 
 
-     partners= presenter.getAllPartners();
-        System.out.println( partners.size());
+   //  partners= presenter.getAllPartners();
+     //   System.out.println( partners.size());
 
-
+/*
     List<Partner> randomPartners= getRandomPartners(partners,10);
 
     for (Partner aPartner: randomPartners)
@@ -53,7 +59,7 @@ public class Main {
         System.out.println(aPartner);
     }
 
-
+*/
 
 /*
         for (Partner aPartner: partners)
@@ -63,13 +69,21 @@ public class Main {
 
         */
 
-        System.out.println((presenter.getPartner(partnerId)));
+     //   System.out.println((presenter.getPartner(partnerId)));
 
 
 
    // presenter.getAllExhibitions();
 
   // presenter.getAllExhibitionsByPartner(partnerId);
+
+
+      artists=  presenter.getAllArtistsByPartner(partnerId);
+
+        for (Artist aArtist: artists)
+        {
+            System.out.println(aArtist);
+        }
 
     }
 

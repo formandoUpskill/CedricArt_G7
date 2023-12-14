@@ -314,9 +314,16 @@ public class RunServer {
 
                 List<Artist> artists;
 
+                String partner_id = request.queryParams("partner_id");
+
+                // Foi passado este query parameter? Se sim, procurar apenas os os shows daquele partner
+                if(partner_id != null) {
+                    artists= storage.getAllArtistsByPartner(partner_id);
+                    return gson.toJson( artists );
+                }
+
                 artists = storage.getAllArtists();
 
-                System.out.println(artists);
                 return gson.toJson( artists );
             });
 

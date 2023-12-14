@@ -22,6 +22,78 @@ public class DBStorage {
 
     /**
      *
+     * @param partner_id
+     * @return
+     */
+    public List<Artist> getAllArtistsByPartner(String partner_id)
+
+    {
+
+        List<Artist> artistList = new ArrayList<>();
+
+        Artist artist;
+
+
+        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        {
+
+            String sqlCMD= MyDBUtils.get_select_command(
+
+                    "Artist.id_Artist, " +
+                            "Artist.name, "+
+                            "Artist.biography, " +
+                            "Artist.birthyear, "+
+                            "Artist.deathyear, " +
+                            "Artist.hometown, " +
+                            "Artist.location, "+
+                            "Artist.nationality, " +
+                            "Artist.slug, "+
+                            "Artist.thumbnail, "+
+                            "Artist.url",
+                    " Artist, " +
+                            " Artwork, "+
+                             "Created_by",
+                    " Artist.id_Artist = Created_by.id_Artist AND " +
+                             " Artwork.id_Artwork = Created_by.id_Artwork AND "+
+                            " Artwork.id_Partner= '" + partner_id + "'" );
+
+
+            System.out.println("getAllArtistsByPartner " + sqlCMD);
+
+            ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
+
+            while (rs.next())
+            {
+
+                artist = new Artist();
+
+                artist.setId(rs.getString("id_Artist"));
+                artist.setName(rs.getString("name"));
+                artist.setLocation(rs.getString("location"));
+                artist.setHometown(rs.getString("hometown"));
+                artist.setBiography(rs.getString("biography"));
+                artist.setSlug(rs.getString("slug"));
+                artist.setBirthyear(rs.getString("birthyear"));
+                artist.setDeathyear(rs.getString("deathyear"));
+                artist.setThumbnail(rs.getString("thumbnail"));
+                artist.setUrl(rs.getString("url"));
+                artist.setNationality(rs.getString("url"));
+
+
+                artistList.add(artist);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return artistList;
+
+    }
+
+    /**
+     *
      * @return
      */
     public List<Artist> getAllArtists()
@@ -59,7 +131,7 @@ public class DBStorage {
                 artist.setDeathyear(rs.getString("deathyear"));
                 artist.setThumbnail(rs.getString("thumbnail"));
                 artist.setUrl(rs.getString("url"));
-                artist.setNationality(rs.getString("url"));
+                artist.setNationality(rs.getString("nationality"));
 
 
                 artistList.add(artist);
