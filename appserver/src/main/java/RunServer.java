@@ -323,6 +323,7 @@ public class RunServer {
                     return gson.toJson( artists );
                 }
 
+
                 artists = storage.getAllArtists();
 
                 return gson.toJson( artists );

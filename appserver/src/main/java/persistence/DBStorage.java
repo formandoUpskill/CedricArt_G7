@@ -58,7 +58,7 @@ public class DBStorage {
                             " Artwork.id_Partner= '" + partner_id + "'" );
 
 
-            System.out.println("getAllArtistsByPartner " + sqlCMD);
+         //   System.out.println("getAllArtistsByPartner " + sqlCMD);
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
