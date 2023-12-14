@@ -84,16 +84,7 @@ public class Galeries extends Application {
         for (int i = 0; i < this.numberPartners; i++){
             gpGalleries.add(btnGalleries[i], i, i);
         }
-//        gpGalleries.add(btnGalleries[0], 0, 0);
-//        gpGalleries.add(btnGalleries[1], 1, 2);
-//        gpGalleries.add(btnGalleries[2], 2, 4);
-//        gpGalleries.add(btnGalleries[3], 3, 6);
-//        gpGalleries.add(btnGalleries[4], 4, 8);
-//        gpGalleries.add(btnGalleries[5], 2, 10);
-//        gpGalleries.add(btnGalleries[6], 5, 4);
-//        gpGalleries.add(btnGalleries[7], 6, 18);
-//        gpGalleries.add(btnGalleries[8], 6, 0);
-//        gpGalleries.add(btnGalleries[9], 0, 18);
+
         //vbGalleries.setStyle("-fx-grid-lines-visible: true; -fx-border-color: black; -fx-border-width: 1;");
 
 

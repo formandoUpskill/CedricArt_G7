@@ -13,10 +13,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import presenter.CedricArtPresenter;
 
 public class ArtworkInfo extends Application {
     private Label lbTitle;
     private Partner partner;
+    private ImageView imThumbnail;
 
     public static void main(String[] args) {
         launch(args);
@@ -40,6 +42,7 @@ public class ArtworkInfo extends Application {
         btnBack.setPrefSize(100,20);
 
         lbTitle = new Label();
+        imThumbnail = new ImageView();
 
         btnBack.setOnAction(event -> {
             Artworks artworks = new Artworks(partner);
@@ -53,7 +56,7 @@ public class ArtworkInfo extends Application {
 
         VBox vbArtworkInfo = new VBox(10);
         vbArtworkInfo.setAlignment(Pos.CENTER);
-        vbArtworkInfo.getChildren().add(lbTitle);
+        vbArtworkInfo.getChildren().addAll(lbTitle, imThumbnail);
 
         VBox vbBack = new VBox(10);
         vbBack.getChildren().add(btnBack);
@@ -72,9 +75,13 @@ public class ArtworkInfo extends Application {
 
     public void updateInfo(Artwork artwork) {
         Platform.runLater(() ->{
-            String biographyText = artwork.getId();
+            CedricArtPresenter presenter = new CedricArtPresenter();
+            Artwork artwork1 = presenter.getArtwork(artwork.getId());
 
-            lbTitle.setText(biographyText);
+            Image image = new Image(artwork1.getThumbnail());
+
+            lbTitle.setText(artwork1.getTitle());
+            imThumbnail.setImage(image);
         });
     }
 

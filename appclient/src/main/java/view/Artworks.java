@@ -16,6 +16,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import presenter.CedricArtPresenter;
+import util.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +25,12 @@ import java.util.List;
 public class Artworks extends Application {
     private List<Artwork> artworks;
     private ComboBox<Artwork> cmbArtworks;
-    private static final int NUMBER = 10;
     private Stage primaryStage;
     private ArtworkInfo artworkInfo;
     private ObservableList<Artwork> overArtwork;
     private Partner partner;
+    private static final int NUM_MAX_ARTWORKS_TO_DISPLAY = 10;
+    private int numberArtworks;
 
     public Artworks(List<Artwork> artworks){
         this.artworks = artworks != null ? artworks : new ArrayList<>();
@@ -129,16 +132,20 @@ public class Artworks extends Application {
     }
 
 
-    private List<Artwork> listArtwork() {
+    private List<Artwork> listArtwork(){
+        CedricArtPresenter presenter = new CedricArtPresenter();
+        List<Artwork> selectArtworks;
+        List<Artwork> allArtworks = presenter.getAllArtworksByPartner(partner.getId());
 
-        ArrayList<Artwork> allArtworks = new ArrayList<>();
-        for (int i = 1; i <= NUMBER; i++) {
-            Artwork artwork = new Artwork();
-            artwork.setTitle("ArtworkTitle" + i);
-            artwork.setId(String.valueOf(i));
-            allArtworks.add(artwork);
+        if (allArtworks.size() < NUM_MAX_ARTWORKS_TO_DISPLAY){
+            selectArtworks = allArtworks;
+        }else {
+            selectArtworks = AppUtils.getRandomArtworks(allArtworks, NUM_MAX_ARTWORKS_TO_DISPLAY);
+
         }
-        return allArtworks;
+        this.numberArtworks = selectArtworks.size();
+        System.out.println(this.numberArtworks);
+        return selectArtworks;
     }
 
     private void showArtworkInfoForm(){
@@ -152,4 +159,6 @@ public class Artworks extends Application {
             throw new RuntimeException(e);
         }
     }
+
+
 }
