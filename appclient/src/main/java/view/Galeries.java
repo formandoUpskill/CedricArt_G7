@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import presenter.CedricArtPresenter;
+import util.AppUtils;
 
 import java.util.List;
 
@@ -23,6 +24,9 @@ public class Galeries extends Application {
     private GridPane gpGalleries;
     private int numberPartners;
     private List<Partner> partners;
+
+
+    private static final int NUM_MAX_PARTNERS_TO_DISPLAY = 10;
 
     public static void main(String[] args) {
         launch(args);
@@ -144,7 +148,8 @@ public class Galeries extends Application {
 
     private List<Partner> listPartners(){
         CedricArtPresenter presenter = new CedricArtPresenter();
-        List<Partner> allPartners = presenter.getAllPartners();
+        List<Partner> allPartners = AppUtils.getRandomPartners(presenter.getAllPartners(), NUM_MAX_PARTNERS_TO_DISPLAY);
+
         this.numberPartners = allPartners.size();
         System.out.println(this.numberPartners);
         return allPartners;
