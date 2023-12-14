@@ -3,7 +3,6 @@ package view;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,17 +11,28 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import server.RunServer;
+
 
 public class Main extends Application {
     private Stage primaryStage;
+
+    RunServer server;
     public static void main(String[] args) {
         launch(args);
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        server=  new RunServer();
+        server.run();
+
         this.primaryStage = primaryStage;
         try {
             primaryStage.setTitle("CedricArt");
+
+
+
 
             // Adicione uma imagem de fundo
             Image backgroundImage = new Image(getClass().getResource("/images/Artsy.jpg").toExternalForm());
@@ -46,15 +56,25 @@ public class Main extends Application {
             layout.getChildren().addAll(backgroundView, btnStart);
             layout.setAlignment(Pos.BOTTOM_CENTER);
 
+
             Scene scene = new Scene(layout, 1000, 600);
             primaryStage.setScene(scene);
             primaryStage.show();
+
+
+
 
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
+
+    public void stop() {
+        System.out.println("The program is now stopping.");
+        server.stop();
+        // Add any cleanup code here
+    }
     private void openForm2() {
         Galeries galeries = new Galeries();
         try {

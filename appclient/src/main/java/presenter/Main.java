@@ -5,10 +5,10 @@ import domain.Artwork;
 import domain.Exhibition;
 import domain.Partner;
 import util.AppUtils;
+import server.RunServer;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Random;
 
 public class Main {
 
@@ -17,6 +17,8 @@ public class Main {
 
         CedricArtPresenter presenter = new CedricArtPresenter();
 
+       RunServer server=  new RunServer();
+       server.run();
 
         String artworkId= "4eb2eb13e742d70001007baf";
         String partnerId="5035a14a6cb80200020007e0";
@@ -99,12 +101,9 @@ public class Main {
             System.out.println(aArtist);
         }
 */
+
+
+        server.stop();
     }
-
-
-    /**
-     * Select random numPartners from all partner list
-     */
-
 
 }
