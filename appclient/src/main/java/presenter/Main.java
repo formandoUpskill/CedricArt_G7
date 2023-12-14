@@ -15,8 +15,9 @@ public class Main {
         CedricArtPresenter presenter = new CedricArtPresenter();
 
         String artworkId= "4eb2eb13e742d70001007baf";
-        String partnerId="5035a14a6cb80200020007e0";
-        String exhibitionId="4ea1e81bb5482b000100437c";
+        String partnerId="4f99c7b793ab4b0001000179";
+        String exhibitionId="57ec2f87275b2403270003bf";
+
 
         Artwork artwork;
         List<Artwork> artworks;
@@ -24,8 +25,8 @@ public class Main {
         Partner partner;
         List<Partner> partners;
 
-        artwork=  presenter.getArtwork(artworkId);
-        System.out.println(artwork);
+//        artwork=  presenter.getArtwork(artworkId);
+//        System.out.println(artwork);
 
        // artworks= presenter.getAllArtworks();
 
@@ -41,17 +42,17 @@ public class Main {
       //  System.out.println(presenter.getExhibition(exhibitionId));
       //   presenter.getAllArtworksByExhibition(exhibitionId);
 
-
-     partners= presenter.getAllPartners();
-        System.out.println( partners.size());
-
-
-    List<Partner> randomPartners= getRandomPartners(partners,10);
-
-    for (Partner aPartner: randomPartners)
-    {
-        System.out.println(aPartner);
-    }
+//
+//     partners= presenter.getAllPartners();
+//        System.out.println( partners.size());
+//
+//
+//    List<Partner> randomPartners= getRandomPartners(partners,10);
+//
+//    for (Partner aPartner: randomPartners)
+//    {
+//        System.out.println(aPartner);
+//    }
 
 
 
@@ -69,7 +70,9 @@ public class Main {
 
    // presenter.getAllExhibitions();
 
-  // presenter.getAllExhibitionsByPartner(partnerId);
+   presenter.getAllExhibitionsByPartner(partnerId);
+
+        System.out.println(presenter.getExhibition(exhibitionId));
 
     }
 
