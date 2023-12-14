@@ -2,6 +2,7 @@ package view;
 
 
 import domain.Exhibition;
+import domain.Partner;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +27,7 @@ public class Exhibitions extends Application {
     private ExhibitionInfo exhibitionInfo;
     private ObservableList<Exhibition> overExhibition;
     private Stage primaryStage;
+    private Partner partner;
 
     public Exhibitions(List<Exhibition> exhibitions){
         this.exhibitions = exhibitions != null ? exhibitions : new ArrayList<>();
@@ -33,6 +35,10 @@ public class Exhibitions extends Application {
 
     public Exhibitions(){
         this(new ArrayList<>());
+    }
+
+    public Exhibitions(Partner partner) {
+        this.partner = partner;
     }
 
     public static void main(String[] args) {
@@ -46,7 +52,7 @@ public class Exhibitions extends Application {
 
         primaryStage.setTitle("Exhibitions");
 
-        exhibitionInfo = new ExhibitionInfo();
+        exhibitionInfo = new ExhibitionInfo(partner);
 
         overExhibition = FXCollections.observableArrayList();
 
@@ -60,7 +66,7 @@ public class Exhibitions extends Application {
         btnBack.setPrefSize(100,20);
 
         btnBack.setOnAction(event -> {
-            Menu menu = new Menu();
+            Menu menu = new Menu(partner);
             try {
                 menu.start(new Stage());
                 primaryStage.close();

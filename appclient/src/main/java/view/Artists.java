@@ -27,10 +27,17 @@ public class Artists extends Application {
     private ObservableList<Artist> overArtist;
     private List<Artist> artists;
     private static final int NUMBER = 10;
+    private Artist artist;
+    private Partner partner;
 
     public static void main(String[] args) {
         launch(args);
     }
+
+    public Artists(Partner partner) {
+        this.partner = partner;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -38,7 +45,7 @@ public class Artists extends Application {
 
         primaryStage.setTitle("Artists");
 
-        artistsInfo = new ArtistsInfo();
+        artistsInfo = new ArtistsInfo(partner);
 
         overArtist = FXCollections.observableArrayList();
 
@@ -77,7 +84,7 @@ public class Artists extends Application {
         btnBack.setPrefSize(100,20);
 
         btnBack.setOnAction(event -> {
-            Menu menu = new Menu();
+            Menu menu = new Menu(partner);
             try {
                 menu.start(new Stage());
                 primaryStage.close();

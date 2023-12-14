@@ -60,7 +60,7 @@ public class Artworks extends Application {
 
         primaryStage.setTitle("Artworks");
 
-        artworkInfo = new ArtworkInfo();
+        artworkInfo = new ArtworkInfo(partner);
 
         overArtwork = FXCollections.observableArrayList();
 
@@ -79,8 +79,8 @@ public class Artworks extends Application {
         btnBack.setOnAction(event -> {
             Menu menu = new Menu(partner);
             try {
-                primaryStage.close();
                 menu.start(new Stage());
+                primaryStage.close();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

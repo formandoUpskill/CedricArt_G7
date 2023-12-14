@@ -1,5 +1,6 @@
 package view;
 
+import domain.Artist;
 import domain.Artwork;
 import domain.Exhibition;
 import domain.Partner;
@@ -26,6 +27,7 @@ import java.util.List;
 
 public class Menu extends Application {
     private Partner partner;
+    private Artist artist;
     private RotateTransition rotate;
     private Stage primaryStage;
     public static void main(String[] args) {
@@ -36,9 +38,14 @@ public class Menu extends Application {
         this.partner = partner;
     }
 
+    public Menu(Artist artist){
+        this.artist = artist;
+    }
+
     public Menu(){
         Partner partner = new Partner();
-
+        Artist artist = new Artist();
+        this.artist = artist;
         this.partner = partner;
     }
 
@@ -81,7 +88,7 @@ public class Menu extends Application {
         });
 
         btnArtists.setOnAction(event -> {
-            Artists artists = new Artists();
+            Artists artists = new Artists(partner);
 
             applyRotationTransition(btnArtists, -360);
             rotate.setOnFinished(rotateFinishedEvent ->{
@@ -96,7 +103,6 @@ public class Menu extends Application {
         });
 
         btnArtwork.setOnAction(event -> {
-            List<Artwork> artworks = partner.getAllArtworks();
             Artworks artworksList = new Artworks(partner);
 
             applyRotationTransition(btnArtwork, 360);
@@ -113,7 +119,8 @@ public class Menu extends Application {
 
         btnExhibition.setOnAction(event -> {
             List<Exhibition> exhibitions = partner.getAllExhibitions();
-            Exhibitions exhibitionsList = new Exhibitions(exhibitions);
+
+            Exhibitions exhibitionsList = new Exhibitions(partner);
 
             applyRotationTransition(btnExhibition, -360);
             rotate.setOnFinished(rotateFinishedEvent ->{

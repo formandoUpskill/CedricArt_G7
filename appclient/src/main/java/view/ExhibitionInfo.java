@@ -2,6 +2,7 @@ package view;
 
 import domain.Artwork;
 import domain.Exhibition;
+import domain.Partner;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -17,6 +18,11 @@ import javafx.stage.Stage;
 public class ExhibitionInfo extends Application {
 
     private Label lblDescription;
+    private Partner partner;
+
+    public ExhibitionInfo(Partner partner) {
+        this.partner = partner;
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -38,7 +44,7 @@ public class ExhibitionInfo extends Application {
         lblDescription = new Label();
 
         btnBack.setOnAction(event -> {
-            Exhibitions exhibition = new Exhibitions();
+            Exhibitions exhibition = new Exhibitions(partner);
             try {
                 exhibition.start(new Stage());
                 primaryStage.close();

@@ -2,6 +2,7 @@ package view;
 
 import domain.Artist;
 import domain.Artwork;
+import domain.Partner;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -21,10 +22,17 @@ public class ArtistsInfo extends Application {
     private Label lblBiography;
     private Label lblArtwork;
     private GridPane gridPane;
+    private Artist artist;
+    private Partner partner;
 
     public static void main(String[] args) {
         launch(args);
     }
+
+    public ArtistsInfo(Partner partner) {
+        this.partner = partner;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -45,7 +53,7 @@ public class ArtistsInfo extends Application {
         btnBack.setPrefSize(100,20);
 
         btnBack.setOnAction(event -> {
-            Artists artists = new Artists();
+            Artists artists = new Artists(partner);
             try {
                 artists.start(new Stage());
                 primaryStage.close();

@@ -1,6 +1,7 @@
 package view;
 
 import domain.Artwork;
+import domain.Partner;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -15,9 +16,14 @@ import javafx.stage.Stage;
 
 public class ArtworkInfo extends Application {
     private Label lbTitle;
+    private Partner partner;
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public ArtworkInfo(Partner partner) {
+        this.partner = partner;
     }
 
     @Override
@@ -36,7 +42,7 @@ public class ArtworkInfo extends Application {
         lbTitle = new Label();
 
         btnBack.setOnAction(event -> {
-            Artworks artworks = new Artworks();
+            Artworks artworks = new Artworks(partner);
             try {
                 artworks.start(new Stage());
                 primaryStage.close();
