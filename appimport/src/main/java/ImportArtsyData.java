@@ -230,6 +230,19 @@ public class ImportArtsyData {
 
         String artsyApiUrl = partnerlink;
 
+        /*@todo: Tratar desta excepção
+
+            https://api.artsy.net/api/artworks/53dba451726169410d330300
+null
+Exception in thread "main" java.lang.NullPointerException: Parameter specified as non-null is null: method okhttp3.Request$Builder.url, parameter url
+	at okhttp3.Request$Builder.url(Request.kt)
+	at artsy.PartnerArtsy.getPartner(PartnerArtsy.java:32)
+	at ImportArtsyData.loadPartner(ImportArtsyData.java:233)
+	at ImportArtsyData.loadPartnerForAllArtworksLoaded(ImportArtsyData.java:213)
+	at Main.main(Main.java:14)
+	*/
+
+
         Partner partner= partnerArtsy.getPartner(artsyApiUrl,xappToken, 1,2);
         partner.setArtwork(artwork);
 
