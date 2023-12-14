@@ -26,7 +26,6 @@ public class DBStorage {
      * @return
      */
     public List<Artist> getAllArtistsByPartner(String partner_id)
-
     {
 
         List<Artist> artistList = new ArrayList<>();

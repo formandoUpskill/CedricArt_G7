@@ -67,6 +67,7 @@ public class CedricArtPresenter {
 
     public List<Artist> getAllArtistsByPartner (String partner_id)
     {
+
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artists?partner_id=" + partner_id;
 
         return this.artistPresenter.getArtists(apiUrl);
