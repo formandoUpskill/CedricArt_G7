@@ -3,7 +3,9 @@ package presenter;
 import domain.Artwork;
 import domain.Partner;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
 
@@ -27,7 +29,7 @@ public class Main {
 
        // artworks= presenter.getAllArtworks();
 
-       artworks= presenter.getAllArtworksByPartner(partnerId);
+//       artworks= presenter.getAllArtworksByPartner(partnerId);
 /*
         for (Artwork aArtwork: artworks)
         {
@@ -41,6 +43,18 @@ public class Main {
 
 
      partners= presenter.getAllPartners();
+        System.out.println( partners.size());
+
+
+    List<Partner> randomPartners= getRandomPartners(partners,10);
+
+    for (Partner aPartner: randomPartners)
+    {
+        System.out.println(aPartner);
+    }
+
+
+
 /*
         for (Partner aPartner: partners)
         {
@@ -57,11 +71,27 @@ public class Main {
 
   // presenter.getAllExhibitionsByPartner(partnerId);
 
-
-
-
     }
 
+
+    /**
+     * Select random numPartners from all partner list
+     */
+    public static ArrayList<Partner> getRandomPartners(List<Partner> partners, int numPartners) {
+        ArrayList<Partner> randomPartners = new ArrayList<>();
+        Random random = new Random();
+
+        while (randomPartners.size() < numPartners) {
+            int randomIndex = random.nextInt(partners.size());
+            Partner randomPartner = partners.get(randomIndex);
+
+            if (!randomPartners.contains(randomPartner)) {
+                randomPartners.add(randomPartner);
+            }
+        }
+
+        return randomPartners;
+    }
 
 
 }

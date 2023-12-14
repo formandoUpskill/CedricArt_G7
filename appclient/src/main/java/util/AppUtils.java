@@ -1,8 +1,13 @@
 package util;
 
+import domain.Partner;
+
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 public class AppUtils {
 
@@ -25,4 +30,28 @@ public class AppUtils {
 
         System.out.println("CEDRIC_ART_API_HOST " + CEDRIC_ART_API_HOST);
     }
+
+
+    /**
+     *
+     * @param partners
+     * @param numPartners
+     * @return
+     */
+    public static ArrayList<Partner> getRandomPartners(List<Partner> partners, int numPartners) {
+        ArrayList<Partner> randomPartners = new ArrayList<>();
+        Random random = new Random();
+
+        while (randomPartners.size() < numPartners) {
+            int randomIndex = random.nextInt(partners.size());
+            Partner randomPartner = partners.get(randomIndex);
+
+            if (!randomPartners.contains(randomPartner)) {
+                randomPartners.add(randomPartner);
+            }
+        }
+
+        return randomPartners;
+    }
+
 }
