@@ -148,10 +148,16 @@ public class Galeries extends Application {
 
     private List<Partner> listPartners(){
         CedricArtPresenter presenter = new CedricArtPresenter();
-        List<Partner> allPartners = AppUtils.getRandomPartners(presenter.getAllPartners(), NUM_MAX_PARTNERS_TO_DISPLAY);
+        List<Partner> selectPartners;
+        List<Partner> allPartners = presenter.getAllPartners();
+        if (allPartners.size() < NUM_MAX_PARTNERS_TO_DISPLAY){
+            selectPartners = allPartners;
+        }else {
+            selectPartners = AppUtils.getRandomPartners(allPartners, NUM_MAX_PARTNERS_TO_DISPLAY);
 
-        this.numberPartners = allPartners.size();
-        System.out.println(this.numberPartners);
-        return allPartners;
+        }
+            this.numberPartners = selectPartners.size();
+            System.out.println(this.numberPartners);
+            return selectPartners;
     }
 }
