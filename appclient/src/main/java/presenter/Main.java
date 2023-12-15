@@ -4,9 +4,7 @@ import domain.Artist;
 import domain.Artwork;
 import domain.Exhibition;
 import domain.Partner;
-import util.AppUtils;
 import server.RunServer;
-
 
 import java.util.List;
 
@@ -84,10 +82,28 @@ public class Main {
        // exhibitions= presenter.getAllExhibitions();
 
 
+        partnerId="5035a14a6cb80200020007e0";
 
         exhibitions= presenter.getAllExhibitionsByPartner(partnerId);
 
-        exhibitions= AppUtils.getRandomNumberOfElementsOfAList(exhibitions, 5);
+        System.out.println(partnerId + ":" + exhibitions.size() );
+
+
+
+        for (Exhibition aExhibition: exhibitions)
+        {
+            System.out.println(aExhibition);
+        }
+
+
+        System.out.println("???????????????????????????");
+
+        partnerId="4eb18d6ac8004a0001000001";
+
+        exhibitions= presenter.getAllExhibitionsByPartner(partnerId);
+
+        System.out.println(partnerId + ":" + exhibitions.size() );
+
 
         for (Exhibition aExhibition: exhibitions)
         {
