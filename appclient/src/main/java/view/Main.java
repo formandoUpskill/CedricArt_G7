@@ -4,11 +4,14 @@ package view;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import server.RunServer;
@@ -50,14 +53,16 @@ public class Main extends Application {
                 pause.play();
             });
 
-
             // Layout da primeira forma
             StackPane layout = new StackPane();
+            layout.setStyle("-fx-background-color: #778899;");
             layout.getChildren().addAll(backgroundView, btnStart);
             layout.setAlignment(Pos.BOTTOM_CENTER);
 
+            Screen screen = Screen.getPrimary();
+            Rectangle2D bounds = screen.getVisualBounds();
 
-            Scene scene = new Scene(layout, 1000, 600);
+            Scene scene = new Scene(layout, bounds.getWidth(), bounds.getHeight());
             primaryStage.setScene(scene);
             primaryStage.show();
 
