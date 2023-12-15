@@ -25,8 +25,23 @@ public class Exhibition {
     private Links links;
 
 
+    public Links getLinks() {
+        return links;
+    }
+
+    public void setLinks(Links links) {
+        this.links = links;
+    }
+
     public static class Links {
         private Links.Thumbnail thumbnail;
+
+        @Override
+        public String toString() {
+            return "Links{" +
+                    "thumbnail=" + thumbnail +
+                    '}';
+        }
 
         // Inner class for "thumbnail" link
         public static class Thumbnail {
@@ -154,6 +169,7 @@ public class Exhibition {
                 ", partner=" + partner +
                 ", artworks=" + artworks +
                 ", status='" + status + '\'' +
+                ", links=" + links +
                 '}';
     }
 }
