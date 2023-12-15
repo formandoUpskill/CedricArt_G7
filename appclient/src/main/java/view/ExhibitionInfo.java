@@ -88,7 +88,7 @@ public class ExhibitionInfo extends Application {
         Platform.runLater(() ->{
             CedricArtPresenter presenter = new CedricArtPresenter();
             Exhibition exhibition1 = presenter.getExhibition(exhibition.getId());
-            System.out.println(exhibition1.getName() + " : " + exhibition1);
+
             Image thumbnail = new Image(exhibition1.getThumbnail());
             lblName.setText("Name: " + exhibition1.getName());
             lblName.setFont(new Font(20));

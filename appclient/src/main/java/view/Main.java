@@ -56,6 +56,7 @@ public class Main extends Application {
             VBox vbBackground = new VBox();
             vbBackground.getChildren().add(backgroundView);
             vbBackground.setMargin(backgroundView, new Insets(10));
+            vbBackground.setAlignment(Pos.TOP_CENTER);
 
             VBox vbStart = new VBox();
             vbStart.getChildren().add(btnStart);

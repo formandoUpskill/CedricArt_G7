@@ -134,16 +134,9 @@ public class Artworks extends Application {
 
     private List<Artwork> listArtwork(){
         CedricArtPresenter presenter = new CedricArtPresenter();
-        List<Artwork> selectArtworks;
-        List<Artwork> allArtworks = presenter.getAllArtworksByPartner(partner.getId());
-/*
-        if (allArtworks.size() < NUM_MAX_ARTWORKS_TO_DISPLAY){
-            selectArtworks = allArtworks;
-        }else {
-            selectArtworks = AppUtils.getRandomArtworks(allArtworks, NUM_MAX_ARTWORKS_TO_DISPLAY);
 
-        }
-        */
+        List<Artwork> allArtworks = presenter.getAllArtworksByPartner(partner.getId());
+
 
         this.numberArtworks = allArtworks.size();
         System.out.println(this.numberArtworks);

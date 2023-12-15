@@ -113,7 +113,7 @@ public class Artists extends Application {
         Artist selectArtist = cmbArtists.getValue();
         List<Artwork> artworks = getArtworksForArtist(selectArtist);
 
-            artistsInfo.updateInfo(selectArtist, artworks);
+            artistsInfo.updateInfo(selectArtist);
             try {
                 primaryStage.close();
                 artistsInfo.start(new Stage());
