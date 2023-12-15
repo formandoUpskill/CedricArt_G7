@@ -121,6 +121,15 @@ public class CedricArtPresenter {
     }
 
 
+    public List<Artwork> getAllArtworksByArtist (String artist_id)
+    {
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?artist_id=" + artist_id;
+
+        return this.artworkPresenter.getArtworks(apiUrl);
+    }
+
+
+
     public List<Artwork> getAllArtworksByExhibition (String exhibition_id)
     {
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?show_id=" + exhibition_id;

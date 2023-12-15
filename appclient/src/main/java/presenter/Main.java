@@ -21,6 +21,7 @@ public class Main {
         String artworkId= "4eb2eb13e742d70001007baf";
         String partnerId="5035a14a6cb80200020007e0";
         String exhibitionId="4ea1e81bb5482b000100437c";
+        String artistId= "4d8b925e4eb68a1b2c000030";
 
         Artwork artwork;
         List<Artwork> artworks;
@@ -81,7 +82,7 @@ public class Main {
 
        // exhibitions= presenter.getAllExhibitions();
 
-
+/*
         partnerId="5035a14a6cb80200020007e0";
 
         exhibitions= presenter.getAllExhibitionsByPartner(partnerId);
@@ -108,6 +109,15 @@ public class Main {
         for (Exhibition aExhibition: exhibitions)
         {
             System.out.println(aExhibition);
+        }
+
+*/
+
+        artworks=  presenter.getAllArtworksByArtist(artistId);
+
+        for (Artwork aArtwork: artworks)
+        {
+            System.out.println(aArtwork);
         }
 /*
       artists=  presenter.getAllArtistsByPartner(partnerId);
