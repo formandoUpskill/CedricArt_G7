@@ -5,7 +5,6 @@ import domain.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
@@ -654,6 +653,66 @@ public class DBStorage {
 
         return listArtwork;
     }
+
+
+    /**
+     *
+     * @param artist_id
+     * @return
+     */
+    public List<Artwork> getAllArtworksByArtist(String artist_id)
+    {
+        List<Artwork> listArtwork = new ArrayList<>();
+        Artwork artwork;
+
+
+        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        {
+
+            String sqlCMD= MyDBUtils.get_select_command(
+                    "Artwork.id_Artwork, " +
+                            "Artwork.title, " +
+                            "Artwork.date, " +
+                            "Artwork.thumbnail, " +
+                            "Artwork.created_at, " +
+                            "Artwork.updated_at " ,
+                    " Artwork , " +
+                            " Created_By  ",
+                    "Artwork.id_Artwork= Created_By.id_Artwork AND " +
+                            " Created_By.id_Artist = '"+  artist_id + "'" ,
+                    "title ASC");
+
+
+            System.out.println("getAllArtworksByArtist " + sqlCMD);
+
+            ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
+
+            while (rs.next())
+            {
+                artwork= new Artwork();
+                artwork.setId(rs.getString("Artwork.id_Artwork"));
+                artwork.setTitle(rs.getString("Artwork.title"));
+                artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
+                artwork.setDate(rs.getString("Artwork.date"));
+
+                artwork.setCreated_at(rs.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC));
+                artwork.setUpdated_at(rs.getTimestamp("updated_at").toInstant().atOffset(ZoneOffset.UTC));
+
+
+                listArtwork.add(artwork);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return listArtwork;
+    }
+
+
+
 
     /**
      *

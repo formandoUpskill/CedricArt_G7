@@ -213,8 +213,14 @@ public class RunServer {
             String exhibition_id = request.queryParams("show_id");
             if(exhibition_id != null) {
 
-
                 artworks= storage.getAllArtworksByExhibition(exhibition_id);
+                return gson.toJson( artworks );
+            }
+
+            String artist_id = request.queryParams("artist_id");
+            if(artist_id != null) {
+
+                artworks= storage.getAllArtworksByArtist(artist_id);
                 return gson.toJson( artworks );
             }
 
