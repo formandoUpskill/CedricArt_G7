@@ -16,6 +16,9 @@ import javafx.util.Duration;
 import presenter.CedricArtPresenter;
 import util.AppUtils;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Galeries extends Application {
@@ -53,12 +56,12 @@ public class Galeries extends Application {
 
         for(int i = 0; i < numberPartners; i++){
             btnGalleries[i] = createGalleryBtn(partners.get(i));
-            btnGalleries[i].setStyle("-fx-shape: \"M15 0 L18.09 11.36 L30 13.64 L21.82 22.11 L24.09 34.64 L15 28.18 L5.91 34.64 L8.18 22.11 L0 13.64 L11.91 11.36 Z\";");
-            btnGalleries[i].setPrefSize(100,250);
-            btnGalleries[i].setWrapText(true);
+            btnGalleries[i].setStyle("-fx-shape: \"M15 0 L18.09 11.36 L30 13.64 L21.82 22.11 L24.09 34.64 L15 28.18 L5.91 34.64 L8.18 22.11 L0 13.64 L11.91 11.36 Z\"; -fx-text-fill: #FF8C00; -fx-background-color: #F0F0F0;");
+            btnGalleries[i].setPrefSize(300,750);
+            //btnGalleries[i].setWrapText(true);
         }
         Button btnBack = new Button("", backButtonImageView);
-        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: YellowGreen; ");
+        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: YellowGreen;");
         btnBack.setPrefSize(400,20);
 
 
@@ -73,19 +76,14 @@ public class Galeries extends Application {
             }
         });
 
+        gpGalleries = new GridPane();
+        gpGalleries.setAlignment(Pos.CENTER);
+        gpGalleries.setHgap(5);
+        gpGalleries.setVgap(5);
 
         fetchRandomGalleries(partners);
 
-        gpGalleries = new GridPane();
-        gpGalleries.setAlignment(Pos.CENTER);
-        gpGalleries.setHgap(10);
-        gpGalleries.setVgap(10);
-
-        for (int i = 0; i < this.numberPartners; i++){
-            gpGalleries.add(btnGalleries[i], i, i);
-        }
-
-        //vbGalleries.setStyle("-fx-grid-lines-visible: true; -fx-border-color: black; -fx-border-width: 1;");
+        //gpGalleries.setStyle("-fx-grid-lines-visible: true; -fx-border-color: black; -fx-border-width: 1;");
 
 
         VBox vbBack = new VBox(10);
@@ -94,12 +92,12 @@ public class Galeries extends Application {
         vbBack.setPadding(new Insets(5));
 
         VBox vbLayout = new VBox(10);
-        vbLayout.setStyle("-fx-background-color: navy;");
+        vbLayout.setStyle("-fx-background-color: #191970;");
         vbLayout.getChildren().addAll(gpGalleries, vbBack);
         vbLayout.setSpacing(50);
         vbLayout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(vbLayout, 1000, 600);
+        Scene scene = new Scene(vbLayout, 1500, 1000);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -129,10 +127,12 @@ public class Galeries extends Application {
     }
 
     private void fetchRandomGalleries(List<Partner> lPartners ) {
-
+        List<Button> shuffleButtons = Arrays.asList(btnGalleries);
+        Collections.shuffle(shuffleButtons);
         for (int i = 0; i < this.numberPartners; i++) {
             Partner partner = lPartners.get(i);
             btnGalleries[i].setText(partner.getName());
+            gpGalleries.add(shuffleButtons.get(i), i, i);
         }
     }
 
