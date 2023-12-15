@@ -89,7 +89,12 @@ public class ExhibitionInfo extends Application {
             CedricArtPresenter presenter = new CedricArtPresenter();
             Exhibition exhibition1 = presenter.getExhibition(exhibition.getId());
 
-            Image thumbnail = new Image(exhibition1.getThumbnail());
+            if (exhibition1.getThumbnail() != null){
+                System.out.println(exhibition1.getThumbnail());
+                Image thumbnail = new Image(exhibition1.getThumbnail());
+                imThumbnail.setImage(thumbnail);
+            }
+
             lblName.setText("Name: " + exhibition1.getName());
             lblName.setFont(new Font(20));
             lblDescription.setText("Description: " + exhibition1.getDescription());
@@ -101,7 +106,7 @@ public class ExhibitionInfo extends Application {
             lblEnd.setFont(new Font(14));
             lblStatus.setText("Status: " + exhibition1.getStatus());
             lblStatus.setFont(new Font(16));
-            imThumbnail.setImage(thumbnail);
+
         });
     }
 }

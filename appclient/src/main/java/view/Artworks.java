@@ -137,9 +137,6 @@ public class Artworks extends Application {
 
         List<Artwork> allArtworks = presenter.getAllArtworksByPartner(partner.getId());
 
-
-        this.numberArtworks = allArtworks.size();
-        System.out.println(this.numberArtworks);
         return allArtworks;
     }
 

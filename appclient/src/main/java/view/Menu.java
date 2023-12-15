@@ -35,6 +35,7 @@ public class Menu extends Application {
     }
 
     public Menu (Partner partner){
+
         this.partner = partner;
     }
 
@@ -44,6 +45,7 @@ public class Menu extends Application {
 
     public Menu(){
         Partner partner = new Partner();
+
         Artist artist = new Artist();
         this.artist = artist;
         this.partner = partner;

@@ -26,9 +26,6 @@ public class ArtistsInfo extends Application {
     private ImageView imThumbnail;
     private Label lblName;
     private Label lblHometown;
-
-    private GridPane gridPane;
-    private Artist artist;
     private Partner partner;
 
     public static void main(String[] args) {
@@ -53,8 +50,6 @@ public class ArtistsInfo extends Application {
         imThumbnail = new ImageView();
         lblHometown = new Label();
         lblName = new Label();
-
-        gridPane = createGridPane();
 
         Button btnBack = new Button("", backButtonImageView);
         btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: YellowGreen; ");
@@ -81,7 +76,7 @@ public class ArtistsInfo extends Application {
 
         VBox vbLayout = new VBox(10);
         vbLayout.setStyle("-fx-background-color: olive;");
-        vbLayout.getChildren().addAll(vbArtistsInfo, gridPane, vbBack);
+        vbLayout.getChildren().addAll(vbArtistsInfo, vbBack);
         vbLayout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(vbLayout, 1000, 600);
@@ -90,7 +85,7 @@ public class ArtistsInfo extends Application {
     }
 
     public void updateInfo(Artist artist) {
-        Platform.runLater(() ->{
+        Platform.runLater(() -> {
             CedricArtPresenter presenter = new CedricArtPresenter();
             Artist artist1 = presenter.getArtist(artist.getId());
 
@@ -103,33 +98,6 @@ public class ArtistsInfo extends Application {
             lblBiography.setText("Biography: " + artist1.getBiography());
             lblBiography.setFont(new Font(16));
             imThumbnail.setImage(thumbnail);
-
-            gridPane.getChildren().clear();
-
-            int col = 0, row = 0;
-//            for (Artwork artwork : artworks){
-//                Label lblArtwork = new Label(artwork.getTitle());
-//                Image artworkImage = new Image(artwork.getThumbnail());
-//                ImageView artworkImageView = new ImageView(artworkImage);
-//                artworkImageView.setFitWidth(50);
-//                artworkImageView.setFitHeight(50);
-//                gridPane.add(lblArtwork, col, row);
-//                gridPane.add(artworkImageView, col, row + 1);
-//                col++;
-//                if (col == 4){
-//                    col = 0;
-//                    row += 2;
-//                }
-//            }
         });
-    }
-
-    private GridPane createGridPane() {
-        GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-
-        return gridPane;
     }
 }

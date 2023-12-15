@@ -38,7 +38,7 @@ public class Galeries extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         this.primaryStage = primaryStage;
-        partners = listPartners();
+        List<Partner> partners = listPartners();
 
         primaryStage.setTitle("Galleries");
 //        primaryStage.setResizable(false);
@@ -52,9 +52,9 @@ public class Galeries extends Application {
 
         btnGalleries = new Button[numberPartners];
 
-        List<Partner> partners = listPartners();
 
         for(int i = 0; i < numberPartners; i++){
+            System.out.println("partensr partensr" + i + ":" + partners.get(i) + "555555");
             btnGalleries[i] = createGalleryBtn(partners.get(i));
             btnGalleries[i].setStyle("-fx-shape: \"M15 0 L18.09 11.36 L30 13.64 L21.82 22.11 L24.09 34.64 L15 28.18 L5.91 34.64 L8.18 22.11 L0 13.64 L11.91 11.36 Z\"; -fx-text-fill: #FF8C00; -fx-background-color: #F0F0F0;");
             btnGalleries[i].setPrefSize(300,750);
@@ -104,18 +104,20 @@ public class Galeries extends Application {
 
     private Button createGalleryBtn(Partner partner){
         Button button = new Button(partner.getName());
+        System.out.println("******************************"+partner);
         button.setOnAction(event -> openMenu(partner));
         return button;
     }
 
     private void openMenu(Partner partner){
-
+        System.out.println("+++++++++++++++++++++++++++" + partner.toString());
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000), gpGalleries);
         fadeTransition.setFromValue(1.0);
         fadeTransition.setToValue(0.0);
 
         fadeTransition.setOnFinished(event -> {
             Menu menu = new Menu(partner);
+
             try {
                 menu.start(new Stage());
                 primaryStage.close();
@@ -140,6 +142,7 @@ public class Galeries extends Application {
     private List<Partner> listPartners(){
         CedricArtPresenter presenter = new CedricArtPresenter();
         List<Partner> selectPartners;
+        System.out.println("3333333333333333333333333333");
         List<Partner> allPartners = presenter.getAllPartners();
         if (allPartners.size() < NUM_MAX_PARTNERS_TO_DISPLAY){
             selectPartners = allPartners;
