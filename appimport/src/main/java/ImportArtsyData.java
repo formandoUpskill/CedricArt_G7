@@ -52,7 +52,7 @@ public class ImportArtsyData {
         List<Gene> geneList = new ArrayList<>();
 
         do {
-            artsyApiUrl = geneArtsy.getAllGenes(artsyApiUrl, xappToken, geneList);
+            artsyApiUrl = geneArtsy.getAll(artsyApiUrl, xappToken, geneList);
 
         }
         while (!artsyApiUrl.isBlank());
@@ -81,7 +81,7 @@ public class ImportArtsyData {
         List<Artist> artistsList = new ArrayList<>();
 
         do {
-            artsyApiUrl = artistArtsy.getAllArtistsIdWithArtworks(artsyApiUrl, xappToken, artistsList);
+            artsyApiUrl = artistArtsy.getAll(artsyApiUrl, xappToken, artistsList);
 
         }
         while (!artsyApiUrl.isBlank());
@@ -159,13 +159,13 @@ public class ImportArtsyData {
         if (this.isFastLoad)
         {
             artsyApiUrl = "https://api.artsy.net/api/shows?partner_id=" + partner.getId();
-            showArtsy.getAllShows (artsyApiUrl, xappToken, exhibitionList);
+            showArtsy.getAll (artsyApiUrl, xappToken, exhibitionList);
         }
         else {
 
             do {
 
-                artsyApiUrl = showArtsy.getAllShows (artsyApiUrl, xappToken, exhibitionList);
+                artsyApiUrl = showArtsy.getAll (artsyApiUrl, xappToken, exhibitionList);
 
             }
             while (!artsyApiUrl.isBlank());
@@ -292,12 +292,12 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
         if (this.isFastLoad)
         {
             artsyApiUrl = "https://api.artsy.net/api/artworks?artist_id=" + artist.getId();
-            artworkArtsy.getAllArtworks(artsyApiUrl, xappToken, artworkList);
+            artworkArtsy.getAll(artsyApiUrl, xappToken, artworkList);
         }
         else {
 
             do {
-                artsyApiUrl = artworkArtsy.getAllArtworks(artsyApiUrl, xappToken, artworkList);
+                artsyApiUrl = artworkArtsy.getAll(artsyApiUrl, xappToken, artworkList);
 
             }
             while (!artsyApiUrl.isBlank());
@@ -328,7 +328,7 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
             */
         /* @todo: no fim descpmentar o código acima e apagar este código-- é apenas para carregar mais depresa os genes */
             artsyApiUrl = artwork.getGenesLink() ;
-            geneArtsy.getAllGenes(artsyApiUrl, xappToken, geneList);
+            geneArtsy.getAll(artsyApiUrl, xappToken, geneList);
 
 
             artwork.setArtist(artist);
@@ -357,12 +357,12 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
         if (this.isFastLoad)
         {
             artsyApiUrl = "https://api.artsy.net/api/artworks?show_id=" + exhibition.getId();
-            artworkArtsy.getAllArtworks(artsyApiUrl, xappToken, artworkList);
+            artworkArtsy.getAll(artsyApiUrl, xappToken, artworkList);
         }
         else {
 
             do {
-                artsyApiUrl = artworkArtsy.getAllArtworks(artsyApiUrl, xappToken, artworkList);
+                artsyApiUrl = artworkArtsy.getAll(artsyApiUrl, xappToken, artworkList);
 
             }
             while (!artsyApiUrl.isBlank());

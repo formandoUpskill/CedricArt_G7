@@ -86,6 +86,7 @@ public class RunServer {
                 // Foi passado este query parameter? Se sim, procurar apenas os os shows daquele partner
                 if(partner_id != null) {
                     shows= storage.getAllExhibitionsByPartner(partner_id);
+                    return gson.toJson( shows );
                 }
 
                 shows = storage.getAllExhibitions();

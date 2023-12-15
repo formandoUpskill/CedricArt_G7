@@ -15,9 +15,10 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArtistArtsy {
+public class ArtistArtsy implements IArtsy<Artist>{
 
-    public  String getAllArtistsIdWithArtworks(String apiUrl, String xappToken, List<Artist> artistsList) {
+
+    public  String getAll(String apiUrl, String xappToken, List<Artist> artistsList) {
 
 
 
