@@ -11,7 +11,6 @@ import util.ImportUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +60,8 @@ public class ShowArtsy {
 
                     for (Exhibition exhibition : exhibitions) {
 
-                        exhibition.setThumbnail(ImportUtils.cleanString(exhibition.getThumbnail()));
+
+                        exhibition.setThumbnail(ImportUtils.cleanString(exhibition.getThumbnailLinks()));
                         exhibition.setDescription(ImportUtils.cleanString(exhibition.getDescription()));
                         exhibition.setName(ImportUtils.cleanString(exhibition.getName()));
                         exhibition.setUrl(ImportUtils.cleanString(exhibition.getUrl()));

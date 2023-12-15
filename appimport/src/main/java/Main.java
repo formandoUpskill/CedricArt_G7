@@ -15,7 +15,7 @@ public class Main {
 
 //      importArtsyData.loadAllArtistsWithArtworks();
 
-//      importArtsyData.loadAllArtworksFromAllLoadedArtists();
+ //  importArtsyData.loadAllArtworksFromAllLoadedArtists();
 
 //       importArtsyData.loadPartnerForAllArtworksLoaded();
 
