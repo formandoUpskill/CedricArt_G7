@@ -13,11 +13,18 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import presenter.CedricArtPresenter;
 
 public class ExhibitionInfo extends Application {
 
     private Label lblDescription;
+    private Label lblName;
+    private Label lblStart;
+    private Label lblEnd;
+    private Label lblStatus;
+    private ImageView imThumbnail;
     private Partner partner;
 
     public ExhibitionInfo(Partner partner) {
@@ -42,6 +49,11 @@ public class ExhibitionInfo extends Application {
         btnBack.setPrefSize(100,20);
 
         lblDescription = new Label();
+        lblName = new Label();
+        lblStart = new Label();
+        lblEnd = new Label();
+        lblStatus = new Label();
+        imThumbnail = new ImageView();
 
         btnBack.setOnAction(event -> {
             Exhibitions exhibition = new Exhibitions(partner);
@@ -55,7 +67,7 @@ public class ExhibitionInfo extends Application {
 
         VBox vbExhibitionInfo = new VBox(10);
         vbExhibitionInfo.setAlignment(Pos.CENTER);
-        vbExhibitionInfo.getChildren().add(lblDescription);
+        vbExhibitionInfo.getChildren().addAll(lblName, lblDescription, lblStart, lblEnd, lblStatus, imThumbnail);
 
         VBox vbBack = new VBox(10);
         vbBack.getChildren().add(btnBack);
@@ -74,9 +86,22 @@ public class ExhibitionInfo extends Application {
 
     public void updateInfo(Exhibition exhibition) {
         Platform.runLater(() ->{
-            String description = exhibition.getDescription();
-
-            lblDescription.setText(description);
+            CedricArtPresenter presenter = new CedricArtPresenter();
+            Exhibition exhibition1 = presenter.getExhibition(exhibition.getId());
+            System.out.println(exhibition1.getName() + " : " + exhibition1);
+            Image thumbnail = new Image(exhibition1.getThumbnail());
+            lblName.setText("Name: " + exhibition1.getName());
+            lblName.setFont(new Font(20));
+            lblDescription.setText("Description: " + exhibition1.getDescription());
+            lblDescription.setFont(new Font(16));
+            lblDescription.setWrapText(true);
+            lblStart.setText("Start at: " + exhibition1.getStart_at().toString());
+            lblStart.setFont(new Font(14));
+            lblEnd.setText("End at: " + exhibition1.getEnd_at().toString());
+            lblEnd.setFont(new Font(14));
+            lblStatus.setText("Status: " + exhibition1.getStatus());
+            lblStatus.setFont(new Font(16));
+            imThumbnail.setImage(thumbnail);
         });
     }
 }

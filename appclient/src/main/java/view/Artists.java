@@ -2,6 +2,7 @@ package view;
 
 import domain.Artist;
 import domain.Artwork;
+import domain.Exhibition;
 import domain.Partner;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -16,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import presenter.CedricArtPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,6 @@ public class Artists extends Application {
     private ObservableList<Artist> overArtist;
     private List<Artist> artists;
     private static final int NUMBER = 10;
-    private Artist artist;
     private Partner partner;
 
     public static void main(String[] args) {
@@ -57,7 +58,7 @@ public class Artists extends Application {
         backButtonImageView.setFitHeight(20);
         backButtonImageView.setFitWidth(20);
 
-        artists = listArtist();
+        artists = listArtists();
 
         cmbArtists = new ComboBox<>(overArtist);
         cmbArtists.setPromptText("Select Artist");
@@ -75,7 +76,7 @@ public class Artists extends Application {
             }
         });
 
-        fetchRandomArtist(listArtist());
+        fetchRandomArtist(listArtists());
 
         cmbArtists.setOnAction(event -> showArtistsInfoForm());
 
@@ -123,6 +124,8 @@ public class Artists extends Application {
 
     private List<Artwork> getArtworksForArtist(Artist artist){
         List<Artwork> artworks = new ArrayList<>();
+        CedricArtPresenter presenter = new CedricArtPresenter();
+        //presenter.getAll
         for (int i = 1; i <= NUMBER; i++){
             Artwork artwork = new Artwork();
             artwork.setTitle("ArtworkTitle " + i);
@@ -137,15 +140,11 @@ public class Artists extends Application {
     }
 
 
-    private List<Artist> listArtist() {
+    private List<Artist> listArtists(){
+        CedricArtPresenter presenter = new CedricArtPresenter();
 
-        ArrayList<Artist> allArtists = new ArrayList<>();
-        for (int i = 1; i <= NUMBER; i++) {
-            Artist artist = new Artist();
-            artist.setName("ArtistName" + i);
-            artist.setId(String.valueOf(i));
-            allArtists.add(artist);
-        }
+        List<Artist> allArtists = presenter.getAllArtistsByPartner(partner.getId());
+
         return allArtists;
     }
 }

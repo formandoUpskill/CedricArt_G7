@@ -124,8 +124,9 @@ public class Exhibitions extends Application {
 
     private List<Exhibition> listExhibitions(){
         CedricArtPresenter presenter = new CedricArtPresenter();
-        List<Exhibition> selectExhibition;
+
         List<Exhibition> allExhibitions = presenter.getAllExhibitionsByPartner(partner.getId());
+        System.out.println(partner.getId() + "++++++++++++++");
 
         this.numberExhibitions = allExhibitions.size();
         System.out.println(this.numberExhibitions);

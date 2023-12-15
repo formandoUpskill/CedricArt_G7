@@ -52,9 +52,9 @@ public class DBStorage {
                             "Artist.url",
                     " Artist, " +
                             " Artwork, "+
-                             "Created_by",
-                    " Artist.id_Artist = Created_by.id_Artist AND " +
-                             " Artwork.id_Artwork = Created_by.id_Artwork AND "+
+                             "Created_By",
+                    " Artist.id_Artist = Created_By.id_Artist AND " +
+                             " Artwork.id_Artwork = Created_By.id_Artwork AND "+
                             " Artwork.id_Partner= '" + partner_id + "'" );
 
 
