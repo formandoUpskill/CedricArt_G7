@@ -15,7 +15,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArtworkArtsy {
+public class ArtworkArtsy  implements IArtsy<Artwork>{
 
 
 
@@ -58,7 +58,7 @@ public class ArtworkArtsy {
 
     }
 
-    public  String getAllArtworks(String apiUrl, String xappToken, List<Artwork> artworkList)
+    public  String getAll(String apiUrl, String xappToken, List<Artwork> artworkList)
     {
 
         Gson gson = new GsonBuilder().registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter()).create();

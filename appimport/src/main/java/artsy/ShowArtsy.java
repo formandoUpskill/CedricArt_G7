@@ -15,10 +15,10 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowArtsy {
+public class ShowArtsy implements IArtsy<Exhibition>{
 
 
-    public  String getAllShows(String apiUrl, String xappToken, List exhibitionList) {
+    public  String getAll(String apiUrl, String xappToken, List<Exhibition> exhibitionList) {
 
 
         Gson gson = new GsonBuilder().registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter()).create();

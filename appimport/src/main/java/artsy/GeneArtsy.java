@@ -13,9 +13,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeneArtsy {
+public class GeneArtsy implements IArtsy<Gene>{
 
-    public String getAllGenes(String apiUrl, String xappToken, List<Gene> geneList) {
+    public String getAll(String apiUrl, String xappToken, List<Gene> geneList) {
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         System.out.println(apiUrl);
@@ -72,7 +72,6 @@ public class GeneArtsy {
         return apiUrl;
 
     }
-
 
 
 

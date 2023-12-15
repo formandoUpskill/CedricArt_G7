@@ -49,10 +49,10 @@ public class ImportUtils {
     }
 
 
-
-
-
-
+    /**
+     * @todo -- falta tratar da excepção caso ocorra timeout a obter o request
+     * @return
+     */
     public static String generateXappToken() {
 
         OkHttpClient client = new OkHttpClient();
