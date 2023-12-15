@@ -104,13 +104,14 @@ public class Galeries extends Application {
 
     private Button createGalleryBtn(Partner partner){
         Button button = new Button(partner.getName());
-        System.out.println("******************************"+partner);
-        button.setOnAction(event -> openMenu(partner));
+
+        button.setOnAction(event ->  openMenu(partner));
+
         return button;
     }
 
     private void openMenu(Partner partner){
-        System.out.println("+++++++++++++++++++++++++++" + partner.toString());
+
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000), gpGalleries);
         fadeTransition.setFromValue(1.0);
         fadeTransition.setToValue(0.0);
@@ -119,8 +120,8 @@ public class Galeries extends Application {
             Menu menu = new Menu(partner);
 
             try {
-                menu.start(new Stage());
                 primaryStage.close();
+                menu.start(new Stage());
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -129,12 +130,9 @@ public class Galeries extends Application {
     }
 
     private void fetchRandomGalleries(List<Partner> lPartners ) {
-        List<Button> shuffleButtons = Arrays.asList(btnGalleries);
-        Collections.shuffle(shuffleButtons);
+
         for (int i = 0; i < this.numberPartners; i++) {
-            Partner partner = lPartners.get(i);
-            btnGalleries[i].setText(partner.getName());
-            gpGalleries.add(shuffleButtons.get(i), i, i);
+            gpGalleries.add(btnGalleries[i], i, i);
         }
     }
 
@@ -142,7 +140,7 @@ public class Galeries extends Application {
     private List<Partner> listPartners(){
         CedricArtPresenter presenter = new CedricArtPresenter();
         List<Partner> selectPartners;
-        System.out.println("3333333333333333333333333333");
+
         List<Partner> allPartners = presenter.getAllPartners();
         if (allPartners.size() < NUM_MAX_PARTNERS_TO_DISPLAY){
             selectPartners = allPartners;
