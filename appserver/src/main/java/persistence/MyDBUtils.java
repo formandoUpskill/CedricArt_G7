@@ -4,9 +4,6 @@ package persistence;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Properties;
 
 public class MyDBUtils {
@@ -40,23 +37,7 @@ public class MyDBUtils {
     }
 
 
-    /*public static LocalDateTime covertSqlDateToLocalDateTime(Date sqlDate) {
 
-        // Step 1: Convert java.sql.Date to java.util.Date
-        java.util.Date utilDate = new java.util.Date(sqlDate.getTime());
-
-        // Step 2: Create Instant from java.util.Date
-        Instant instant = utilDate.toInstant();
-
-        // Step 3: Convert Instant to LocalDateTime
-        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-
-
-        return localDateTime;
-
-    }
-
-*/
 
     public static String cleanString(String original) {
         if (original != null) {

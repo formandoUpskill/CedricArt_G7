@@ -4,7 +4,6 @@ import domain.Artist;
 import domain.Artwork;
 import domain.Exhibition;
 import domain.Partner;
-import server.RunServer;
 
 import java.util.List;
 
@@ -15,8 +14,8 @@ public class Main {
 
         CedricArtPresenter presenter = new CedricArtPresenter();
 
-       RunServer server=  new RunServer();
-       server.run();
+     //  RunServer server=  new RunServer();
+      // server.run();
 
         String artworkId= "4eb2eb13e742d70001007baf";
         String partnerId="5035a14a6cb80200020007e0";
@@ -129,7 +128,7 @@ public class Main {
 */
 
 
-        server.stop();
+      //  server.stop();
     }
 
 }

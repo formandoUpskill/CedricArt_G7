@@ -5,7 +5,8 @@ public class Main {
     public static void main(String[] args) {
 
 
-        RunServer server=  new RunServer();
+        // RunAPIServer server=  new RunAPIServer();
+        RunServer server= new RunServer();
         server.run();
 
 
@@ -13,16 +14,16 @@ public class Main {
 
     //  importArtsyData.loadAllGenes();
 
- //  importArtsyData.loadAllArtistsWithArtworks();
+// importArtsyData.loadAllArtistsWithArtworks();
 
  //  importArtsyData.loadAllArtworksFromAllLoadedArtists();
 
-    importArtsyData.loadPartnerForAllArtworksLoaded();
+ // importArtsyData.loadPartnerForAllArtworksLoaded();
 
- //     importArtsyData.loadShowsForAllPartnersLoaded();
+     importArtsyData.loadShowsForAllPartnersLoaded();
 
 
-        server.stop();
+       // server.stop();
 
 
 

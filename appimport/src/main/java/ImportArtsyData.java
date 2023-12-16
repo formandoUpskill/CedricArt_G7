@@ -194,7 +194,15 @@ public class ImportArtsyData {
     /**
      *
      */
-
+    /**
+     * @todo
+     * Exception in thread "main" java.lang.NullPointerException: Parameter specified as non-null is null: method okhttp3.Request$Builder.url, parameter url
+     * 	at okhttp3.Request$Builder.url(Request.kt)
+     * 	at artsy.PartnerArtsy.getPartner(PartnerArtsy.java:32)
+     * 	at ImportArtsyData.loadPartner(ImportArtsyData.java:246)
+     * 	at ImportArtsyData.loadPartnerForAllArtworksLoaded(ImportArtsyData.java:213)
+     * 	at Main.main(Main.java:20)
+     */
     public void loadPartnerForAllArtworksLoaded()
     {
 
