@@ -1,8 +1,11 @@
-import persistence.MyDBUtils;
+import server.RunAPIServer;
 
 public class Main {
     public static void main(String[] args) {
-        MyDBUtils myDBUtils = new MyDBUtils();
+
+
+        RunAPIServer server= new RunAPIServer();
+        server.run();
 
 
     }

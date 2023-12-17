@@ -41,7 +41,7 @@ public class RunAPIServer {
     }
 
 
-    private static final Logger logger = LoggerFactory.getLogger(RunServer.class);
+    private static final Logger logger = LoggerFactory.getLogger(RunAPIServer.class);
 
 
 
@@ -355,6 +355,6 @@ public class RunAPIServer {
     {
 
         logger.info("Stopping the server");
-        stop(); // Use Spark's stop method
+        System.exit(0);
     }
 }

@@ -81,25 +81,4 @@ public class LigacaoArtsy {
         }
     }
 
-    private void searchArtistsByLetter(String letter) {
-
-        String apiUrl = "https://api.artsy.net/api/search?q=" + letter + "&type=artist";
-        System.out.println(apiUrl);
-        Request request = new Request.Builder()
-                .url(apiUrl)
-                .header("X-XAPP-Token", xappToken)
-                .build();
-
-        try {
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                // Processar a resposta aqui conforme necessário
-                System.out.println(response.body().string());
-            } else {
-                System.out.println("Falha na solicitação à API. Código de resposta: " + response.code());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

@@ -19,7 +19,7 @@ public class Main {
 
         String artworkId= "4eb2eb13e742d70001007baf";
         String partnerId="5035a14a6cb80200020007e0";
-        String exhibitionId="4ea1e81bb5482b000100437c";
+        String exhibitionId="57ec2f87275b2403270003bf";
         String artistId= "4d8b925e4eb68a1b2c000030";
 
         Artwork artwork;
@@ -36,26 +36,44 @@ public class Main {
         List<Exhibition> exhibitions;
 
 
-      //  artwork=  presenter.getArtwork(artworkId);
-       // System.out.println(artwork);
+     artwork=  presenter.getArtwork(artworkId);
+     System.out.println(artwork);
 
-       // artworks= presenter.getAllArtworks();
+     artworks= presenter.getAllArtworks();
 
-//       artworks= presenter.getAllArtworksByPartner(partnerId);
-/*
+   artworks= presenter.getAllArtworksByPartner(partnerId);
+
+
         for (Artwork aArtwork: artworks)
         {
             System.out.println(aArtwork);
         }
-*/
+
+        System.out.println(artworks.size());
 
 
-      //  System.out.println(presenter.getExhibition(exhibitionId));
-      //   presenter.getAllArtworksByExhibition(exhibitionId);
+        System.out.println(presenter.getExhibition(exhibitionId));
+
+       artworks= presenter.getAllArtworksByExhibition(exhibitionId);
+        for (Artwork aArtwork: artworks)
+        {
+            System.out.println(aArtwork);
+        }
+        System.out.println(artworks.size());
 
 
-   //  partners= presenter.getAllPartners();
-     //   System.out.println( partners.size());
+
+       partner= presenter.getPartner(partnerId);
+       System.out.println(partner);
+
+    partners= presenter.getAllPartners();
+        for (Partner aPartner: partners)
+        {
+            System.out.println(aPartner);
+        }
+
+        System.out.println(partners.size());
+
 
 /*
     List<Partner> randomPartners= getRandomPartners(partners,10);
@@ -65,67 +83,63 @@ public class Main {
         System.out.println(aPartner);
     }
 
+
+
 */
 
-/*
-        for (Partner aPartner: partners)
-        {
-            System.out.println(aPartner);
-        }
-
-        */
-
-     //   System.out.println((presenter.getPartner(partnerId)));
 
 
 
-       // exhibitions= presenter.getAllExhibitions();
+      exhibitions= presenter.getAllExhibitions();
 
-/*
-        partnerId="5035a14a6cb80200020007e0";
 
-        exhibitions= presenter.getAllExhibitionsByPartner(partnerId);
-
-        System.out.println(partnerId + ":" + exhibitions.size() );
-
+       exhibitions= presenter.getAllExhibitionsByPartner(partnerId);
 
 
         for (Exhibition aExhibition: exhibitions)
         {
             System.out.println(aExhibition);
+
         }
+        System.out.println(exhibitions.size());
 
 
-        System.out.println("???????????????????????????");
 
-        partnerId="4eb18d6ac8004a0001000001";
+   artworks=  presenter.getAllArtworksByArtist(artistId);
 
-        exhibitions= presenter.getAllExhibitionsByPartner(partnerId);
-
-        System.out.println(partnerId + ":" + exhibitions.size() );
-
-
-        for (Exhibition aExhibition: exhibitions)
-        {
-            System.out.println(aExhibition);
-        }
-
-*/
-
-        artworks=  presenter.getAllArtworksByArtist(artistId);
 
         for (Artwork aArtwork: artworks)
         {
             System.out.println(aArtwork);
         }
-/*
-      artists=  presenter.getAllArtistsByPartner(partnerId);
+
+        System.out.println(artworks.size());
+
+
+
+
+       artist= presenter.getArtist(artistId);
+       System.out.println(artist);
+
+      artists= presenter.getAllArtists();
+
+          artists=  presenter.getAllArtistsByPartner(partnerId);
+
 
         for (Artist aArtist: artists)
         {
             System.out.println(aArtist);
         }
-*/
+
+         System.out.println(artists.size());
+
+
+
+
+
+
+
+
 
 
       //  server.stop();

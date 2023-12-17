@@ -16,53 +16,42 @@ import java.time.OffsetDateTime;
 
 public class PartnerArtsy {
 
+    private static final OkHttpClient client = new OkHttpClient();
+    private static final Gson gson = new GsonBuilder().registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter()).create();
 
     public Partner getPartner(String apiUrl, String xappToken, int id_gallerist, int id_Coordinator) {
-
-        Partner partner= new Partner();
-
-        OkHttpClient client = new OkHttpClient();
-
-        Gson gson = new GsonBuilder().registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter()).create();
-
-
-        System.out.println(apiUrl);
+        Partner partner = new Partner();
 
         Request request = new Request.Builder()
                 .url(apiUrl)
                 .header("X-XAPP-Token", xappToken)
                 .build();
 
-        try {
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                // Processar a resposta aqui conforme necessário
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
-                JsonParser parser = new JsonParser();
-                JsonObject jsonObject = (JsonObject)parser.parse(responseBody);
+                JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
 
-                String jsonString = jsonObject.toString();
+                partner = gson.fromJson(jsonObject, Partner.class);
 
-                partner = gson.fromJson(jsonString, Partner.class);
-
-                partner.setRegion(ImportUtils.cleanString(partner.getRegion()));
-                partner.setName(ImportUtils.cleanString(partner.getName()));
-                partner.setWebsite(ImportUtils.cleanString(partner.getWebsiteLink()));
-                partner.setEmail(ImportUtils.cleanString(partner.getEmail()));
-                partner.setId_gallerist(id_gallerist);
-                partner.setId_coordinator(id_Coordinator);
+                cleanPartnerData(partner, id_gallerist, id_Coordinator);
 
             } else {
                 System.out.println("Falha na solicitação à API. Código de resposta: " + response.code());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Consider using a logging framework
         }
-
-
-        System.out.println("PartnerArtsyPartnerArtsyPartnerArtsy getPartner" + partner);
 
         return partner;
     }
 
+    private void cleanPartnerData(Partner partner, int id_gallerist, int id_Coordinator) {
+        partner.setRegion(ImportUtils.cleanString(partner.getRegion()));
+        partner.setName(ImportUtils.cleanString(partner.getName()));
+        partner.setWebsite(ImportUtils.cleanString(partner.getWebsiteLink()));
+        partner.setEmail(ImportUtils.cleanString(partner.getEmail()));
+        partner.setId_gallerist(id_gallerist);
+        partner.setId_coordinator(id_Coordinator);
+    }
 }

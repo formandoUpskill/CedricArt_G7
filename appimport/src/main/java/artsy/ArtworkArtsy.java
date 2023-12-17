@@ -12,115 +12,83 @@ import util.ImportUtils;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-public class ArtworkArtsy  implements IArtsy<Artwork>{
+public class ArtworkArtsy implements IArtsy<Artwork> {
 
+    private static final OkHttpClient client = new OkHttpClient();
+    private static final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter())
+            .create();
 
-
-    public String getPartnerLinks(String apiUrl,String xappToken)
-    {
-
-        Artwork artwork = new Artwork();
-
-        Gson gson = new GsonBuilder().registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter()).create();
-
+    public String getPartnerLinks(String apiUrl, String xappToken) {
         System.out.println(apiUrl);
 
-        OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(apiUrl)
                 .header("X-XAPP-Token", xappToken)
                 .build();
 
-        try {
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                // Processar a resposta aqui conforme necessário
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
-                JsonParser parser = new JsonParser();
-                JsonObject jsonObject = (JsonObject)parser.parse(responseBody);
-
-                String jsonString = jsonObject.toString();
-
-                artwork = gson.fromJson(jsonString, Artwork.class);
+                Artwork artwork = gson.fromJson(responseBody, Artwork.class);
                 return artwork.getPartnerLink();
-
             } else {
                 System.out.println("Falha na solicitação à API. Código de resposta: " + response.code());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Consider using a logging framework
         }
-
         return null;
-
     }
 
-    public  String getAll(String apiUrl, String xappToken, List<Artwork> artworkList)
-    {
-
-        Gson gson = new GsonBuilder().registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter()).create();
-
+    public String getAll(String apiUrl, String xappToken, List<Artwork> artworkList) {
         System.out.println(apiUrl);
 
-        OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(apiUrl)
                 .header("X-XAPP-Token", xappToken)
                 .build();
 
-        try {
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                // Processar a resposta aqui conforme necessário
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
-                JsonParser parser = new JsonParser();
-                JsonObject jsonObject = (JsonObject) parser.parse(responseBody);
-
-
-                try {
-                    apiUrl = jsonObject.getAsJsonObject("_links")
-                            .getAsJsonObject("next")
-                            .get("href").getAsString();
-                }
-                catch(NullPointerException ex)
-                {
-                    apiUrl="";
-                }
+                JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
+                apiUrl = getNextApiUrl(jsonObject);
 
                 JsonArray data = jsonObject.getAsJsonObject("_embedded").getAsJsonArray("artworks");
+                Type listType = new TypeToken<List<Artwork>>() {}.getType();
+                List<Artwork> artworks = gson.fromJson(data, listType);
 
-
-                // Deserialize a list of genes
-                List<Artwork>  artworks = new ArrayList<>();
-                Type listType = new TypeToken<ArrayList<Artwork>>(){}.getType();
-                artworks = gson.fromJson(data, listType);
-
-
-                for (Artwork artwork : artworks) {
-
-                    artwork.setTitle(ImportUtils.cleanString(artwork.getTitle()));
-                    artwork.setThumbnail(ImportUtils.cleanString(artwork.getThumbnailLinks()));
-                    artwork.setUrl(ImportUtils.cleanString(artwork.getUrl()));
-                    artwork.setDate(ImportUtils.cleanString(artwork.getDate()));
-
+                artworks.forEach(artwork -> {
+                    cleanArtworkData(artwork);
                     artworkList.add(artwork);
-                }
-
+                });
             } else {
                 System.out.println("Falha na solicitação à API. Código de resposta: " + response.code());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Consider using a logging framework
         }
-
         return apiUrl;
     }
 
+    private String getNextApiUrl(JsonObject jsonObject) {
+        try {
+            return jsonObject.getAsJsonObject("_links").getAsJsonObject("next").get("href").getAsString();
+        } catch (NullPointerException ex) {
+            return "";
+        }
+    }
+
+    private void cleanArtworkData(Artwork artwork) {
+
+        artwork.setTitle(ImportUtils.cleanString(artwork.getTitle()));
+        artwork.setThumbnail(ImportUtils.cleanString(artwork.getThumbnailLinks()));
+        artwork.setUrl(ImportUtils.cleanString(artwork.getUrl()));
+        artwork.setDate(ImportUtils.cleanString(artwork.getDate()));
 
 
-
-
+    }
 }

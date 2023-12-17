@@ -1,5 +1,6 @@
 package presenter;
 
+import com.google.gson.reflect.TypeToken;
 import domain.Artist;
 import domain.Artwork;
 import domain.Exhibition;
@@ -10,12 +11,15 @@ import java.util.List;
 
 public class CedricArtPresenter {
 
-    private ArtworkPresenter artworkPresenter;
-    private PartnerPresenter partnerPresenter;
+   // private ArtworkPresenter artworkPresenter;
 
-    private ExhibitionPresenter exhibitionPresenter;
 
-    private ArtistPresenter artistPresenter;
+    private GenericPresenter<Artwork> artworkPresenter;
+    private GenericPresenter<Partner> partnerPresenter;
+
+    private GenericPresenter<Exhibition>  exhibitionPresenter;
+
+    private GenericPresenter<Artist> artistPresenter;
     /**
      *
      */
@@ -23,10 +27,11 @@ public class CedricArtPresenter {
 
         loadConfig();
 
-        artworkPresenter= new ArtworkPresenter();
-        partnerPresenter = new PartnerPresenter();
-        exhibitionPresenter =new ExhibitionPresenter();
-        artistPresenter = new ArtistPresenter();
+
+        partnerPresenter = new GenericPresenter<>();
+        exhibitionPresenter = new GenericPresenter<>();
+        artworkPresenter = new GenericPresenter<>();
+        artistPresenter= new GenericPresenter<>();
 
     }
 
@@ -47,8 +52,8 @@ public class CedricArtPresenter {
     public Artist getArtist(String artistId) {
 
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artists/";
-        Artist artist = this.artistPresenter.getArtist(apiUrl,artistId);
-        return artist;
+
+        return  artistPresenter.get(apiUrl,artistId, Artist.class);
 
     }
 
@@ -59,8 +64,7 @@ public class CedricArtPresenter {
     public List<Artist> getAllArtists ()
     {
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artists";
-
-        return this.artistPresenter.getArtists(apiUrl);
+        return artistPresenter.getAll(apiUrl, new TypeToken<List<Artist>>(){});
     }
 
 
@@ -72,7 +76,7 @@ public class CedricArtPresenter {
     public List<Artist> getAllArtistsByPartner (String partner_id)
     {
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artists?partner_id=" + partner_id;
-        return this.artistPresenter.getArtists(apiUrl);
+        return artistPresenter.getAll(apiUrl, new TypeToken<List<Artist>>(){});
     }
 
 
@@ -80,7 +84,7 @@ public class CedricArtPresenter {
     {
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artists?show_id=" + exhibition_id;
 
-        return this.artistPresenter.getArtists(apiUrl);
+        return artistPresenter.getAll(apiUrl, new TypeToken<List<Artist>>(){});
     }
 
 
@@ -95,8 +99,7 @@ public class CedricArtPresenter {
     public Artwork getArtwork(String artworkId) {
 
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks/";
-        Artwork artwork = this.artworkPresenter.getArtwork(apiUrl,artworkId);
-        return artwork;
+        return  artworkPresenter.get(apiUrl,artworkId, Artwork.class);
 
     }
 
@@ -107,8 +110,8 @@ public class CedricArtPresenter {
     public List<Artwork> getAllArtworks ()
     {
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks";
+        return artworkPresenter.getAll(apiUrl, new TypeToken<List<Artwork>>(){});
 
-       return this.artworkPresenter.getArtworks(apiUrl);
     }
 
 
@@ -117,7 +120,8 @@ public class CedricArtPresenter {
     {
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?partner_id=" + partner_id;
 
-        return this.artworkPresenter.getArtworks(apiUrl);
+        return artworkPresenter.getAll(apiUrl, new TypeToken<List<Artwork>>(){});
+
     }
 
 
@@ -125,7 +129,9 @@ public class CedricArtPresenter {
     {
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?artist_id=" + artist_id;
 
-        return this.artworkPresenter.getArtworks(apiUrl);
+        return artworkPresenter.getAll(apiUrl, new TypeToken<List<Artwork>>(){});
+
+
     }
 
 
@@ -133,8 +139,8 @@ public class CedricArtPresenter {
     public List<Artwork> getAllArtworksByExhibition (String exhibition_id)
     {
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?show_id=" + exhibition_id;
+        return artworkPresenter.getAll(apiUrl, new TypeToken<List<Artwork>>(){});
 
-        return this.artworkPresenter.getArtworks(apiUrl);
     }
 
 
@@ -150,8 +156,8 @@ public class CedricArtPresenter {
     public Partner getPartner(String partnerId) {
 
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/partners/";
-        Partner partner = this.partnerPresenter.getPartner(apiUrl,partnerId);
-        return partner;
+
+        return  partnerPresenter.get(apiUrl,partnerId, Partner.class);
 
     }
 
@@ -162,8 +168,7 @@ public class CedricArtPresenter {
     public List<Partner> getAllPartners ()
     {
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/partners";
-
-        return this.partnerPresenter.getAllPartners(apiUrl);
+        return partnerPresenter.getAll(apiUrl, new TypeToken<List<Partner>>(){});
     }
 
 
@@ -177,8 +182,8 @@ public class CedricArtPresenter {
     public Exhibition getExhibition(String exhibitionId) {
 
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/shows/";
-        Exhibition partner = this.exhibitionPresenter.getExhibition(apiUrl,exhibitionId);
-        return partner;
+
+        return  exhibitionPresenter.get(apiUrl,exhibitionId, Exhibition.class);
 
     }
 
@@ -189,32 +194,19 @@ public class CedricArtPresenter {
     public List<Exhibition> getAllExhibitions ()
     {
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/shows";
-
-        return this.exhibitionPresenter.getAllExhibitions(apiUrl);
+        return exhibitionPresenter.getAll(apiUrl, new TypeToken<List<Exhibition>>(){});
     }
 
 
     public List<Exhibition> getAllExhibitionsByPartner (String partner_id)
     {
         String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/shows?partner_id=" + partner_id;
-
-        return this.exhibitionPresenter.getAllExhibitions(apiUrl);
+        return exhibitionPresenter.getAll(apiUrl, new TypeToken<List<Exhibition>>(){});
     }
 
 
 
 
-    public ArtworkPresenter getArtworkPresenter() {
-        return this.artworkPresenter;
-    }
-
-    public PartnerPresenter getPartnerPresenter() {
-        return partnerPresenter;
-    }
-
-    public ExhibitionPresenter getExhibitionPresenter() {
-        return exhibitionPresenter;
-    }
 
     public static void main(String[] args) {
 

@@ -38,18 +38,6 @@ public class MyDBUtils {
 
 
 
-
-    public static String cleanString(String original) {
-        if (original != null) {
-            String replaced = original.replace("’", "\\’")
-                    .replace("\"", "\\\"")
-                    .replace("'", "\\'");
-
-            return replaced;
-        }
-        return null;
-    }
-
     public enum db_type {DB_MYSQL, DB_SQLSERVER, DB_SQLITE}
 
     private static String get_connection_string (db_type type, String server, String port, String db, String user, String pwd){

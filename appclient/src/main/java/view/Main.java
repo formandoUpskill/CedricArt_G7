@@ -12,25 +12,24 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import server.RunServer;
+import server.RunAPIServer;
 
 
 public class Main extends Application {
     private Stage primaryStage;
 
-    RunServer server;
+    RunAPIServer server;
     public static void main(String[] args) {
         launch(args);
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        server=  new RunServer();
-        server.run();
+       server=  new RunAPIServer();
+       server.run();
 
         this.primaryStage = primaryStage;
         try {
@@ -85,7 +84,7 @@ public class Main extends Application {
 
     public void stop() {
         System.out.println("The program is now stopping.");
-        server.stop();
+       server.stop();
         // Add any cleanup code here
     }
     private void openForm2() {

@@ -61,7 +61,7 @@ public class ImportArtsyData {
 
         for (Gene gene : geneList) {
             // inserir esse gene na base de dados
-             this.geneService.createGene(apiUrl, gene);
+             this.geneService.create(apiUrl, gene);
         }
     }
 
@@ -92,7 +92,7 @@ public class ImportArtsyData {
 
         for (Artist artist : artistsList) {
             // inserir esse artista na base de dados
-            this.artistService.createArtist(apiUrl,artist);
+            this.artistService.create(apiUrl,artist);
 
         }
     }
@@ -109,7 +109,7 @@ public class ImportArtsyData {
 
         String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/artists";
 
-        List<Artist> artistsList =  this.artistService.getAllArtists(apiUrl);
+        List<Artist> artistsList =  this.artistService.getAll(apiUrl);
 
         for(Artist artist: artistsList){
 
@@ -130,7 +130,7 @@ public class ImportArtsyData {
 
         String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/partners";
 
-        List<Partner> partnerList =  this.partnerService.getAllPartners(apiUrl);
+        List<Partner> partnerList =  this.partnerService.getAll(apiUrl);
 
 
         for(Partner partner: partnerList){
@@ -185,7 +185,7 @@ public class ImportArtsyData {
             // https://api.artsy.net/api/artworks?show_id=4ea19ee97bab1a0001001908
             exhibition.setArtworks(getAllArtworks(exhibition));
 
-            this.showService.createShow(apiUrl,exhibition);
+            this.showService.create(apiUrl,exhibition);
 
         }
 
@@ -211,7 +211,7 @@ public class ImportArtsyData {
 
         String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/artworks";
 
-        List<Artwork> artworkList =  this.artworkService.getAllArtworks(apiUrl);
+        List<Artwork> artworkList =  this.artworkService.getAll(apiUrl);
 
 
         for(Artwork artwork: artworkList){
@@ -240,15 +240,22 @@ public class ImportArtsyData {
 
         /*@todo: Tratar desta excepção
 
-            https://api.artsy.net/api/artworks/53dba451726169410d330300
-null
-Exception in thread "main" java.lang.NullPointerException: Parameter specified as non-null is null: method okhttp3.Request$Builder.url, parameter url
-	at okhttp3.Request$Builder.url(Request.kt)
-	at artsy.PartnerArtsy.getPartner(PartnerArtsy.java:32)
-	at ImportArtsyData.loadPartner(ImportArtsyData.java:233)
-	at ImportArtsyData.loadPartnerForAllArtworksLoaded(ImportArtsyData.java:213)
-	at Main.main(Main.java:14)
-	*/
+          https://api.artsy.net/api/artworks/515b2458223afaab8f000017
+java.io.IOException: Failed to generate Xapp token. Code: 502
+	at util.ImportUtils.generateXappToken(ImportUtils.java:80)
+	at ImportArtsyData.loadPartner(ImportArtsyData.java:237)
+	at ImportArtsyData.loadPartnerForAllArtworksLoaded(ImportArtsyData.java:221)
+	at MainImport.main(MainImport.java:21)
+Exception in thread "main" java.lang.NullPointerException: Parameter specified as non-null is null: method okhttp3.Request$Builder.header, parameter value
+	at okhttp3.Request$Builder.header(Request.kt)
+	at artsy.PartnerArtsy.getPartner(PartnerArtsy.java:27)
+	at ImportArtsyData.loadPartner(ImportArtsyData.java:254)
+	at ImportArtsyData.loadPartnerForAllArtworksLoaded(ImportArtsyData.java:221)
+	at MainImport.main(MainImport.java:21)
+
+
+         */
+
 
 
         Partner partner= partnerArtsy.getPartner(artsyApiUrl,xappToken, 1,2);
@@ -258,7 +265,7 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
 
 
 
-        this.partnerService.createPartner(apiUrl,partner);
+        this.partnerService.create(apiUrl,partner);
 
     }
 
@@ -342,7 +349,7 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
             artwork.setArtist(artist);
             artwork.setGeneList(geneList);
 
-            this.artworkService.createArtwork(apiUrl,artwork);
+            this.artworkService.create(apiUrl,artwork);
 
         }
 
