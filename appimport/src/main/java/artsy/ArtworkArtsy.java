@@ -40,7 +40,12 @@ public class ArtworkArtsy implements IArtsy<Artwork> {
                 if (response.isSuccessful() && response.body() != null) {
                     String responseBody = response.body().string();
                     Artwork artwork = gson.fromJson(responseBody, Artwork.class);
+
+                    requestSuccessful = true; // Se a solicitação for bem-sucedida
+
                     return artwork.getPartnerLink();
+
+
                 } //IF
                 else{
                     if  (response.code() == 429)
@@ -52,7 +57,7 @@ public class ArtworkArtsy implements IArtsy<Artwork> {
                     }
                 } // ELSE
 
-                requestSuccessful = true; // Se a solicitação for bem-sucedida
+
             } // TRY
             catch (Exception e) {
                 e.printStackTrace(); // Consider using a logging framework
@@ -97,6 +102,9 @@ public class ArtworkArtsy implements IArtsy<Artwork> {
                         cleanArtworkData(artwork);
                         artworkList.add(artwork);
                     });
+
+                    requestSuccessful = true; // Se a solicitação for bem-sucedida
+
                 } //IF
 
                 else{
@@ -109,7 +117,7 @@ public class ArtworkArtsy implements IArtsy<Artwork> {
                     }
                 } // ELSE
 
-                requestSuccessful = true; // Se a solicitação for bem-sucedida
+
             } // TRY
             catch (Exception e) {
                 e.printStackTrace(); // Consider using a logging framework

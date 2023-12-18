@@ -35,8 +35,6 @@ class CedricArtPresenterTest {
     void testGetArtistID4d8b925d4eb68a1b2c000012NotOK() {
         // Arrange
 
-
-
         Artist expectedArtist = new Artist();
         expectedArtist.setId(artistId+"sdsdsd");
 

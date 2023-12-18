@@ -52,6 +52,7 @@ public class ArtistArtsy implements IArtsy<Artist> {
                         artistsList.add(artist);
                     });
 
+                    requestSuccessful = true; // Se a solicitação for bem-sucedida
                 }//IF
                 else{
                     if  (response.code() == 429)
@@ -63,7 +64,7 @@ public class ArtistArtsy implements IArtsy<Artist> {
                     }
                 } // ELSE
 
-                requestSuccessful = true; // Se a solicitação for bem-sucedida
+
             } // TRY
             catch (Exception e) {
                 e.printStackTrace(); // Consider using a logging framework

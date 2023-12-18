@@ -238,7 +238,11 @@ public class ImportArtsyData {
             String partnerLink = null;
             try {
                 partnerLink = getPartnerLink(artwork);
+
+                System.out.println("loadPartnerForAllArtworksLoaded " + artwork.getId() + ":"+ partnerLink );
+
                 if (partnerLink!=null) {
+
                     loadPartner(partnerLink, artwork);
                 }
             } catch (ArtsyException e) {
@@ -284,6 +288,8 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
         Partner partner= null;
         try {
             partner = partnerArtsy.getPartner(artsyApiUrl,xappToken, 1,2);
+
+
              partner.setArtwork(artwork);
 
              String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/partners";

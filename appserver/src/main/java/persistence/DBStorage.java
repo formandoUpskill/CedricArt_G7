@@ -19,6 +19,13 @@ public class DBStorage {
     }
 
 
+
+    private Connection getConnection() throws SQLException {
+        return MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
+                MyDBUtils.DB_SERVER, MyDBUtils.DB_PORT, MyDBUtils.DB_NAME, MyDBUtils.DB_USER, MyDBUtils.DB_PWD);
+    }
+
+
     /**
      *
      * @param partner_id
@@ -32,8 +39,7 @@ public class DBStorage {
         Artist artist;
 
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -103,8 +109,7 @@ public class DBStorage {
         Artist artist;
 
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -154,8 +159,7 @@ public class DBStorage {
 
         Artist artist = new Artist();
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -231,8 +235,8 @@ public class DBStorage {
 
         System.out.println("insert " + sql);
 
-        try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD)){
+        try (Connection connection  = getConnection())
+        {
 
             MyDBUtils.exec_sql(connection,sql);
 
@@ -263,8 +267,8 @@ public class DBStorage {
 
         System.out.println("insert " + sql);
 
-        try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD)){
+        try (Connection connection  = getConnection())
+        {
 
             MyDBUtils.exec_sql(connection,sql);
 
@@ -286,8 +290,7 @@ public class DBStorage {
 
         Gene gene = new Gene();
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -328,8 +331,7 @@ public class DBStorage {
         List<Gene> listGenes = new ArrayList<>();
         Gene gene;
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -372,8 +374,7 @@ public class DBStorage {
         List<Gene> listGenes = new ArrayList<>();
         Gene gene;
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -422,8 +423,7 @@ public class DBStorage {
         Artwork artwork = new Artwork();
         Partner partner = new Partner();
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -488,8 +488,7 @@ public class DBStorage {
         Artwork artwork = new Artwork();
 
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -546,8 +545,7 @@ public class DBStorage {
         Artwork artwork;
 
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -594,8 +592,7 @@ public class DBStorage {
         Artwork artwork;
         Partner partner;
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -662,8 +659,7 @@ public class DBStorage {
         Artwork artwork;
 
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -721,8 +717,7 @@ public class DBStorage {
         Artwork artwork;
 
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -776,8 +771,7 @@ public class DBStorage {
 
         Exhibition exhibition = new Exhibition();
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -839,8 +833,7 @@ public class DBStorage {
         Exhibition exhibition;
 
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -901,8 +894,7 @@ public class DBStorage {
         Exhibition exhibition;
 
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -959,8 +951,7 @@ public class DBStorage {
 
         Partner partner = new Partner();
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -1005,8 +996,7 @@ public class DBStorage {
         Partner partner;
 
 
-        try( Connection connection  = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD))
+        try(Connection connection  = getConnection())
         {
 
             String sqlCMD= MyDBUtils.get_select_command(
@@ -1053,8 +1043,8 @@ public class DBStorage {
 
             System.out.println("insert into Created_By (id_Artwork, id_Artist)  " + sqlInsert);
 
-            try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                    MyDBUtils.DB_SERVER, MyDBUtils.DB_PORT, MyDBUtils.DB_NAME, MyDBUtils.DB_USER, MyDBUtils.DB_PWD)) {
+            try (Connection connection  = getConnection())
+            {
                 MyDBUtils.exec_sql(connection, sqlInsert);
             } catch (SQLException e) {
                 System.out.println("exec_sql:" + sqlInsert + " Error: " + e.getMessage());
@@ -1080,8 +1070,8 @@ public class DBStorage {
 
             System.out.println("insert into Exhibition_Artwork (id_Artwork, id_Exhibition) )  " + sqlInsert);
 
-            try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                    MyDBUtils.DB_SERVER, MyDBUtils.DB_PORT, MyDBUtils.DB_NAME, MyDBUtils.DB_USER, MyDBUtils.DB_PWD)) {
+            try (Connection connection  = getConnection())
+            {
                 MyDBUtils.exec_sql(connection, sqlInsert);
             } catch (SQLException e) {
                 System.out.println("exec_sql:" + sqlInsert + " Error: " + e.getMessage());
@@ -1102,8 +1092,8 @@ public class DBStorage {
         String where= "id_Artist='" + artist.getId()+"'";
 
 
-        try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD)){
+        try(Connection connection  = getConnection())
+        {
 
             exists= MyDBUtils.exist(connection,"Artist", where );
 
@@ -1125,8 +1115,8 @@ public class DBStorage {
 
         String where= "id_Artwork='" + newArtwork.getId()+"'";
 
-        try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD)){
+        try (Connection connection  = getConnection())
+        {
 
             exists= MyDBUtils.exist(connection,"Artwork", where );
 
@@ -1150,8 +1140,7 @@ public class DBStorage {
         String where= "id_Partner='" + partner.getId()+"'";
 
 
-        try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD)){
+        try (Connection connection  = getConnection()){
 
             exists= MyDBUtils.exist(connection,"partner", where );
 
@@ -1175,8 +1164,8 @@ public class DBStorage {
         String where= "id_Exhibition='" + exhibition.getId()+"'";
 
 
-        try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD)){
+        try (Connection connection  = getConnection())
+        {
 
             exists= MyDBUtils.exist(connection,"Exhibition", where );
 
@@ -1204,8 +1193,8 @@ public class DBStorage {
 
             System.out.println("insert into Artwork_Gene (id_Artwork, id_Gene)  " + sqlInsert);
 
-            try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                    MyDBUtils.DB_SERVER, MyDBUtils.DB_PORT, MyDBUtils.DB_NAME, MyDBUtils.DB_USER, MyDBUtils.DB_PWD)) {
+            try (Connection connection  = getConnection())
+            {
                 MyDBUtils.exec_sql(connection, sqlInsert);
             } catch (SQLException e) {
                 System.out.println("exec_sql:" + sqlInsert + " Error: " + e.getMessage());
@@ -1236,10 +1225,9 @@ public class DBStorage {
                     "');";
 
 
-            System.out.println("insert into Artwork (id_Artwork, title, created_at, updated_at, date, thumbnail, url) " + sqlInsert);
 
-            try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                    MyDBUtils.DB_SERVER, MyDBUtils.DB_PORT, MyDBUtils.DB_NAME, MyDBUtils.DB_USER, MyDBUtils.DB_PWD)) {
+            try (Connection connection  = getConnection())
+            {
 
                 MyDBUtils.exec_sql(connection, sqlInsert);
 
@@ -1271,8 +1259,8 @@ public class DBStorage {
 
         System.out.println("update " + update);
 
-        try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                MyDBUtils.DB_SERVER,MyDBUtils.DB_PORT,MyDBUtils.DB_NAME,MyDBUtils.DB_USER,MyDBUtils.DB_PWD)){
+        try(Connection connection  = getConnection())
+        {
 
             MyDBUtils.exec_sql(connection,update);
 
@@ -1309,8 +1297,8 @@ public class DBStorage {
                     "');";
 
 
-            try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                    MyDBUtils.DB_SERVER, MyDBUtils.DB_PORT, MyDBUtils.DB_NAME, MyDBUtils.DB_USER, MyDBUtils.DB_PWD)) {
+            try (Connection connection  = getConnection())
+            {
 
                 MyDBUtils.exec_sql(connection, sqlInsert);
 
@@ -1362,8 +1350,8 @@ public class DBStorage {
 
 
 
-            try (Connection connection = MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
-                    MyDBUtils.DB_SERVER, MyDBUtils.DB_PORT, MyDBUtils.DB_NAME, MyDBUtils.DB_USER, MyDBUtils.DB_PWD)) {
+            try (Connection connection  = getConnection())
+            {
 
                 MyDBUtils.exec_sql(connection, sql);
 

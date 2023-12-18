@@ -20,7 +20,7 @@ public class MainImport {
 
  // importArtsyData.loadAllArtworksFromAllLoadedArtists();
 
-   // importArtsyData.loadPartnerForAllArtworksLoaded();
+    importArtsyData.loadPartnerForAllArtworksLoaded();
 
 
  //  importArtsyData.loadShowsForAllPartnersLoaded();

@@ -48,6 +48,7 @@ public class ShowArtsy implements IArtsy<Exhibition> {
                         exhibitionList.add(exhibition);
                     });
 
+                    requestSuccessful = true; // Se a solicitação for bem-sucedida
                 } // IF
 
                 else{
@@ -60,7 +61,6 @@ public class ShowArtsy implements IArtsy<Exhibition> {
                     }
                 } // ELSE
 
-                requestSuccessful = true; // Se a solicitação for bem-sucedida
             } // TRY
             catch (Exception e) {
                 e.printStackTrace(); // Consider using a logging framework
