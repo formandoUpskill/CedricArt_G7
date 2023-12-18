@@ -78,7 +78,7 @@ public class Menu extends Application {
         Button btnGenes = new Button("Genes");
         btnGenes.setStyle("-fx-font-size: 25;" + "-fx-shape: \"M15 0 A15 15 0 1 0 30 0 A15 15 0 1 0 0 0 Z\";");
         Button btnBack = new Button("", backButtonImageView);
-        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: #048DC3; ");
+        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: #048DC3;");
         btnBack.setPrefSize(200,20);
 
         btnBack.setOnAction(event -> {
