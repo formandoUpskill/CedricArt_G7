@@ -21,8 +21,6 @@ class CedricArtPresenterTest {
 
 
         CedricArtPresenter presenter = new CedricArtPresenter();
-
-        // Act
         Artist result = presenter.getArtist(artistId);
 
         // Assert
