@@ -13,7 +13,7 @@ class CedricArtPresenterTest {
 
         String artistId= "4d8b925d4eb68a1b2c000012";
 
-        System.out.println(System.getProperty("user.dir"));
+        System.out.println(" APP CLIENT TEST:"+ System.getProperty("user.dir"));
 
         TestGenericPresenter<Artist> testArtistPresenter = new TestGenericPresenter<>();
         Artist expectedArtist = new Artist();
