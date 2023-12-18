@@ -12,13 +12,15 @@ public class MainImport {
 
         ImportArtsyData importArtsyData = new ImportArtsyData();
 
+        System.out.println(" APP IMPORT:"+ System.getProperty("user.dir"));
+
   //  importArtsyData.loadAllGenes();
 
  //  importArtsyData.loadAllArtistsWithArtworks();
 
  // importArtsyData.loadAllArtworksFromAllLoadedArtists();
 
-   // importArtsyData.loadPartnerForAllArtworksLoaded();
+    importArtsyData.loadPartnerForAllArtworksLoaded();
 
 
  //  importArtsyData.loadShowsForAllPartnersLoaded();

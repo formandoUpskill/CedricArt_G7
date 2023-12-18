@@ -35,6 +35,8 @@ public class Main {
         Exhibition exhibition;
         List<Exhibition> exhibitions;
 
+        System.out.println(" APP CLIENT:"+ System.getProperty("user.dir"));
+
 
      artwork=  presenter.getArtwork(artworkId);
      System.out.println(artwork);

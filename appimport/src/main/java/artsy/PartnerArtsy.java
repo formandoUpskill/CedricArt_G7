@@ -36,13 +36,19 @@ public class PartnerArtsy {
         {
 
             try (Response response = client.newCall(request).execute()) {
+
+
                 if (response.isSuccessful() && response.body() != null) {
+
                     String responseBody = response.body().string();
+
                     JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
 
                     partner = gson.fromJson(jsonObject, Partner.class);
 
                     cleanPartnerData(partner, id_gallerist, id_Coordinator);
+
+                    requestSuccessful = true; // Se a solicitação for bem-sucedida
 
                 } //IF
                 else{
@@ -52,10 +58,11 @@ public class PartnerArtsy {
                         int waitTime = ImportUtils.calculateWaitTime(attempt);
                         Thread.sleep(waitTime);
                         attempt++;
+
                     }
                 } // ELSE
 
-                requestSuccessful = true; // Se a solicitação for bem-sucedida
+
             } // TRY
             catch (Exception e) {
                 e.printStackTrace(); // Consider using a logging framework
