@@ -63,7 +63,7 @@ public class Artworks extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
 
-        primaryStage.setTitle("Artworks");
+        primaryStage.setTitle("Artworks " + partner.getName());
 
         artworkInfo = new ArtworkInfo(partner);
 

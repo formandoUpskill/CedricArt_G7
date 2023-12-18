@@ -58,7 +58,7 @@ public class Exhibitions extends Application {
 
         this.primaryStage = primaryStage;
 
-        primaryStage.setTitle("Exhibitions");
+        primaryStage.setTitle("Exhibitions " + partner.getName());
 
         exhibitionInfo = new ExhibitionInfo(partner);
 

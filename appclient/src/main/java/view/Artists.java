@@ -46,7 +46,7 @@ public class Artists extends Application {
 
         this.primaryStage = primaryStage;
 
-        primaryStage.setTitle("Artists");
+        primaryStage.setTitle("Artists " + partner.getName());
 
         artistsInfo = new ArtistsInfo(partner);
 

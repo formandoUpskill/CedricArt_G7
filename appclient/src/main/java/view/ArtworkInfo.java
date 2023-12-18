@@ -20,7 +20,6 @@ import presenter.CedricArtPresenter;
 
 public class ArtworkInfo extends Application {
     private Label lblTitle;
-    private Label lblArtist;
     private Partner partner;
     private ImageView imThumbnail;
 
@@ -34,7 +33,7 @@ public class ArtworkInfo extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("ArtworkInfo");
+        primaryStage.setTitle("Artwork Info " + partner.getName());
 
         Image backButtonImage = new Image(getClass().getResource("/images/return.jpg").toExternalForm());
         ImageView backButtonImageView = new ImageView(backButtonImage);
@@ -46,7 +45,7 @@ public class ArtworkInfo extends Application {
         btnBack.setPrefSize(100,20);
 
         lblTitle = new Label();
-        lblArtist = new Label();
+
         imThumbnail = new ImageView();
 
         btnBack.setOnAction(event -> {
@@ -61,7 +60,7 @@ public class ArtworkInfo extends Application {
 
         VBox vbArtworkInfo = new VBox(10);
         vbArtworkInfo.setAlignment(Pos.CENTER);
-        vbArtworkInfo.getChildren().addAll(lblTitle, imThumbnail, lblArtist);
+        vbArtworkInfo.getChildren().addAll(lblTitle, imThumbnail);
 
         VBox vbBack = new VBox(10);
         vbBack.getChildren().add(btnBack);
@@ -90,8 +89,7 @@ public class ArtworkInfo extends Application {
 
             lblTitle.setText("Titulo: " + artwork1.getTitle());
             lblTitle.setFont(new Font(20));
-            lblArtist.setText("Artist: " + artwork1.getArtist().getName());
-            lblArtist.setFont(new Font(14));
+
             imThumbnail.setImage(image);
         });
     }

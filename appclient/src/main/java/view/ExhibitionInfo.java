@@ -38,7 +38,7 @@ public class ExhibitionInfo extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        primaryStage.setTitle("ExhibitionsInfo");
+        primaryStage.setTitle("Exhibitions Info" + partner.getName());
 
         Image backButtonImage = new Image(getClass().getResource("/images/return.jpg").toExternalForm());
         ImageView backButtonImageView = new ImageView(backButtonImage);

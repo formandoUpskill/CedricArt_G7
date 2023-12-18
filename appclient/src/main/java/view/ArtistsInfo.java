@@ -42,7 +42,7 @@ public class ArtistsInfo extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        primaryStage.setTitle("ArtistsInfo");
+        primaryStage.setTitle("Artists Info " + partner.getName());
 
         Image backButtonImage = new Image(getClass().getResource("/images/return.jpg").toExternalForm());
         ImageView backButtonImageView = new ImageView(backButtonImage);
