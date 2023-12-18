@@ -31,7 +31,7 @@ public class Galeries extends Application {
     private List<Partner> partners;
 
 
-    private static final int NUM_MAX_PARTNERS_TO_DISPLAY = 10;
+    private static final int NUM_MAX_PARTNERS_TO_DISPLAY = 15;
 
     public static void main(String[] args) {
         launch(args);
@@ -135,9 +135,10 @@ public class Galeries extends Application {
     }
 
     private void fetchRandomGalleries(List<Partner> lPartners ) {
-
+        List<Button> shuffleButtons = Arrays.asList(btnGalleries);
+        Collections.shuffle(shuffleButtons);
         for (int i = 0; i < this.numberPartners; i++) {
-            gpGalleries.add(btnGalleries[i], i, i);
+            gpGalleries.add(shuffleButtons.get(i), i % 5, i / 4);
         }
     }
 
