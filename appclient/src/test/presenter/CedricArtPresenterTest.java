@@ -1,12 +1,33 @@
 package presenter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import domain.Artist;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CedricArtPresenterTest {
 
-    @org.junit.jupiter.api.Test
-    void getAllArtworks() {
+    @Test
+    void testGetArtist() {
+        // Arrange
 
+        String artistId= "4d8b925d4eb68a1b2c000012";
 
+        TestGenericPresenter<Artist> testArtistPresenter = new TestGenericPresenter<>();
+        Artist expectedArtist = new Artist();
+        expectedArtist.setId(artistId);
+
+        testArtistPresenter.setReturnValue(expectedArtist);
+
+        CedricArtPresenter presenter = new CedricArtPresenter();
+
+        // Act
+        Artist result = presenter.getArtist(artistId);
+
+        // Assert
+        assertEquals(expectedArtist, result);
     }
+
+    // Similar tests for other methods...
 }
+

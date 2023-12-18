@@ -1,15 +1,14 @@
 package artsy;
 
+import adapters.LocalDateAdapter;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import domain.Artist;
-import adapters.LocalDateAdapter;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import util.ImportUtils;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -21,7 +20,7 @@ public class ArtistArtsy implements IArtsy<Artist> {
             .registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter())
             .create();
 
-    public String getAll(String apiUrl, String xappToken, List<Artist> artistsList) {
+    public String getAll(String apiUrl, String xappToken, List<Artist> artistsList) throws ArtsyException{
         System.out.println(apiUrl);
 
         Request request = new Request.Builder()
@@ -29,38 +28,54 @@ public class ArtistArtsy implements IArtsy<Artist> {
                 .header("X-XAPP-Token", xappToken)
                 .build();
 
-        try (Response response = client.newCall(request).execute()) {
-            if (response.isSuccessful() && response.body() != null) {
-                String responseBody = response.body().string();
-                JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
 
-                apiUrl = getNextApiUrl(jsonObject);
+        int maxAttempts = ImportUtils.MAX_ATTEMPTS_API;
+        int attempt = 0;
+        boolean requestSuccessful = false;
 
-                JsonArray data = jsonObject.getAsJsonObject("_embedded").getAsJsonArray("artists");
-                Type listType = new TypeToken<List<Artist>>() {}.getType();
-                List<Artist> artists = gson.fromJson(data, listType);
 
-                artists.forEach(artist -> {
-                    cleanArtistData(artist);
-                    artistsList.add(artist);
-                });
+        while(attempt < maxAttempts && !requestSuccessful)
+        {
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String responseBody = response.body().string();
+                    JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
 
-            } else {
-                System.out.println("Falha na solicitação à API. Código de resposta: " + response.code());
+                    apiUrl = ImportUtils.getNextApiUrl(jsonObject);
+
+                    JsonArray data = jsonObject.getAsJsonObject("_embedded").getAsJsonArray("artists");
+                    Type listType = new TypeToken<List<Artist>>() {}.getType();
+                    List<Artist> artists = gson.fromJson(data, listType);
+
+                    artists.forEach(artist -> {
+                        cleanArtistData(artist);
+                        artistsList.add(artist);
+                    });
+
+                }//IF
+                else{
+                    if  (response.code() == 429)
+                    {
+                        // Esperar antes de tentar novamente
+                        int waitTime = ImportUtils.calculateWaitTime(attempt);
+                        Thread.sleep(waitTime);
+                        attempt++;
+                    }
+                } // ELSE
+
+                requestSuccessful = true; // Se a solicitação for bem-sucedida
+            } // TRY
+            catch (Exception e) {
+                e.printStackTrace(); // Consider using a logging framework
+                throw new ArtsyException(e.getMessage());
             }
-        } catch (IOException e) {
-            e.printStackTrace(); // Consider using a logging framework
-        }
+        } //WHILE
+
         return apiUrl;
+
     }
 
-    private String getNextApiUrl(JsonObject jsonObject) {
-        try {
-            return jsonObject.getAsJsonObject("_links").getAsJsonObject("next").get("href").getAsString();
-        } catch (NullPointerException ex) {
-            return "";
-        }
-    }
+
 
     private void cleanArtistData(Artist artist) {
         artist.setBiography(ImportUtils.cleanString(artist.getBiography()));

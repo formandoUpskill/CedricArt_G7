@@ -20,7 +20,7 @@ public class Main {
         String artworkId= "4eb2eb13e742d70001007baf";
         String partnerId="5035a14a6cb80200020007e0";
         String exhibitionId="57ec2f87275b2403270003bf";
-        String artistId= "4d8b925e4eb68a1b2c000030";
+        String artistId= "4d8b925d4eb68a1b2c000012";
 
         Artwork artwork;
         List<Artwork> artworks;

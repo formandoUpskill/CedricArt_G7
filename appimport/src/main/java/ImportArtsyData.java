@@ -22,12 +22,16 @@ public class ImportArtsyData {
 
     private boolean isFastLoad;
 
+    private String xappToken;
+
+
     /**
      *
      */
     public ImportArtsyData()
     {
         new ImportUtils();
+        this.xappToken= ImportUtils.GENERATED_XAPP_TOKEN;
         this.geneService= new GeneService();
         this.artistService = new ArtistService();
         this.artworkService = new ArtworkService();
@@ -35,7 +39,10 @@ public class ImportArtsyData {
         this.showService = new ShowService();
         isFastLoad= ImportUtils.IS_FAST_ARTSY_LOAD;
 
+
     }
+
+
 
     /**
      *
@@ -45,14 +52,18 @@ public class ImportArtsyData {
 
         GeneArtsy geneArtsy = new GeneArtsy();
 
-        String xappToken = ImportUtils.generateXappToken();
+
 
         String artsyApiUrl = "https://api.artsy.net/api/genes?total_count=true";
 
         List<Gene> geneList = new ArrayList<>();
 
         do {
-            artsyApiUrl = geneArtsy.getAll(artsyApiUrl, xappToken, geneList);
+            try {
+                artsyApiUrl = geneArtsy.getAll(artsyApiUrl, xappToken, geneList);
+            } catch (ArtsyException e) {
+                e.printStackTrace();
+            }
 
         }
         while (!artsyApiUrl.isBlank());
@@ -74,14 +85,17 @@ public class ImportArtsyData {
 
         ArtistArtsy artistArtsy = new ArtistArtsy();
 
-        String xappToken = ImportUtils.generateXappToken();
 
         String artsyApiUrl = "https://api.artsy.net/api/artists?artworks=true&size=500&total_count=true";
 
         List<Artist> artistsList = new ArrayList<>();
 
         do {
-            artsyApiUrl = artistArtsy.getAll(artsyApiUrl, xappToken, artistsList);
+            try {
+                artsyApiUrl = artistArtsy.getAll(artsyApiUrl, xappToken, artistsList);
+            } catch (ArtsyException e) {
+                e.printStackTrace();
+            }
 
         }
         while (!artsyApiUrl.isBlank());
@@ -135,7 +149,11 @@ public class ImportArtsyData {
 
         for(Partner partner: partnerList){
 
-            loadAllShows(partner);
+            try {
+                loadAllShows(partner);
+            } catch (ArtsyException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -144,51 +162,52 @@ public class ImportArtsyData {
      *
      * @param partner
      */
-    private void loadAllShows(Partner partner)
-    {
+    private void loadAllShows(Partner partner)  throws ArtsyException{
 
         ShowArtsy showArtsy = new ShowArtsy();
 
         List<Exhibition> exhibitionList = new ArrayList<>();
 
-        String xappToken = ImportUtils.generateXappToken();
-
 
         String artsyApiUrl = "https://api.artsy.net/api/shows?partner_id=" + partner.getId() +"&total_count=true";
 
-        if (this.isFastLoad)
-        {
-            artsyApiUrl = "https://api.artsy.net/api/shows?partner_id=" + partner.getId();
-            showArtsy.getAll (artsyApiUrl, xappToken, exhibitionList);
-        }
-        else {
 
-            do {
+        try {
+            if (this.isFastLoad) {
+                artsyApiUrl = "https://api.artsy.net/api/shows?partner_id=" + partner.getId();
+                showArtsy.getAll(artsyApiUrl, xappToken, exhibitionList);
 
-                artsyApiUrl = showArtsy.getAll (artsyApiUrl, xappToken, exhibitionList);
+            } else {
+
+                do {
+                    artsyApiUrl = showArtsy.getAll(artsyApiUrl, xappToken, exhibitionList);
+
+                }
+                while (!artsyApiUrl.isBlank());
+            }
+
+
+            String apiUrl = ImportUtils.CEDRIC_ART_API_HOST + "/shows";
+
+            for (Exhibition exhibition : exhibitionList) {
+                // colocar o partner desse show
+                exhibition.setPartner(partner);
+
+                // colocar a lista de obras de arte desse show
+
+                // para cada exibição obter as obras de arte desse exibição
+                // https://api.artsy.net/api/artworks?show_id=4ea19ee97bab1a0001001908
+                exhibition.setArtworks(getAllArtworks(exhibition));
+
+                this.showService.create(apiUrl, exhibition);
 
             }
-            while (!artsyApiUrl.isBlank());
         }
 
-
-
-        String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/shows";
-
-        for (Exhibition exhibition : exhibitionList) {
-            // colocar o partner desse show
-            exhibition.setPartner(partner);
-
-            // colocar a lista de obras de arte desse show
-
-            // para cada exibição obter as obras de arte desse exibição
-            // https://api.artsy.net/api/artworks?show_id=4ea19ee97bab1a0001001908
-            exhibition.setArtworks(getAllArtworks(exhibition));
-
-            this.showService.create(apiUrl,exhibition);
-
+        catch (ArtsyException e)
+        {
+            e.printStackTrace();
         }
-
     }
 
     /**
@@ -216,9 +235,16 @@ public class ImportArtsyData {
 
         for(Artwork artwork: artworkList){
 
-            String partnerLink = getPartnerLink(artwork);
+            String partnerLink = null;
+            try {
+                partnerLink = getPartnerLink(artwork);
+                if (partnerLink!=null) {
+                    loadPartner(partnerLink, artwork);
+                }
+            } catch (ArtsyException e) {
+                e.printStackTrace();
+            }
 
-            loadPartner(partnerLink, artwork);
 
         }
     }
@@ -234,7 +260,6 @@ public class ImportArtsyData {
         // obter o partner
         PartnerArtsy partnerArtsy = new PartnerArtsy();
 
-        String xappToken = ImportUtils.generateXappToken();
 
         String artsyApiUrl = partnerlink;
 
@@ -256,16 +281,18 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
 
          */
 
+        Partner partner= null;
+        try {
+            partner = partnerArtsy.getPartner(artsyApiUrl,xappToken, 1,2);
+             partner.setArtwork(artwork);
 
+             String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/partners";
 
-        Partner partner= partnerArtsy.getPartner(artsyApiUrl,xappToken, 1,2);
-        partner.setArtwork(artwork);
+            this.partnerService.create(apiUrl,partner);
 
-        String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/partners";
-
-
-
-        this.partnerService.create(apiUrl,partner);
+        } catch (ArtsyException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -274,11 +301,9 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
      * @param artwork
      */
 
-    private String getPartnerLink(Artwork artwork)
-    {
+    private String getPartnerLink(Artwork artwork) throws ArtsyException {
 
         ArtworkArtsy artworkArtsy = new ArtworkArtsy();
-        String xappToken = ImportUtils.generateXappToken();
 
         //https://api.artsy.net/api/artworks/id_artwork e obter o partner links
         String artsyApiUrl = "https://api.artsy.net/api/artworks/" + artwork.getId();
@@ -299,33 +324,28 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
         GeneArtsy geneArtsy = new GeneArtsy();
 
 
-        String xappToken = ImportUtils.generateXappToken();
-
         String artsyApiUrl = "https://api.artsy.net/api/artworks?artist_id=" + artist.getId() +"&total_count=true";
         List<Artwork> artworkList = new ArrayList<>();
 
-        if (this.isFastLoad)
-        {
-            artsyApiUrl = "https://api.artsy.net/api/artworks?artist_id=" + artist.getId();
-            artworkArtsy.getAll(artsyApiUrl, xappToken, artworkList);
-        }
-        else {
 
-            do {
-                artsyApiUrl = artworkArtsy.getAll(artsyApiUrl, xappToken, artworkList);
+        try {
+            if (this.isFastLoad) {
+                artsyApiUrl = "https://api.artsy.net/api/artworks?artist_id=" + artist.getId();
+                artworkArtsy.getAll(artsyApiUrl, xappToken, artworkList);
+            } else {
 
+                do {
+                    artsyApiUrl = artworkArtsy.getAll(artsyApiUrl, xappToken, artworkList);
+
+                }
+                while (!artsyApiUrl.isBlank());
             }
-            while (!artsyApiUrl.isBlank());
-        }
 
-        String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/artworks";
+            String apiUrl = ImportUtils.CEDRIC_ART_API_HOST + "/artworks";
 
+            for (Artwork artwork : artworkList) {
 
-        for (Artwork artwork : artworkList) {
-
-
-
-            List<Gene> geneList = new ArrayList<>();
+                List<Gene> geneList = new ArrayList<>();
 
             /* @todo: no fim retirar este comentário do código -- é apenas para carregar mais depressa os genes
             if (this.isFastLoad)
@@ -341,16 +361,21 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
                 while (!artsyApiUrl.isBlank());
             }
             */
-        /* @todo: no fim descpmentar o código acima e apagar este código-- é apenas para carregar mais depresa os genes */
-            artsyApiUrl = artwork.getGenesLink() ;
-            geneArtsy.getAll(artsyApiUrl, xappToken, geneList);
+                /* @todo: no fim descpmentar o código acima e apagar este código-- é apenas para carregar mais depresa os genes */
+                artsyApiUrl = artwork.getGenesLink();
+                geneArtsy.getAll(artsyApiUrl, xappToken, geneList);
 
 
-            artwork.setArtist(artist);
-            artwork.setGeneList(geneList);
+                artwork.setArtist(artist);
+                artwork.setGeneList(geneList);
 
-            this.artworkService.create(apiUrl,artwork);
+                this.artworkService.create(apiUrl, artwork);
 
+            }
+
+        }
+        catch (ArtsyException e){
+            e.printStackTrace();
         }
 
     }
@@ -360,14 +385,15 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
      * @param exhibition
      * @return
      */
-    private List<Artwork> getAllArtworks(Exhibition exhibition)
+    private List<Artwork> getAllArtworks(Exhibition exhibition) throws ArtsyException
     {
         ArtworkArtsy artworkArtsy = new ArtworkArtsy();
 
-        String xappToken = ImportUtils.generateXappToken();
 
         String artsyApiUrl = "https://api.artsy.net/api/artworks?show_id=" + exhibition.getId() +"&total_count=true";
         List<Artwork> artworkList = new ArrayList<>();
+
+
 
         if (this.isFastLoad)
         {

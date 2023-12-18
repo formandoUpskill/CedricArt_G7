@@ -11,7 +11,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import util.ImportUtils;
 
-import java.io.IOException;
 import java.time.OffsetDateTime;
 
 public class PartnerArtsy {
@@ -19,7 +18,7 @@ public class PartnerArtsy {
     private static final OkHttpClient client = new OkHttpClient();
     private static final Gson gson = new GsonBuilder().registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter()).create();
 
-    public Partner getPartner(String apiUrl, String xappToken, int id_gallerist, int id_Coordinator) {
+    public Partner getPartner(String apiUrl, String xappToken, int id_gallerist, int id_Coordinator) throws ArtsyException {
         Partner partner = new Partner();
 
         Request request = new Request.Builder()
@@ -27,23 +26,48 @@ public class PartnerArtsy {
                 .header("X-XAPP-Token", xappToken)
                 .build();
 
-        try (Response response = client.newCall(request).execute()) {
-            if (response.isSuccessful() && response.body() != null) {
-                String responseBody = response.body().string();
-                JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
 
-                partner = gson.fromJson(jsonObject, Partner.class);
+        int maxAttempts = ImportUtils.MAX_ATTEMPTS_API;
+        int attempt = 0;
+        boolean requestSuccessful = false;
 
-                cleanPartnerData(partner, id_gallerist, id_Coordinator);
 
-            } else {
-                System.out.println("Falha na solicitação à API. Código de resposta: " + response.code());
+        while(attempt < maxAttempts && !requestSuccessful)
+        {
+
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String responseBody = response.body().string();
+                    JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
+
+                    partner = gson.fromJson(jsonObject, Partner.class);
+
+                    cleanPartnerData(partner, id_gallerist, id_Coordinator);
+
+                } //IF
+                else{
+                    if  (response.code() == 429)
+                    {
+                        // Esperar antes de tentar novamente
+                        int waitTime = ImportUtils.calculateWaitTime(attempt);
+                        Thread.sleep(waitTime);
+                        attempt++;
+                    }
+                } // ELSE
+
+                requestSuccessful = true; // Se a solicitação for bem-sucedida
+            } // TRY
+            catch (Exception e) {
+                e.printStackTrace(); // Consider using a logging framework
+                throw new ArtsyException(e.getMessage());
             }
-        } catch (IOException e) {
-            e.printStackTrace(); // Consider using a logging framework
-        }
+        } //WHILE
+
 
         return partner;
+
+
+
     }
 
     private void cleanPartnerData(Partner partner, int id_gallerist, int id_Coordinator) {
