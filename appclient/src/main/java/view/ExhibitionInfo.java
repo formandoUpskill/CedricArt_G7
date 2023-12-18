@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import presenter.CedricArtPresenter;
 
@@ -79,7 +81,10 @@ public class ExhibitionInfo extends Application {
         vbLayout.getChildren().addAll(vbExhibitionInfo, vbBack);
         vbLayout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(vbLayout, 1000, 600);
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        Scene scene = new Scene(vbLayout, bounds.getWidth(), bounds.getHeight());
         primaryStage.setScene(scene);
         primaryStage.show();
     }

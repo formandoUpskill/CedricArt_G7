@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -14,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import presenter.CedricArtPresenter;
@@ -122,7 +124,10 @@ public class Artworks extends Application {
         vbLayout.getChildren().addAll(backgroundView ,cmbArtworks, vbBack);
         vbLayout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(vbLayout, 1000, 600);
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        Scene scene = new Scene(vbLayout, bounds.getWidth(), bounds.getHeight());
         primaryStage.setScene(scene);
         primaryStage.show();
     }
