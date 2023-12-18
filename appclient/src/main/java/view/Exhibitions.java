@@ -64,13 +64,16 @@ public class Exhibitions extends Application {
 
         overExhibition = FXCollections.observableArrayList();
 
-        Image backButtonImage = new Image(getClass().getResource("/images/voltar.jpeg").toExternalForm());
+        Image backgroundImage = new Image(getClass().getResource("/images/Exhibition.jpeg").toExternalForm());
+        ImageView backgroundView = new ImageView(backgroundImage);
+
+        Image backButtonImage = new Image(getClass().getResource("/images/return.jpg").toExternalForm());
         ImageView backButtonImageView = new ImageView(backButtonImage);
         backButtonImageView.setFitHeight(20);
         backButtonImageView.setFitWidth(20);
 
         Button btnBack = new Button("", backButtonImageView);
-        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: YellowGreen; ");
+        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: #048DC3; ");
         btnBack.setPrefSize(100,20);
 
         btnBack.setOnAction(event -> {
@@ -111,7 +114,7 @@ public class Exhibitions extends Application {
 
         VBox vbLayout = new VBox(10);
         vbLayout.setStyle("-fx-background-color: SlateGray;");
-        vbLayout.getChildren().addAll(cmbExhibition, vbBack);
+        vbLayout.getChildren().addAll(backgroundView, cmbExhibition, vbBack);
         vbLayout.setAlignment(Pos.CENTER);
 
         Screen screen = Screen.getPrimary();

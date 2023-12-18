@@ -35,13 +35,13 @@ public class ArtworkInfo extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("ArtworkInfo");
 
-        Image backButtonImage = new Image(getClass().getResource("/images/voltar.jpeg").toExternalForm());
+        Image backButtonImage = new Image(getClass().getResource("/images/return.jpg").toExternalForm());
         ImageView backButtonImageView = new ImageView(backButtonImage);
         backButtonImageView.setFitHeight(20);
         backButtonImageView.setFitWidth(20);
 
         Button btnBack = new Button("", backButtonImageView);
-        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: YellowGreen; ");
+        btnBack.setStyle("-fx-shape: \"M20 10 L30 30 L10 30 Z\";" + "-fx-background-color: #048DC3; ");
         btnBack.setPrefSize(100,20);
 
         lbTitle = new Label();
