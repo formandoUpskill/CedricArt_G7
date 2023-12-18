@@ -55,7 +55,7 @@ class CedricArtPresenterTest {
     void getAllArtistsByPartnerId51cc9a88275b24f8700000dbOK() {
 
 
-        int expectSize= 68;
+        int expectSize= 83;
 
         CedricArtPresenter presenter = new CedricArtPresenter();
         int resultSize = presenter.getAllArtistsByPartner(partnerId).size();

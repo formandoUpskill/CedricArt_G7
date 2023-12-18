@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DBStorage {
     /**
@@ -19,12 +20,50 @@ public class DBStorage {
     }
 
 
-
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
     private Connection getConnection() throws SQLException {
         return MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
                 MyDBUtils.DB_SERVER, MyDBUtils.DB_PORT, MyDBUtils.DB_NAME, MyDBUtils.DB_USER, MyDBUtils.DB_PWD);
     }
 
+
+
+    /**
+     * -----------------------------------------
+     * ARTIST SECTION
+     * ---------------------------------------
+     */
+
+    /**
+     *
+     * @param rs
+     * @return
+     * @throws SQLException
+     */
+    private Artist extractArtistFromResultSet(ResultSet rs) throws SQLException {
+
+       Artist artist = new Artist();
+
+        artist.setId(rs.getString("id_Artist"));
+        artist.setName(Objects.toString(rs.getString("name"), ""));
+        artist.setLocation(Objects.toString(rs.getString("location"), ""));
+        artist.setHometown(Objects.toString(rs.getString("hometown"), ""));
+        artist.setBiography (Objects.toString(rs.getString("biography"), ""));
+        artist.setSlug(Objects.toString(rs.getString("slug"), ""));
+        artist.setBirthyear(Objects.toString(rs.getString("birthyear"), ""));
+        artist.setDeathyear (Objects.toString(rs.getString("deathyear"), ""));
+        artist.setThumbnail(Objects.toString(rs.getString("thumbnail"), ""));
+        artist.setUrl(Objects.toString(rs.getString("url"), ""));
+        artist.setNationality(Objects.toString(rs.getString("nationality"), ""));
+
+        // (Objects.toString(rs.getString(""), ""));
+
+        return artist;
+    }
 
     /**
      *
@@ -70,26 +109,13 @@ public class DBStorage {
             while (rs.next())
             {
 
-                artist = new Artist();
-
-                artist.setId(rs.getString("id_Artist"));
-                artist.setName(rs.getString("name"));
-                artist.setLocation(rs.getString("location"));
-                artist.setHometown(rs.getString("hometown"));
-                artist.setBiography(rs.getString("biography"));
-                artist.setSlug(rs.getString("slug"));
-                artist.setBirthyear(rs.getString("birthyear"));
-                artist.setDeathyear(rs.getString("deathyear"));
-                artist.setThumbnail(rs.getString("thumbnail"));
-                artist.setUrl(rs.getString("url"));
-                artist.setNationality(rs.getString("url"));
+                artistList.add(extractArtistFromResultSet(rs));
 
 
-                artistList.add(artist);
             }
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+
         }
 
         return artistList;
@@ -121,23 +147,8 @@ public class DBStorage {
             while (rs.next())
             {
 
-                artist = new Artist();
+                artistList.add(extractArtistFromResultSet(rs));
 
-
-                artist.setId(rs.getString("id_Artist"));
-                artist.setName(rs.getString("name"));
-                artist.setLocation(rs.getString("location"));
-                artist.setHometown(rs.getString("hometown"));
-                artist.setBiography(rs.getString("biography"));
-                artist.setSlug(rs.getString("slug"));
-                artist.setBirthyear(rs.getString("birthyear"));
-                artist.setDeathyear(rs.getString("deathyear"));
-                artist.setThumbnail(rs.getString("thumbnail"));
-                artist.setUrl(rs.getString("url"));
-                artist.setNationality(rs.getString("nationality"));
-
-
-                artistList.add(artist);
             }
 
 
@@ -174,18 +185,7 @@ public class DBStorage {
             System.out.println(sqlCMD);
             while (rs.next())
             {
-
-                artist.setId(rs.getString("id_Artist"));
-                artist.setName(rs.getString("name"));
-                artist.setLocation(rs.getString("location"));
-                artist.setHometown(rs.getString("hometown"));
-                artist.setBiography(rs.getString("biography"));
-                artist.setSlug(rs.getString("slug"));
-                artist.setBirthyear(rs.getString("birthyear"));
-                artist.setDeathyear(rs.getString("deathyear"));
-                artist.setThumbnail(rs.getString("thumbnail"));
-                artist.setUrl(rs.getString("url"));
-                artist.setNationality(rs.getString("nationality"));
+                artist=(extractArtistFromResultSet(rs));
 
 
             }
@@ -249,7 +249,11 @@ public class DBStorage {
         return artist;
     }
 
-
+/**
+ * -----------------------------------------
+ * GENE SECTION
+ * ---------------------------------------
+ */
 
     /**
      *
@@ -364,6 +368,9 @@ public class DBStorage {
 
     }
 
+
+
+
     /**
      *
      * @param artwork
@@ -412,6 +419,31 @@ public class DBStorage {
     }
 
 
+
+
+    /**
+     * -----------------------------------------
+     * ARTWORK SECTION
+     * ---------------------------------------
+     */
+
+
+    private Artwork extractArtworkFromResultSet(ResultSet rs) throws SQLException {
+
+        Artwork artwork = new Artwork();
+
+        artwork.setId(rs.getString("Artwork.id_Artwork"));
+        artwork.setTitle(Objects.toString(rs.getString("Artwork.title"), ""));
+        artwork.setThumbnail(Objects.toString(rs.getString("thumbnail"), ""));
+        artwork.setDate(Objects.toString(rs.getString("Artwork.date"), ""));
+
+        artwork.setCreated_at(rs.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC));
+        artwork.setUpdated_at(rs.getTimestamp("updated_at").toInstant().atOffset(ZoneOffset.UTC));
+
+        return artwork;
+    }
+
+
     /**
      *
      * @param artworkId
@@ -449,14 +481,7 @@ public class DBStorage {
             while (rs.next())
             {
 
-                artwork.setId(rs.getString("Artwork.id_Artwork"));
-                artwork.setTitle(rs.getString("Artwork.title"));
-                artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
-                artwork.setDate(rs.getString("Artwork.date"));
-
-
-                artwork.setCreated_at(rs.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC));
-                artwork.setUpdated_at(rs.getTimestamp("updated_at").toInstant().atOffset(ZoneOffset.UTC));
+                artwork= extractArtworkFromResultSet(rs);
 
                 partner.setId(rs.getString("Partner.id_Partner"));
                 partner.setName(rs.getString("Partner.name"));
@@ -505,13 +530,8 @@ public class DBStorage {
             while (rs.next())
             {
 
-                artwork.setId(rs.getString("Artwork.id_Artwork"));
-                artwork.setTitle(rs.getString("Artwork.title"));
-                artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
-                artwork.setDate(rs.getString("Artwork.date"));
+                artwork= extractArtworkFromResultSet(rs);
 
-                artwork.setCreated_at(rs.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC));
-                artwork.setUpdated_at(rs.getTimestamp("updated_at").toInstant().atOffset(ZoneOffset.UTC));
 
             }
 
@@ -522,13 +542,6 @@ public class DBStorage {
 
         return artwork;
     }
-
-
-
-
-
-
-
 
 
 
@@ -559,16 +572,8 @@ public class DBStorage {
 
             while (rs.next())
             {
-                artwork= new Artwork();
-                artwork.setId(rs.getString("Artwork.id_Artwork"));
-                artwork.setTitle(rs.getString("Artwork.title"));
-                artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
-                artwork.setDate(rs.getString("Artwork.date"));
-                artwork.setCreated_at(rs.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC));
-                artwork.setUpdated_at(rs.getTimestamp("updated_at").toInstant().atOffset(ZoneOffset.UTC));
 
-
-                listArtwork.add(artwork);
+                listArtwork.add(extractArtworkFromResultSet(rs));
             }
 
 
@@ -617,15 +622,7 @@ public class DBStorage {
 
             while (rs.next())
             {
-                artwork= new Artwork();
-                artwork.setId(rs.getString("Artwork.id_Artwork"));
-                artwork.setTitle(rs.getString("Artwork.title"));
-                artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
-                artwork.setDate(rs.getString("Artwork.date"));
-
-                artwork.setCreated_at(rs.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC));
-                artwork.setUpdated_at(rs.getTimestamp("updated_at").toInstant().atOffset(ZoneOffset.UTC));
-
+                artwork= extractArtworkFromResultSet(rs);
 
                 partner = new Partner();
                 partner.setId(rs.getString("Partner.id_Partner"));
@@ -682,17 +679,10 @@ public class DBStorage {
 
             while (rs.next())
             {
-                artwork= new Artwork();
-                artwork.setId(rs.getString("Artwork.id_Artwork"));
-                artwork.setTitle(rs.getString("Artwork.title"));
-                artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
-                artwork.setDate(rs.getString("Artwork.date"));
 
-                artwork.setCreated_at(rs.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC));
-                artwork.setUpdated_at(rs.getTimestamp("updated_at").toInstant().atOffset(ZoneOffset.UTC));
+                listArtwork.add( extractArtworkFromResultSet(rs));
 
 
-                listArtwork.add(artwork);
             }
 
 
@@ -738,17 +728,8 @@ public class DBStorage {
 
             while (rs.next())
             {
-                artwork= new Artwork();
-                artwork.setId(rs.getString("Artwork.id_Artwork"));
-                artwork.setTitle(rs.getString("Artwork.title"));
-                artwork.setThumbnail(rs.getString("Artwork.thumbnail"));
-                artwork.setDate(rs.getString("Artwork.date"));
 
-                artwork.setCreated_at(rs.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC));
-                artwork.setUpdated_at(rs.getTimestamp("updated_at").toInstant().atOffset(ZoneOffset.UTC));
-
-
-                listArtwork.add(artwork);
+                listArtwork.add( extractArtworkFromResultSet(rs));
             }
 
 
@@ -759,6 +740,64 @@ public class DBStorage {
         return listArtwork;
     }
 
+
+
+
+    /**
+     *
+     * @param newArtwork
+     * @return
+     */
+    public Artwork createArtwork(Artwork newArtwork) {
+
+        Artwork artwork= newArtwork;
+
+        // se a artwork não existir então criar
+        if (!artworkExists(newArtwork)) {
+
+            String sqlInsert = "insert into Artwork (id_Artwork, title, created_at, updated_at, date, thumbnail, url) values (" +
+                    "'" + newArtwork.getId() + "'," +
+                    "'" + newArtwork.getTitle() + "'," +
+                    "'" + newArtwork.getCreated_at().toString().replace("Z", "") + "'," +
+                    "'" + newArtwork.getUpdated_at().toString().replace("Z", "") + "'," +
+                    "'" + newArtwork.getDate() + "'," +
+                    "'" + newArtwork.getThumbnail() + "'," +
+                    "'" + newArtwork.getUrl() +
+                    "');";
+
+
+
+            try (Connection connection  = getConnection())
+            {
+
+                MyDBUtils.exec_sql(connection, sqlInsert);
+
+                artwork = getArtwork(newArtwork.getId());
+
+
+            } catch (SQLException e) {
+                System.out.println("exec_sql:" + sqlInsert + " Error: " + e.getMessage());
+            }
+
+        }
+
+        // inserir na tabela que representa a ligação entre artista e artworks
+        insertArtworkArtist(newArtwork, newArtwork.getArtist());
+
+        insertArtworkGenes(newArtwork, newArtwork.getGeneList());
+
+        return artwork;
+    }
+
+
+
+
+
+    /**
+     * -----------------------------------------
+     * SHOWS SECTION
+     * ---------------------------------------
+     */
 
 
     /**
@@ -1202,51 +1241,6 @@ public class DBStorage {
         }
     }
 
-    /**
-     *
-     * @param newArtwork
-     * @return
-     */
-    public Artwork createArtwork(Artwork newArtwork) {
-
-        Artwork artwork= newArtwork;
-
-        // se a artwork não existir então criar
-         if (!artworkExists(newArtwork)) {
-
-            String sqlInsert = "insert into Artwork (id_Artwork, title, created_at, updated_at, date, thumbnail, url) values (" +
-                    "'" + newArtwork.getId() + "'," +
-                    "'" + newArtwork.getTitle() + "'," +
-                    "'" + newArtwork.getCreated_at().toString().replace("Z", "") + "'," +
-                    "'" + newArtwork.getUpdated_at().toString().replace("Z", "") + "'," +
-                    "'" + newArtwork.getDate() + "'," +
-                    "'" + newArtwork.getThumbnail() + "'," +
-                    "'" + newArtwork.getUrl() +
-                    "');";
-
-
-
-            try (Connection connection  = getConnection())
-            {
-
-                MyDBUtils.exec_sql(connection, sqlInsert);
-
-                artwork = getArtwork(newArtwork.getId());
-
-
-            } catch (SQLException e) {
-                System.out.println("exec_sql:" + sqlInsert + " Error: " + e.getMessage());
-            }
-
-        }
-
-        // inserir na tabela que representa a ligação entre artista e artworks
-        insertArtworkArtist(newArtwork, newArtwork.getArtist());
-
-        insertArtworkGenes(newArtwork, newArtwork.getGeneList());
-
-        return artwork;
-    }
 
     /**
      *

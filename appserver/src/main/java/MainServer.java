@@ -1,6 +1,6 @@
 import server.RunAPIServer;
 
-public class Main {
+public class MainServer {
     public static void main(String[] args) {
 
 

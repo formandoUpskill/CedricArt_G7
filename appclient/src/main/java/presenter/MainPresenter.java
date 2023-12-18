@@ -7,7 +7,7 @@ import domain.Partner;
 
 import java.util.List;
 
-public class Main {
+public class MainPresenter {
 
 
     public static void main(String[] args) {
@@ -38,35 +38,34 @@ public class Main {
         System.out.println(" APP CLIENT:"+ System.getProperty("user.dir"));
 
 
-     artwork=  presenter.getArtwork(artworkId);
-     System.out.println(artwork);
-
-     /*
-
-     artworks= presenter.getAllArtworks();
-
-   artworks= presenter.getAllArtworksByPartner(partnerId);
+   artwork=  presenter.getArtwork(artworkId);
+   System.out.println(artwork);
 
 
-        for (Artwork aArtwork: artworks)
-        {
-            System.out.println(aArtwork);
-        }
 
-        System.out.println(artworks.size());
+   //  artworks= presenter.getAllArtworks();
+
+   // artworks= presenter.getAllArtworksByPartner(partnerId);
 
 
-        System.out.println(presenter.getExhibition(exhibitionId));
+     // artworks= presenter.getAllArtworksByExhibition(exhibitionId);
 
-       artworks= presenter.getAllArtworksByExhibition(exhibitionId);
+        // artworks=  presenter.getAllArtworksByArtist(artistId);
+
+/*
         for (Artwork aArtwork: artworks)
         {
             System.out.println(aArtwork);
         }
         System.out.println(artworks.size());
+*/
 
 
 
+
+
+
+        /*
        partner= presenter.getPartner(partnerId);
        System.out.println(partner);
 
@@ -99,25 +98,17 @@ public class Main {
 
 
 
-   artworks=  presenter.getAllArtworksByArtist(artistId);
-
-
-        for (Artwork aArtwork: artworks)
-        {
-            System.out.println(aArtwork);
-        }
-
-        System.out.println(artworks.size());
 
 
 
+*/
 
 
-      artists= presenter.getAllArtists();
+    //  artists= presenter.getAllArtists();
 
- */
+
 /*
-          artists=  presenter.getAllArtistsByPartner(partnerId);
+       artists=  presenter.getAllArtistsByPartner(partnerId);
 
 
         for (Artist aArtist: artists)
@@ -134,8 +125,8 @@ public class Main {
         System.out.println(artist);
 
 
-*/
 
+*/
 
 
 
