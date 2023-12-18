@@ -18,10 +18,10 @@ public class MainImport {
 
  // importArtsyData.loadAllArtworksFromAllLoadedArtists();
 
-   importArtsyData.loadPartnerForAllArtworksLoaded();
+   // importArtsyData.loadPartnerForAllArtworksLoaded();
 
 
-   importArtsyData.loadShowsForAllPartnersLoaded();
+ //  importArtsyData.loadShowsForAllPartnersLoaded();
 
         System.out.println("importArtsyData finish");
 

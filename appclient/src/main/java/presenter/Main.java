@@ -35,9 +35,11 @@ public class Main {
         Exhibition exhibition;
         List<Exhibition> exhibitions;
 
-/*
+
      artwork=  presenter.getArtwork(artworkId);
      System.out.println(artwork);
+
+     /*
 
      artworks= presenter.getAllArtworks();
 
@@ -112,7 +114,7 @@ public class Main {
       artists= presenter.getAllArtists();
 
  */
-
+/*
           artists=  presenter.getAllArtistsByPartner(partnerId);
 
 
@@ -130,7 +132,7 @@ public class Main {
         System.out.println(artist);
 
 
-
+*/
 
 
 
