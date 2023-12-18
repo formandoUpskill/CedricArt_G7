@@ -239,8 +239,6 @@ public class ImportArtsyData {
             try {
                 partnerLink = getPartnerLink(artwork);
 
-                System.out.println("loadPartnerForAllArtworksLoaded " + artwork.getId() + ":"+ partnerLink );
-
                 if (partnerLink!=null) {
 
                     loadPartner(partnerLink, artwork);
