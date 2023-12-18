@@ -15,11 +15,10 @@ class CedricArtPresenterTest {
 
         System.out.println(" APP CLIENT TEST:"+ System.getProperty("user.dir"));
 
-        TestGenericPresenter<Artist> testArtistPresenter = new TestGenericPresenter<>();
+
         Artist expectedArtist = new Artist();
         expectedArtist.setId(artistId);
 
-        testArtistPresenter.setReturnValue(expectedArtist);
 
         CedricArtPresenter presenter = new CedricArtPresenter();
 
