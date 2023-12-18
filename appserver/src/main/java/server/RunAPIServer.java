@@ -87,6 +87,7 @@ public class RunAPIServer {
         setupArtworksEndpoints();
         setupGenesEndpoints();
         setupArtistsEndpoints();
+
     }
 
     /**
@@ -269,7 +270,11 @@ public class RunAPIServer {
 
     private Object handleGetAllArtists(Request request, Response response) {
         setJsonResponse(response);
+
+
         String partnerId = request.queryParams("partner_id");
+
+
         List<Artist> artists = (partnerId != null) ?
                 storage.getAllArtistsByPartner(partnerId) :
                 storage.getAllArtists();

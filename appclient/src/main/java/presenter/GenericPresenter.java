@@ -27,6 +27,9 @@ public class GenericPresenter<T> {
 
     public List<T> getAll(String apiUrl, TypeToken<List<T>> typeToken) {
         Request getRequest = new Request.Builder().url(apiUrl).build();
+
+        System.out.println("getAll " + apiUrl);
+
         Type listType = typeToken.getType();
         return processRequest(getRequest, listType);
     }
