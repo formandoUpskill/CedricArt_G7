@@ -28,7 +28,6 @@ public class Galeries extends Application {
     private Button[] btnGalleries;
     private GridPane gpGalleries;
     private int numberPartners;
-    private List<Partner> partners;
 
 
     private static final int NUM_MAX_PARTNERS_TO_DISPLAY = 15;
@@ -80,8 +79,8 @@ public class Galeries extends Application {
 
         gpGalleries = new GridPane();
         gpGalleries.setAlignment(Pos.CENTER);
-        gpGalleries.setHgap(5);
-        gpGalleries.setVgap(5);
+        gpGalleries.setHgap(80);
+        gpGalleries.setVgap(20);
 
         fetchRandomGalleries(partners);
 
@@ -118,7 +117,7 @@ public class Galeries extends Application {
     private void openMenu(Partner partner){
 
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000), gpGalleries);
-        fadeTransition.setFromValue(1.0);
+        fadeTransition.setFromValue(2.0);
         fadeTransition.setToValue(0.0);
 
         fadeTransition.setOnFinished(event -> {
