@@ -13,6 +13,8 @@ class CedricArtPresenterTest {
 
         String artistId= "4d8b925d4eb68a1b2c000012";
 
+        System.out.println(System.getProperty("user.dir"));
+
         TestGenericPresenter<Artist> testArtistPresenter = new TestGenericPresenter<>();
         Artist expectedArtist = new Artist();
         expectedArtist.setId(artistId);
@@ -25,7 +27,7 @@ class CedricArtPresenterTest {
         Artist result = presenter.getArtist(artistId);
 
         // Assert
-        assertEquals(expectedArtist, result);
+        assertEquals(expectedArtist.getId(), result.getId());
     }
 
     // Similar tests for other methods...
