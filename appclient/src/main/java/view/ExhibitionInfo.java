@@ -1,6 +1,5 @@
 package view;
 
-import domain.Artwork;
 import domain.Exhibition;
 import domain.Partner;
 import javafx.application.Application;
@@ -94,8 +93,8 @@ public class ExhibitionInfo extends Application {
             CedricArtPresenter presenter = new CedricArtPresenter();
             Exhibition exhibition1 = presenter.getExhibition(exhibition.getId());
 
-            if (exhibition1.getThumbnail() != null){
-                System.out.println(exhibition1.getThumbnail());
+            if (!(exhibition1.getThumbnail().equals("null") )){
+
                 Image thumbnail = new Image(exhibition1.getThumbnail());
                 imThumbnail.setImage(thumbnail);
             }

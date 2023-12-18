@@ -18,9 +18,9 @@ public class Main {
       // server.run();
 
         String artworkId= "4eb2eb13e742d70001007baf";
-        String partnerId="5035a14a6cb80200020007e0";
+        String partnerId="51cc9a88275b24f8700000db";
         String exhibitionId="57ec2f87275b2403270003bf";
-        String artistId= "4d8b925d4eb68a1b2c000012";
+        String artistId= "4d8b92684eb68a1b2c00009e";
 
         Artwork artwork;
         List<Artwork> artworks;
@@ -35,7 +35,7 @@ public class Main {
         Exhibition exhibition;
         List<Exhibition> exhibitions;
 
-
+/*
      artwork=  presenter.getArtwork(artworkId);
      System.out.println(artwork);
 
@@ -75,17 +75,7 @@ public class Main {
         System.out.println(partners.size());
 
 
-/*
-    List<Partner> randomPartners= getRandomPartners(partners,10);
 
-    for (Partner aPartner: randomPartners)
-    {
-        System.out.println(aPartner);
-    }
-
-
-
-*/
 
 
 
@@ -118,10 +108,10 @@ public class Main {
 
 
 
-       artist= presenter.getArtist(artistId);
-       System.out.println(artist);
 
       artists= presenter.getAllArtists();
+
+ */
 
           artists=  presenter.getAllArtistsByPartner(partnerId);
 
@@ -135,6 +125,9 @@ public class Main {
 
 
 
+        artist= presenter.getArtist(artistId);
+
+        System.out.println(artist);
 
 
 
@@ -142,7 +135,8 @@ public class Main {
 
 
 
-      //  server.stop();
+
+        //  server.stop();
     }
 
 }

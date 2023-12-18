@@ -1,9 +1,5 @@
 package util;
 
-import domain.Artwork;
-import domain.Exhibition;
-import domain.Partner;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +18,7 @@ public class AppUtils {
 
         try {
             this.config= new Properties();
-            FileReader file = new FileReader("resources/config/CedricArt.config");
+           FileReader file = new FileReader("resources/config/CedricArt.config");
             config.load(file);
             CEDRIC_ART_API_HOST = this.config.getProperty("CEDRIC_ART_API_HOST");
             file.close();

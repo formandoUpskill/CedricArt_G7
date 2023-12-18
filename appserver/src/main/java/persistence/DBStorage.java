@@ -38,7 +38,7 @@ public class DBStorage {
 
             String sqlCMD= MyDBUtils.get_select_command(
 
-                    "Artist.id_Artist, " +
+                    "distinct Artist.id_Artist, " +
                             "Artist.name, "+
                             "Artist.biography, " +
                             "Artist.birthyear, "+
@@ -57,7 +57,7 @@ public class DBStorage {
                             " Artwork.id_Partner= '" + partner_id + "'" );
 
 
-         //   System.out.println("getAllArtistsByPartner " + sqlCMD);
+            System.out.println("getAllArtistsByPartner " + sqlCMD);
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
