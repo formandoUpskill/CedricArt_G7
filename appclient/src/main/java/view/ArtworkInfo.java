@@ -14,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import presenter.CedricArtPresenter;
@@ -87,7 +89,13 @@ public class ArtworkInfo extends Application {
 
             Image image = new Image(artwork1.getThumbnail());
 
-            lblTitle.setText("Titulo: " + artwork1.getTitle());
+            Text name = new Text("Titulo: ");
+            name.setStyle("-fx-font-weight: bold;");
+            Text value = new Text(artwork1.getTitle());
+            value.setFont(new Font(16));
+            TextFlow textFlow = new TextFlow(name, value);
+
+            lblTitle.setGraphic(textFlow);
             lblTitle.setFont(new Font(20));
 
             imThumbnail.setImage(image);

@@ -1,9 +1,12 @@
 package view;
 
 
-import domain.Artwork;
+
 import domain.Exhibition;
 import domain.Partner;
+import javafx.animation.Animation;
+import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,9 +21,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.StringConverter;
 import presenter.CedricArtPresenter;
-import util.AppUtils;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,14 +145,21 @@ public class Exhibitions extends Application {
     }
 
     private void showExhibitionInfoForm(){
-        Exhibition selectExhibition = cmbExhibition.getValue();
+        TranslateTransition transition = new TranslateTransition(Duration.millis(1000), cmbExhibition);
+        transition.setFromX(-200);
+        transition.setToX(200);
 
-        exhibitionInfo.updateInfo(selectExhibition);
-        try {
-            primaryStage.close();
-            exhibitionInfo.start(new Stage());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+                transition.setOnFinished(event -> {
+                    Exhibition selectExhibition = cmbExhibition.getValue();
+
+                    exhibitionInfo.updateInfo(selectExhibition);
+                    try {
+                        primaryStage.close();
+                        exhibitionInfo.start(new Stage());
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+            });
+                transition.play();
     }
 }
