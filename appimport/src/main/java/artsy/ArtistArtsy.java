@@ -13,6 +13,10 @@ import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+/**
+ * Implementation of the IArtsy interface for Artist entities.
+ * Handles the retrieval of artist data from the Artsy API.
+ */
 public class ArtistArtsy implements IArtsy<Artist> {
 
     private static final OkHttpClient client = new OkHttpClient();
@@ -20,6 +24,15 @@ public class ArtistArtsy implements IArtsy<Artist> {
             .registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter())
             .create();
 
+    /**
+     * Retrieves all artists from the Artsy API.
+     *
+     * @param apiUrl    The API URL to fetch artists from.
+     * @param xappToken The XAPP token for Artsy API authentication.
+     * @param artistsList A list to store the retrieved artist data.
+     * @return The next API URL for pagination, or an empty string if there are no more pages.
+     * @throws ArtsyException If an error occurs during the API request.
+     */
     public String getAll(String apiUrl, String xappToken, List<Artist> artistsList) throws ArtsyException{
         System.out.println(apiUrl);
 
@@ -77,6 +90,11 @@ public class ArtistArtsy implements IArtsy<Artist> {
     }
 
 
+    /**
+     * Cleans and standardizes the data of an Artist object.
+     *
+     * @param artist The artist object whose data is to be cleaned.
+     */
 
     private void cleanArtistData(Artist artist) {
         artist.setBiography(ImportUtils.cleanString(artist.getBiography()));
