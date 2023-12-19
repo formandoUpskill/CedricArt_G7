@@ -13,6 +13,10 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service class for handling operations related to Exhibition entities.
+ * Implements the IService interface for Exhibition objects.
+ */
 public class ShowService implements IService<Exhibition> {
 
     private static final OkHttpClient httpClient = new OkHttpClient();
@@ -20,6 +24,13 @@ public class ShowService implements IService<Exhibition> {
             .registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter())
             .create();
 
+
+    /**
+     * Creates a new Exhibition in the persistent storage.
+     *
+     * @param apiUrl The URL of the API where the exhibition is to be created.
+     * @param exhibition The exhibition object to be created.
+     */
     public void create(String apiUrl, Exhibition exhibition) {
         String json = gson.toJson(exhibition);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), json);
@@ -37,6 +48,13 @@ public class ShowService implements IService<Exhibition> {
         }
     }
 
+
+    /**
+     * Retrieves all exhibitions from the persistent storage.
+     *
+     * @param apiUrl The URL of the API from where exhibitions are to be fetched.
+     * @return A list of Exhibition objects.
+     */
     public List<Exhibition> getAll(String apiUrl) {
         List<Exhibition> all = new ArrayList<>();
         Request getRequest = new Request.Builder().url(apiUrl).build();
@@ -55,6 +73,13 @@ public class ShowService implements IService<Exhibition> {
         return all;
     }
 
+
+    /**
+     * Logs the error response from the HTTP request.
+     *
+     * @param response The HTTP response to log.
+     * @throws IOException If an I/O error occurs.
+     */
     private void logErrorResponse(Response response) throws IOException {
         // Replace with a proper logging mechanism
         System.out.println("Error: " + response.code() + " - " + response.message());
