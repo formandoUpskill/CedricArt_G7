@@ -13,11 +13,25 @@ import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+/**
+ * Class responsible for retrieving exhibition data from the Artsy API.
+ * Implements the IArtsy interface for Exhibition objects.
+ */
 public class ShowArtsy implements IArtsy<Exhibition> {
 
     private static final OkHttpClient client = new OkHttpClient();
     private static final Gson gson = new GsonBuilder().registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter()).create();
 
+
+    /**
+     * Retrieves all exhibitions from the Artsy API.
+     *
+     * @param apiUrl The API URL to fetch exhibitions from.
+     * @param xappToken The XAPP token for Artsy API authentication.
+     * @param exhibitionList A list to store the retrieved exhibition data.
+     * @return The next API URL for pagination, or an empty string if there are no more pages.
+     * @throws ArtsyException If an error occurs during the API request.
+     */
     public String getAll(String apiUrl, String xappToken, List<Exhibition> exhibitionList) throws ArtsyException{
         Request request = new Request.Builder()
                 .url(apiUrl)
@@ -68,14 +82,15 @@ public class ShowArtsy implements IArtsy<Exhibition> {
             }
         } //WHILE
 
-
         return apiUrl;
 
     }
 
-
-
-
+    /**
+     * Cleans and standardizes the data of an Exhibition object.
+     *
+     * @param exhibition The exhibition object whose data is to be cleaned.
+     */
     private void cleanExhibitionData(Exhibition exhibition) {
         exhibition.setThumbnail(ImportUtils.cleanString(exhibition.getThumbnailLinks()));
         exhibition.setDescription(ImportUtils.cleanString(exhibition.getDescription()));
