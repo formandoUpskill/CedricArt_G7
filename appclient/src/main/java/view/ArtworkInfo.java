@@ -20,6 +20,11 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import presenter.CedricArtPresenter;
 
+/**
+ * ArtworkInfo class represents a JavaFX application for displaying detailed information about an artwork.
+ * This class extends the Application class.
+ */
+
 public class ArtworkInfo extends Application {
     private Label lblTitle;
     private Partner partner;
@@ -29,9 +34,22 @@ public class ArtworkInfo extends Application {
         launch(args);
     }
 
+    /**
+     * Constructor for the ArtworkInfo class.
+     *
+     * @param partner The partner associated with the artwork.
+     */
+
     public ArtworkInfo(Partner partner) {
         this.partner = partner;
     }
+
+    /**
+     * Overrides the start method from the Application class.
+     *
+     * @param primaryStage The primary stage for the application.
+     * @throws Exception If an error occurs during the start process.
+     */
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -82,6 +100,12 @@ public class ArtworkInfo extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Updates the displayed information with details about the selected artwork.
+     *
+     * @param artwork The artwork whose information will be displayed.
+     */
+
     public void updateInfo(Artwork artwork) {
         Platform.runLater(() ->{
             CedricArtPresenter presenter = new CedricArtPresenter();
@@ -101,5 +125,4 @@ public class ArtworkInfo extends Application {
             imThumbnail.setImage(image);
         });
     }
-
 }

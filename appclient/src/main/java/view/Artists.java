@@ -24,6 +24,10 @@ import presenter.CedricArtPresenter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Artists class represents a JavaFX application for displaying artist information.
+ * This class extends the Application class.
+ */
 public class Artists extends Application {
     private ComboBox<Artist> cmbArtists;
     private ArtistsInfo artistsInfo;
@@ -37,12 +41,29 @@ public class Artists extends Application {
         launch(args);
     }
 
+    /**
+     * Constructor for the Artists class.
+     *
+     * @param partner The partner associated with the artists.
+     */
+
     public Artists(Partner partner) {
         this.partner = partner;
     }
 
+    /**
+     * Overrides the start method from the Application class.
+     *
+     * @param primaryStage The primary stage for the application.
+     * @throws Exception If an error occurs during the start process.
+     */
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        /**
+         * Displays the artist information form when a specific artist is selected.
+         */
 
         this.primaryStage = primaryStage;
 
@@ -127,6 +148,13 @@ public class Artists extends Application {
             }
     }
 
+    /**
+     * Retrieves artworks associated with a specific artist.
+     *
+     * @param artist The artist for which artworks are retrieved.
+     * @return A list of artworks.
+     */
+
     private List<Artwork> getArtworksForArtist(Artist artist){
         List<Artwork> artworks = new ArrayList<>();
         CedricArtPresenter presenter = new CedricArtPresenter();
@@ -140,11 +168,22 @@ public class Artists extends Application {
         return artworks;
     }
 
+    /**
+     * Fetches a list of random artists and adds them to the ComboBox.
+     *
+     * @param lArtist The list of artists to be added.
+     */
+
     private void fetchRandomArtist(List<Artist> lArtist ) {
         overArtist.addAll(lArtist);
     }
 
 
+    /**
+     * Retrieves a list of artists for a specific partner.
+     *
+     * @return A list of artists.
+     */
     private List<Artist> listArtists(){
         CedricArtPresenter presenter = new CedricArtPresenter();
 

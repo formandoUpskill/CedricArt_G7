@@ -23,6 +23,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Galeries class represents a JavaFX application for displaying a collection of gallery partners.
+ * This class extends the Application class.
+ */
 public class Galeries extends Application {
     private Stage primaryStage;
     private Button[] btnGalleries;
@@ -35,6 +39,13 @@ public class Galeries extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    /**
+     * Overrides the start method from the Application class.
+     *
+     * @param primaryStage The primary stage for the application.
+     * @throws Exception If an error occurs during the start process.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -106,6 +117,12 @@ public class Galeries extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Creates buttons for each gallery partner and adds them to the grid pane.
+     *
+     * @param partner The partner associated with the button.
+     * @return The created button.
+     */
     private Button createGalleryBtn(Partner partner){
         Button button = new Button(partner.getName());
 
@@ -114,6 +131,11 @@ public class Galeries extends Application {
         return button;
     }
 
+    /**
+     * Opens the menu for the selected partner, applying a fade transition effect.
+     *
+     * @param partner The selected partner.
+     */
     private void openMenu(Partner partner){
 
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000), gpGalleries);
@@ -133,6 +155,11 @@ public class Galeries extends Application {
         fadeTransition.play();
     }
 
+    /**
+     * Fetches a list of random galleries and adds buttons to the grid pane.
+     *
+     * @param lPartners The list of partners to be added.
+     */
     private void fetchRandomGalleries(List<Partner> lPartners ) {
         List<Button> shuffleButtons = Arrays.asList(btnGalleries);
         Collections.shuffle(shuffleButtons);
@@ -142,6 +169,11 @@ public class Galeries extends Application {
     }
 
 
+    /**
+     * Retrieves a list of partners to be displayed.
+     *
+     * @return A list of partner objects.
+     */
     private List<Partner> listPartners(){
         CedricArtPresenter presenter = new CedricArtPresenter();
         List<Partner> selectPartners;

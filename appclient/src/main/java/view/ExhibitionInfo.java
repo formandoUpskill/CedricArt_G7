@@ -18,6 +18,10 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import presenter.CedricArtPresenter;
 
+/**
+ * ExhibitionInfo class represents a JavaFX application for displaying detailed information about an exhibition.
+ * This class extends the Application class.
+ */
 public class ExhibitionInfo extends Application {
 
     private Label lblDescription;
@@ -28,6 +32,11 @@ public class ExhibitionInfo extends Application {
     private ImageView imThumbnail;
     private Partner partner;
 
+    /**
+     * Constructor for the ExhibitionInfo class with a partner.
+     *
+     * @param partner The partner associated with the exhibition.
+     */
     public ExhibitionInfo(Partner partner) {
         this.partner = partner;
     }
@@ -35,6 +44,13 @@ public class ExhibitionInfo extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    /**
+     * Overrides the start method from the Application class.
+     *
+     * @param primaryStage The primary stage for the application.
+     * @throws Exception If an error occurs during the start process.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -88,6 +104,11 @@ public class ExhibitionInfo extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Updates the displayed information with details about the selected exhibition.
+     *
+     * @param exhibition The exhibition whose information will be displayed.
+     */
     public void updateInfo(Exhibition exhibition) {
         Platform.runLater(() ->{
             CedricArtPresenter presenter = new CedricArtPresenter();

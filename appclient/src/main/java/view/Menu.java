@@ -27,6 +27,12 @@ import javafx.util.Duration;
 
 import java.util.List;
 
+/**
+ * The Menu class represents the menu interface for the CedricArt application.
+ * It provides options for navigating to different sections of the application.
+ * The menu includes buttons for Artworks, Artists, Exhibitions, and Genes.
+ * Each button triggers a rotation transition effect before navigating to the respective section.
+ */
 public class Menu extends Application {
     private Partner partner;
     private Artist artist;
@@ -36,6 +42,11 @@ public class Menu extends Application {
         launch(args);
     }
 
+    /**
+     * Constructs a Menu for a specific partner.
+     *
+     * @param partner The partner associated with the menu.
+     */
     public Menu (Partner partner){
 
         this.partner = partner;
@@ -45,6 +56,9 @@ public class Menu extends Application {
         this.artist = artist;
     }
 
+    /**
+     * Constructs a Menu with default partner and artist objects.
+     */
     public Menu(){
         Partner partner = new Partner();
 
@@ -54,6 +68,12 @@ public class Menu extends Application {
     }
 
 
+    /**
+     * Overrides the start method from the Application class.
+     *
+     * @param primaryStage The primary stage for the menu interface.
+     * @throws Exception If an error occurs during the start process.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
@@ -169,18 +189,33 @@ public class Menu extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Creates a rotation transition with the specified angle.
+     *
+     * @param angle The angle of rotation for the transition.
+     * @return A RotateTransition object.
+     */
     private RotateTransition rotateTransition(int angle) {
         RotateTransition rotate = new RotateTransition(Duration.seconds(1));
         rotate.setByAngle(angle);
         return rotate;
     }
 
+    /**
+     * Applies a rotation transition to a button with the specified angle.
+     *
+     * @param btn   The button to which the rotation is applied.
+     * @param angle The angle of rotation for the transition.
+     */
     private void applyRotationTransition(Button btn, int angle) {
         rotate = rotateTransition(angle);
         rotate.setNode(btn);
         rotate.play();
     }
 
+    /**
+     * Shows an alert indicating that the selected feature is under construction.
+     */
     private void showMaintenanceAlert(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Construction!!!");
