@@ -6,7 +6,10 @@ import util.ImportUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Class for importing data from the Artsy API.
+ * Handles the import of genes, artists, artworks, partners, and shows.
+ */
 public class ImportArtsyData {
 
     private GeneService geneService;
@@ -26,7 +29,8 @@ public class ImportArtsyData {
 
 
     /**
-     *
+     * Constructor for ImportArtsyData.
+     * Initializes services and configurations for importing data.
      */
     public ImportArtsyData()
     {
@@ -39,20 +43,15 @@ public class ImportArtsyData {
         this.showService = new ShowService();
         isFastLoad= ImportUtils.IS_FAST_ARTSY_LOAD;
 
-
     }
 
 
-
     /**
-     *
+     * Loads all genes from the Artsy API and stores them in the database.
      */
     public void loadAllGenes() {
 
-
         GeneArtsy geneArtsy = new GeneArtsy();
-
-
 
         String artsyApiUrl = "https://api.artsy.net/api/genes?total_count=true";
 
@@ -77,14 +76,12 @@ public class ImportArtsyData {
     }
 
     /**
-     *
+     * Loads all artists with artworks from the Artsy API and stores them in the database.
      */
 
     public void loadAllArtistsWithArtworks (){
 
-
         ArtistArtsy artistArtsy = new ArtistArtsy();
-
 
         String artsyApiUrl = "https://api.artsy.net/api/artists?artworks=true&size=500&total_count=true";
 
@@ -100,9 +97,7 @@ public class ImportArtsyData {
         }
         while (!artsyApiUrl.isBlank());
 
-
         String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/artists";
-
 
         for (Artist artist : artistsList) {
             // inserir esse artista na base de dados
@@ -113,7 +108,7 @@ public class ImportArtsyData {
 
 
     /**
-     *
+     * Loads all artworks for all artists loaded in the database.
      */
     public void loadAllArtworksFromAllLoadedArtists()
     {
@@ -134,7 +129,7 @@ public class ImportArtsyData {
 
 
     /**
-     *
+     * Loads shows for all partners loaded in the database.
      */
     public void loadShowsForAllPartnersLoaded()
     {
@@ -145,7 +140,6 @@ public class ImportArtsyData {
         String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/partners";
 
         List<Partner> partnerList =  this.partnerService.getAll(apiUrl);
-
 
         for(Partner partner: partnerList){
 
@@ -159,15 +153,17 @@ public class ImportArtsyData {
 
 
     /**
+     * Loads all shows for a given partner from the Artsy API.
      *
-     * @param partner
+     * @param partner The partner for which shows are to be loaded.
+     * @throws ArtsyException If an error occurs while fetching data from the Artsy API.
      */
+
     private void loadAllShows(Partner partner)  throws ArtsyException{
 
         ShowArtsy showArtsy = new ShowArtsy();
 
         List<Exhibition> exhibitionList = new ArrayList<>();
-
 
         String artsyApiUrl = "https://api.artsy.net/api/shows?partner_id=" + partner.getId() +"&total_count=true";
 
@@ -211,16 +207,7 @@ public class ImportArtsyData {
     }
 
     /**
-     *
-     */
-    /**
-     * @todo
-     * Exception in thread "main" java.lang.NullPointerException: Parameter specified as non-null is null: method okhttp3.Request$Builder.url, parameter url
-     * 	at okhttp3.Request$Builder.url(Request.kt)
-     * 	at artsy.PartnerArtsy.getPartner(PartnerArtsy.java:32)
-     * 	at ImportArtsyData.loadPartner(ImportArtsyData.java:246)
-     * 	at ImportArtsyData.loadPartnerForAllArtworksLoaded(ImportArtsyData.java:213)
-     * 	at Main.main(Main.java:20)
+     * Loads partner information for all artworks loaded in the database.
      */
     public void loadPartnerForAllArtworksLoaded()
     {
@@ -231,7 +218,6 @@ public class ImportArtsyData {
         String apiUrl = ImportUtils.CEDRIC_ART_API_HOST+ "/artworks";
 
         List<Artwork> artworkList =  this.artworkService.getAll(apiUrl);
-
 
         for(Artwork artwork: artworkList){
 
@@ -247,14 +233,14 @@ public class ImportArtsyData {
                 e.printStackTrace();
             }
 
-
         }
     }
 
     /**
+     * Loads partner information for a specific artwork.
      *
-     * @param partnerlink
-     * @param artwork
+     * @param partnerlink The API link to the partner information.
+     * @param artwork The artwork for which the partner is being loaded.
      */
     private void loadPartner(String partnerlink, Artwork artwork)
     {
@@ -262,31 +248,11 @@ public class ImportArtsyData {
         // obter o partner
         PartnerArtsy partnerArtsy = new PartnerArtsy();
 
-
         String artsyApiUrl = partnerlink;
-
-        /*@todo: Tratar desta excepção
-
-          https://api.artsy.net/api/artworks/515b2458223afaab8f000017
-java.io.IOException: Failed to generate Xapp token. Code: 502
-	at util.ImportUtils.generateXappToken(ImportUtils.java:80)
-	at ImportArtsyData.loadPartner(ImportArtsyData.java:237)
-	at ImportArtsyData.loadPartnerForAllArtworksLoaded(ImportArtsyData.java:221)
-	at MainImport.main(MainImport.java:21)
-Exception in thread "main" java.lang.NullPointerException: Parameter specified as non-null is null: method okhttp3.Request$Builder.header, parameter value
-	at okhttp3.Request$Builder.header(Request.kt)
-	at artsy.PartnerArtsy.getPartner(PartnerArtsy.java:27)
-	at ImportArtsyData.loadPartner(ImportArtsyData.java:254)
-	at ImportArtsyData.loadPartnerForAllArtworksLoaded(ImportArtsyData.java:221)
-	at MainImport.main(MainImport.java:21)
-
-
-         */
 
         Partner partner= null;
         try {
             partner = partnerArtsy.getPartner(artsyApiUrl,xappToken, 1,2);
-
 
              partner.setArtwork(artwork);
 
@@ -301,8 +267,11 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
     }
 
     /**
+     * Retrieves the partner link for a specific artwork.
      *
-     * @param artwork
+     * @param artwork The artwork for which the partner link is to be retrieved.
+     * @return The API link to the partner information.
+     * @throws ArtsyException If an error occurs while fetching data from the Artsy API.
      */
 
     private String getPartnerLink(Artwork artwork) throws ArtsyException {
@@ -318,19 +287,17 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
 
 
     /**
+     * Loads all artworks for a given artist from the Artsy API.
      *
-     * @param artist
+     * @param artist The artist for whom artworks are to be loaded.
      */
     private void loadAllArtworks(Artist artist)
     {
-
         ArtworkArtsy artworkArtsy = new ArtworkArtsy();
         GeneArtsy geneArtsy = new GeneArtsy();
 
-
         String artsyApiUrl = "https://api.artsy.net/api/artworks?artist_id=" + artist.getId() +"&total_count=true";
         List<Artwork> artworkList = new ArrayList<>();
-
 
         try {
             if (this.isFastLoad) {
@@ -369,14 +336,11 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
                 artsyApiUrl = artwork.getGenesLink();
                 geneArtsy.getAll(artsyApiUrl, xappToken, geneList);
 
-
                 artwork.setArtist(artist);
                 artwork.setGeneList(geneList);
 
                 this.artworkService.create(apiUrl, artwork);
-
             }
-
         }
         catch (ArtsyException e){
             e.printStackTrace();
@@ -385,19 +349,18 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
     }
 
     /**
+     * Retrieves all artworks for a given exhibition from the Artsy API.
      *
-     * @param exhibition
-     * @return
+     * @param exhibition The exhibition for which artworks are to be retrieved.
+     * @return A list of artworks associated with the exhibition.
+     * @throws ArtsyException If an error occurs while fetching data from the Artsy API.
      */
     private List<Artwork> getAllArtworks(Exhibition exhibition) throws ArtsyException
     {
         ArtworkArtsy artworkArtsy = new ArtworkArtsy();
 
-
         String artsyApiUrl = "https://api.artsy.net/api/artworks?show_id=" + exhibition.getId() +"&total_count=true";
         List<Artwork> artworkList = new ArrayList<>();
-
-
 
         if (this.isFastLoad)
         {
@@ -415,6 +378,5 @@ Exception in thread "main" java.lang.NullPointerException: Parameter specified a
 
         return artworkList;
     }
-
 
 }
