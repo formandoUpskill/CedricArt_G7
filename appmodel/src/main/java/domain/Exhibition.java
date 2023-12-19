@@ -5,6 +5,11 @@ import com.google.gson.annotations.SerializedName;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+
+/**
+ * Represents an exhibition with various attributes including start and end dates,
+ * description, artworks, and associated partner.
+ */
 public class Exhibition {
     private String id;
     private OffsetDateTime end_at;
@@ -33,6 +38,9 @@ public class Exhibition {
         this.links = links;
     }
 
+    /**
+     * Inner class representing the hyperlinks related to the exhibition.
+     */
     public static class Links {
         private Links.Thumbnail thumbnail;
 

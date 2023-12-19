@@ -9,12 +9,21 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
 
+/**
+ * The date-time formatter used for parsing and formatting {@link OffsetDateTime} objects.
+ */
 public class LocalDateAdapter extends TypeAdapter<OffsetDateTime> {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ssXXX");
 
 
-
+    /**
+     * Serializes an {@link OffsetDateTime} object to a JSON string.
+     *
+     * @param out The JsonWriter to write the serialized data.
+     * @param value The {@link OffsetDateTime} object to serialize.
+     * @throws IOException If an I/O error occurs.
+     */
     @Override
     public void write(JsonWriter out, OffsetDateTime value) throws IOException {
 
@@ -24,6 +33,13 @@ public class LocalDateAdapter extends TypeAdapter<OffsetDateTime> {
 
     }
 
+    /**
+     * Deserializes a JSON string to an {@link OffsetDateTime} object.
+     *
+     * @param in The JsonReader to read the JSON string from.
+     * @return The deserialized {@link OffsetDateTime} object.
+     * @throws IOException If an I/O error occurs.
+     */
     @Override
     public OffsetDateTime read(JsonReader in) throws IOException {
         String dateStr =in.nextString();

@@ -14,11 +14,11 @@ public class MainImport {
 
         System.out.println(" APP IMPORT:"+ System.getProperty("user.dir"));
 
-  // importArtsyData.loadAllGenes();
+   importArtsyData.loadAllGenes();
 
-  // importArtsyData.loadAllArtistsWithArtworks();
+   importArtsyData.loadAllArtistsWithArtworks();
 
-  // importArtsyData.loadAllArtworksFromAllLoadedArtists();
+  importArtsyData.loadAllArtworksFromAllLoadedArtists();
 
     importArtsyData.loadPartnerForAllArtworksLoaded();
 

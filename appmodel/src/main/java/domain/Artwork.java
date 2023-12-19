@@ -7,7 +7,10 @@ import com.google.gson.annotations.SerializedName;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Represents an artwork with various attributes and associations such as title,
+ * creation date, and related artist and partner.
+ */
 public class Artwork {
     private String id;
 
@@ -134,7 +137,9 @@ public class Artwork {
         return links.partner.href;
     }
 
-    // Inner class representing the "_links" part of the JSON
+    /**
+     * Inner class representing the "_links" part of the JSON for the artwork.
+     */
     public static class Links {
         private Thumbnail thumbnail;
 

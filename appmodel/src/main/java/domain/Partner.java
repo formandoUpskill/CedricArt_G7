@@ -4,6 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * Represents a partner with various attributes such as id, region, and website.
+ * Also maintains lists of associated artworks, artists, and exhibitions.
+ */
 public class Partner {
     private  String id;
     private String region;
@@ -118,7 +122,9 @@ public class Partner {
     }
 
 
-
+    /**
+     * Inner class representing hyperlinks related to the partner.
+     */
     public static class Links {
 
         private Website website;
