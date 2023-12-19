@@ -12,12 +12,24 @@ import okhttp3.Response;
 import util.ImportUtils;
 
 import java.time.OffsetDateTime;
-
+/**
+ * Class responsible for retrieving partner data from the Artsy API.
+ */
 public class PartnerArtsy {
 
     private static final OkHttpClient client = new OkHttpClient();
     private static final Gson gson = new GsonBuilder().registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter()).create();
 
+    /**
+     * Retrieves a specific Partner from the Artsy API.
+     *
+     * @param apiUrl The API URL to fetch the partner from.
+     * @param xappToken The XAPP token for Artsy API authentication.
+     * @param id_gallerist The ID of the gallerist associated with the partner.
+     * @param id_Coordinator The ID of the coordinator associated with the partner.
+     * @return The Partner object retrieved from the API.
+     * @throws ArtsyException If an error occurs during the API request.
+     */
     public Partner getPartner(String apiUrl, String xappToken, int id_gallerist, int id_Coordinator) throws ArtsyException {
         Partner partner = new Partner();
 
@@ -70,13 +82,17 @@ public class PartnerArtsy {
             }
         } //WHILE
 
-
         return partner;
-
-
 
     }
 
+    /**
+     * Cleans and standardizes the data of a Partner object.
+     *
+     * @param partner The partner object whose data is to be cleaned.
+     * @param id_gallerist The ID of the gallerist to be set for the partner.
+     * @param id_Coordinator The ID of the coordinator to be set for the partner.
+     */
     private void cleanPartnerData(Partner partner, int id_gallerist, int id_Coordinator) {
         partner.setRegion(ImportUtils.cleanString(partner.getRegion()));
         partner.setName(ImportUtils.cleanString(partner.getName()));
