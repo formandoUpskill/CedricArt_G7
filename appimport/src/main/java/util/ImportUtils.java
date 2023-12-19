@@ -9,10 +9,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * Utility class for managing the import process, handling API configurations and utilities.
+ */
 public class ImportUtils {
 
     private OkHttpClient client;
-
 
     public static  String CLIENT_ID;
 
@@ -32,7 +34,10 @@ public class ImportUtils {
     public static int MAX_ATTEMPTS_API;
 
 
-
+    /**
+     * Constructor for ImportUtils.
+     * Initializes configurations from a properties file and generates an Artsy API token.
+     */
     public ImportUtils() {
         try {
             this.config= new Properties();
@@ -63,8 +68,10 @@ public class ImportUtils {
 
 
     /**
-     * @todo -- falta tratar da excepção caso ocorra timeout a obter o request
-     * @return
+     * Generates an XAPP token for Artsy API authentication.
+     *
+     * @return The generated XAPP token.
+     * @throws ArtsyException If an error occurs during token generation.
      */
     public static String generateXappToken() throws ArtsyException {
 
@@ -99,14 +106,25 @@ public class ImportUtils {
 
 
 
-    // Método auxiliar para calcular o tempo de espera
+    /**
+     * Calculates the wait time for API request retries.
+     * Implements an exponential backoff strategy for waiting between retries.
+     *
+     * @param attempt The current attempt number.
+     * @return The calculated wait time in milliseconds.
+     */
     public  static int calculateWaitTime(int attempt) {
         // Implementar lógica de espera exponencial, por exemplo
         return (int) Math.pow(2, attempt) * 1000; // Exemplo: espera exponencial
     }
 
 
-
+    /**
+     * Retrieves the next API URL from a JSON response for pagination purposes.
+     *
+     * @param jsonObject The JSON object containing the API response.
+     * @return The next API URL, or an empty string if not available.
+     */
     public  static String getNextApiUrl(JsonObject jsonObject) {
         try {
             return jsonObject.getAsJsonObject("_links").getAsJsonObject("next").get("href").getAsString();
@@ -115,6 +133,12 @@ public class ImportUtils {
         }
     }
 
+    /**
+     * Cleans and standardizes a string by escaping certain characters.
+     *
+     * @param original The original string to be cleaned.
+     * @return The cleaned string.
+     */
     public static String cleanString(String original) {
         if (original != null) {
             String replaced = original.replace("’", "\\’")
