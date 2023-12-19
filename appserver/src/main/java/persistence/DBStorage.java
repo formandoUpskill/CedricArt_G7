@@ -800,6 +800,27 @@ public class DBStorage {
      */
 
 
+    private Exhibition extractExhibitionFromResultSet(ResultSet rs) throws SQLException {
+
+        Exhibition exhibition = new Exhibition();
+
+
+        exhibition.setId(rs.getString("Exhibition.id_Exhibition"));
+
+
+        exhibition.setName(Objects.toString(rs.getString("Exhibition.name"), ""));
+        exhibition.setDescription(Objects.toString(rs.getString("Exhibition.description"), ""));
+        exhibition.setThumbnail (Objects.toString(rs.getString("Exhibition.thumbnail"), ""));
+        exhibition.setId_Partner (Objects.toString(rs.getString("Exhibition.id_Partner"), ""));
+        exhibition.setStatus(Objects.toString(rs.getString("Exhibition_Status.Status"), ""));
+
+        exhibition.setStart_at(rs.getTimestamp("Exhibition.start_at").toInstant().atOffset(ZoneOffset.UTC));
+        exhibition.setEnd_at(rs.getTimestamp("Exhibition.end_at").toInstant().atOffset(ZoneOffset.UTC));
+
+
+        return exhibition;
+    }
+
     /**
      *
      * @param exhibitionId
@@ -835,19 +856,7 @@ public class DBStorage {
             while (rs.next())
             {
 
-                exhibition.setId(rs.getString("Exhibition.id_Exhibition"));
-                exhibition.setName(rs.getString("Exhibition.name"));
-                exhibition.setDescription(rs.getString("Exhibition.description"));
-                exhibition.setThumbnail(rs.getString("Exhibition.thumbnail"));
-
-
-                exhibition.setStart_at(rs.getTimestamp("Exhibition.start_at").toInstant().atOffset(ZoneOffset.UTC));
-                exhibition.setEnd_at(rs.getTimestamp("Exhibition.end_at").toInstant().atOffset(ZoneOffset.UTC));
-
-
-                exhibition.setId_Partner(rs.getString("Exhibition.id_Partner"));
-                exhibition.setStatus(rs.getString("Exhibition_Status.Status"));
-
+               exhibition= extractExhibitionFromResultSet(rs);
 
             }
 
@@ -893,20 +902,7 @@ public class DBStorage {
             while (rs.next())
             {
 
-                exhibition = new Exhibition();
-                exhibition.setId(rs.getString("Exhibition.id_Exhibition"));
-                exhibition.setName(rs.getString("Exhibition.name"));
-                exhibition.setDescription(rs.getString("Exhibition.description"));
-                exhibition.setThumbnail(rs.getString("Exhibition.thumbnail"));
-
-                exhibition.setStart_at(rs.getTimestamp("Exhibition.start_at").toInstant().atOffset(ZoneOffset.UTC));
-                exhibition.setEnd_at(rs.getTimestamp("Exhibition.end_at").toInstant().atOffset(ZoneOffset.UTC));
-
-
-                exhibition.setId_Partner(rs.getString("Exhibition.id_Partner"));
-                exhibition.setStatus(rs.getString("Exhibition_Status.Status"));
-
-                listExhibition.add(exhibition);
+                listExhibition.add(extractExhibitionFromResultSet(rs));
             }
 
 
@@ -955,21 +951,7 @@ public class DBStorage {
             while (rs.next())
             {
 
-                exhibition = new Exhibition();
-                exhibition.setId(rs.getString("Exhibition.id_Exhibition"));
-                exhibition.setName(rs.getString("Exhibition.name"));
-                exhibition.setDescription(rs.getString("Exhibition.description"));
-                exhibition.setThumbnail(rs.getString("Exhibition.thumbnail"));
-
-
-                exhibition.setStart_at(rs.getTimestamp("Exhibition.start_at").toInstant().atOffset(ZoneOffset.UTC));
-                exhibition.setEnd_at(rs.getTimestamp("Exhibition.end_at").toInstant().atOffset(ZoneOffset.UTC));
-
-
-                exhibition.setId_Partner(rs.getString("Exhibition.id_Partner"));
-                exhibition.setStatus(rs.getString("Exhibition_Status.Status"));
-
-                listExhibition.add(exhibition);
+                listExhibition.add(extractExhibitionFromResultSet(rs));
             }
 
 
@@ -980,6 +962,17 @@ public class DBStorage {
         return listExhibition;
 
     }
+
+
+
+
+    /**
+     * -----------------------------------------
+     * PARTNERS SECTION
+     * ---------------------------------------
+     */
+
+
     /**
      *
      * @param partnerId
@@ -1365,9 +1358,5 @@ public class DBStorage {
 
         return newExhibition;
     }
-
-
-
-
 
 }

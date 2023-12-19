@@ -38,8 +38,8 @@ public class MainPresenter {
         System.out.println(" APP CLIENT:"+ System.getProperty("user.dir"));
 
 
-   artwork=  presenter.getArtwork(artworkId);
-   System.out.println(artwork);
+   //artwork=  presenter.getArtwork(artworkId);
+   // System.out.println(artwork);
 
 
 

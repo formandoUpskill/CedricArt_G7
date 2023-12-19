@@ -13,6 +13,11 @@ import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+/**
+ * A generic presenter for handling HTTP requests and parsing responses.
+ *
+ * @param <T> The type of object this presenter is responsible for.
+ */
 public class GenericPresenter<T> {
 
     private static final OkHttpClient httpClient = new OkHttpClient();
@@ -20,11 +25,26 @@ public class GenericPresenter<T> {
             .registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter())
             .create();
 
+    /**
+     * Retrieves a single object from the specified API URL using its ID.
+     *
+     * @param apiUrl The base URL of the API.
+     * @param id The identifier for the specific object.
+     * @param clazz The class of the type T.
+     * @return An object of type T, or null if not successful.
+     */
     public T get(String apiUrl, String id, Class<T> clazz) {
         Request getRequest = new Request.Builder().url(apiUrl + id).build();
         return processRequest(getRequest, clazz);
     }
 
+    /**
+     * Retrieves all objects of type T from the specified API URL.
+     *
+     * @param apiUrl The URL of the API.
+     * @param typeToken A TypeToken representing a List of T objects.
+     * @return A List of objects of type T, or null if not successful.
+     */
     public List<T> getAll(String apiUrl, TypeToken<List<T>> typeToken) {
         Request getRequest = new Request.Builder().url(apiUrl).build();
 
@@ -34,6 +54,14 @@ public class GenericPresenter<T> {
         return processRequest(getRequest, listType);
     }
 
+    /**
+     * Processes the HTTP request and returns the response deserialized to the specified type.
+     *
+     * @param <R> The type of the response object.
+     * @param request The HTTP request to process.
+     * @param type The Type of the response object.
+     * @return An object of type R, or null if the request fails.
+     */
     private <R> R processRequest(Request request, Type type) {
         try (Response response = httpClient.newCall(request).execute()) {
             if (response.isSuccessful() && response.body() != null) {
@@ -46,6 +74,13 @@ public class GenericPresenter<T> {
         }
         return null; // Ensure the method always returns a value
     }
+
+    /**
+     * Logs error responses from HTTP requests.
+     *
+     * @param response The HTTP response to log.
+     * @throws IOException If an I/O error occurs.
+     */
     private void logErrorResponse(Response response) throws IOException {
         // Replace with a proper logging mechanism
         System.out.println("Error: " + response.code() + " - " + response.message());
