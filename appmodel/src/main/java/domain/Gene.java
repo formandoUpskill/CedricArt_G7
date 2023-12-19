@@ -1,7 +1,9 @@
 package domain;
 
-import com.google.gson.annotations.SerializedName;
-
+/**
+ * Represents a gene with attributes like id, name, and description.
+ * This class is used for managing gene-related data.
+ */
 public class Gene {
 
     private String id;

@@ -2,6 +2,11 @@ package domain;
 
 import com.google.gson.annotations.SerializedName;
 
+
+/**
+ * Represents an artist with various attributes like id, location, biography, etc.
+ * This class also includes nested classes for managing associated links.
+ */
 public class Artist {
     private String id;
     private String location;
@@ -9,8 +14,8 @@ public class Artist {
     private String name;
     private String biography;
     private String slug;
-    private String birthyear;
-    private String deathyear;
+    private String birthday;
+    private String deathday;
     private String thumbnail;
     private String url;
     private String nationality;
@@ -59,11 +64,11 @@ public class Artist {
     }
 
     public String getBirthyear() {
-        return birthyear;
+        return birthday;
     }
 
     public String getDeathyear() {
-        return deathyear;
+        return deathday;
     }
 
     public String getThumbnail() {
@@ -106,11 +111,11 @@ public class Artist {
     }
 
     public void setBirthyear(String birthyear) {
-        this.birthyear = birthyear;
+        this.birthday = birthyear;
     }
 
     public void setDeathyear(String deathyear) {
-        this.deathyear = deathyear;
+        this.deathday = deathyear;
     }
 
     public void setThumbnail(String thumbnail) {
@@ -126,8 +131,9 @@ public class Artist {
     }
 
 
-
-    // Inner class representing the "_links" part of the JSON
+    /**
+     * Inner class representing the "_links" part of the JSON.
+     */
     public static class Links {
         private Thumbnail thumbnail;
 
@@ -175,8 +181,8 @@ public class Artist {
                 ", name='" + name + '\'' +
                 ", biography='" + biography + '\'' +
                 ", slug='" + slug + '\'' +
-                ", birthyear='" + birthyear + '\'' +
-                ", deathyear='" + deathyear + '\'' +
+                ", birthyear='" + birthday + '\'' +
+                ", deathyear='" + deathday + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", url='" + url + '\'' +
                 ", nationality='" + nationality + '\'' +

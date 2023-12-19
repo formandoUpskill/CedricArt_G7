@@ -38,19 +38,19 @@ public class MainPresenter {
         System.out.println(" APP CLIENT:"+ System.getProperty("user.dir"));
 
 
-   //artwork=  presenter.getArtwork(artworkId);
-   // System.out.println(artwork);
+//   artwork=  presenter.getArtwork(artworkId);
+  //  System.out.println(artwork);
 
 
 
-   //  artworks= presenter.getAllArtworks();
+  //   artworks= presenter.getAllArtworks();
 
    // artworks= presenter.getAllArtworksByPartner(partnerId);
 
 
-     // artworks= presenter.getAllArtworksByExhibition(exhibitionId);
+      // artworks= presenter.getAllArtworksByExhibition(exhibitionId);
 
-        // artworks=  presenter.getAllArtworksByArtist(artistId);
+       //  artworks=  presenter.getAllArtworksByArtist(artistId);
 
 /*
         for (Artwork aArtwork: artworks)
@@ -58,14 +58,14 @@ public class MainPresenter {
             System.out.println(aArtwork);
         }
         System.out.println(artworks.size());
+
 */
 
 
 
 
+/*
 
-
-        /*
        partner= presenter.getPartner(partnerId);
        System.out.println(partner);
 
@@ -79,16 +79,16 @@ public class MainPresenter {
 
 
 
-
+*/
 
 
 
       exhibitions= presenter.getAllExhibitions();
 
 
-       exhibitions= presenter.getAllExhibitionsByPartner(partnerId);
+      //exhibitions= presenter.getAllExhibitionsByPartner(partnerId);
 
-
+/*
         for (Exhibition aExhibition: exhibitions)
         {
             System.out.println(aExhibition);
@@ -97,17 +97,11 @@ public class MainPresenter {
         System.out.println(exhibitions.size());
 
 
-
-
-
-
-*/
+        */
 
 
     //  artists= presenter.getAllArtists();
 
-
-/*
        artists=  presenter.getAllArtistsByPartner(partnerId);
 
 
@@ -126,7 +120,7 @@ public class MainPresenter {
 
 
 
-*/
+
 
 
 
