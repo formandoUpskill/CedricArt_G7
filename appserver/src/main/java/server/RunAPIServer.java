@@ -19,17 +19,18 @@ import java.util.List;
 import static spark.Spark.*;
 
 /**
- * Useful resources:
- * <p>https://dzone.com/articles/building-simple-restful-api</p>
- * <p>https://www.baeldung.com/spark-framework-rest-api</p>
- *
+ * Server class for running the API server.
+ * Handles setup and management of API endpoints.
  */
 public class RunAPIServer {
 
     private Gson gson;
     private DBStorage storage;
 
-
+    /**
+     * Constructor for RunAPIServer.
+     * Initializes Gson and storage components.
+     */
     public RunAPIServer()
     {
         this.gson = new GsonBuilder()
@@ -44,7 +45,9 @@ public class RunAPIServer {
     private static final Logger logger = LoggerFactory.getLogger(RunAPIServer.class);
 
 
-
+    /**
+     * Starts the API server and sets up the endpoints.
+     */
     public void run() {
         logger.info("Starting Main server at http://localhost:4567");
 
@@ -55,6 +58,12 @@ public class RunAPIServer {
         });
     }
 
+    /**
+     * Handles exceptions thrown during API calls.
+     *
+     * @param exception The caught exception.
+     * @param response The Spark response object.
+     */
     private void handleException(Exception exception, Response response) {
         logger.error("Unhandled exception: {}", exception.getMessage());
         setJsonResponse(response);
@@ -62,18 +71,35 @@ public class RunAPIServer {
         response.body(createErrorResponse("Internal server error"));
     }
 
-
+    /**
+     * Creates a JSON error response.
+     *
+     * @param message The error message.
+     * @return The JSON error response string.
+     */
     private String createErrorResponse(String message) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("message", message);
         return jsonObject.toString();
     }
 
-
+    /**
+     * Sets the response type to JSON.
+     *
+     * @param response The Spark response object.
+     */
     private void setJsonResponse(Response response) {
         response.type("application/json");
     }
 
+    /**
+     * Creates an error response with a specific status code and message.
+     *
+     * @param response The Spark response object.
+     * @param statusCode The HTTP status code.
+     * @param message The error message.
+     * @return The JSON error response string.
+     */
     private String createErrorResponse(Response response, int statusCode, String message) {
         response.status(statusCode);
         JsonObject jsonObject = new JsonObject();
@@ -81,6 +107,9 @@ public class RunAPIServer {
         return jsonObject.toString();
     }
 
+    /**
+     * Sets up all API endpoints.
+     */
     private void setupEndpoints() {
         setupShowsEndpoints();
         setupPartnersEndpoints();
@@ -355,7 +384,9 @@ public class RunAPIServer {
 
 
 
-
+    /**
+     * Stops the API server.
+     */
     public void stop()
     {
 
