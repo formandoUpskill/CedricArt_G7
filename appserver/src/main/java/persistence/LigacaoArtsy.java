@@ -8,10 +8,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * Class responsible for managing the connection to the Artsy API.
+ */
 public class LigacaoArtsy {
-    public static void main(String[] args) {
-
-    }
 
     private OkHttpClient client;
     private String xappToken;
@@ -25,7 +25,10 @@ public class LigacaoArtsy {
 
    private static Properties config;
 
-
+    /**
+     * Constructor for LigacaoArtsy.
+     * Initializes configurations from a properties file and generates an XAPP token.
+     */
     public LigacaoArtsy() {
         try {
             this.config= new Properties();
@@ -45,10 +48,11 @@ public class LigacaoArtsy {
     }
 
 
-
-
-
-
+    /**
+     * Generates an XAPP token for Artsy API authentication.
+     *
+     * @return The generated XAPP token.
+     */
     public static String generateXappToken() {
 
         OkHttpClient client = new OkHttpClient();
