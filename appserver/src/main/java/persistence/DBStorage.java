@@ -68,7 +68,6 @@ public class DBStorage {
         artist.setUrl(Objects.toString(rs.getString("url"), ""));
         artist.setNationality(Objects.toString(rs.getString("nationality"), ""));
 
-        // (Objects.toString(rs.getString(""), ""));
 
         return artist;
     }
@@ -111,7 +110,7 @@ public class DBStorage {
                             " Artwork.id_Partner= '" + partner_id + "'" );
 
 
-            System.out.println("getAllArtistsByPartner " + sqlCMD);
+           // System.out.println("getAllArtistsByPartner " + sqlCMD);
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
@@ -193,7 +192,8 @@ public class DBStorage {
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
-            System.out.println(sqlCMD);
+          //  System.out.println(sqlCMD);
+
             while (rs.next())
             {
                 artist=(extractArtistFromResultSet(rs));
@@ -246,7 +246,7 @@ public class DBStorage {
                 newArtist.getNationality() +
                 "');";
 
-        System.out.println("insert " + sql);
+      //  System.out.println("insert " + sql);
 
         try (Connection connection  = getConnection())
         {
@@ -283,7 +283,7 @@ public class DBStorage {
                 newGene.getName() + "','" +
                 newGene.getDescription() + "');";
 
-        System.out.println("insert " + sql);
+     //   System.out.println("insert " + sql);
 
         try (Connection connection  = getConnection())
         {
@@ -319,7 +319,7 @@ public class DBStorage {
             );
 
 
-            System.out.println("getAllGenes " + sqlCMD );
+          //  System.out.println("getAllGenes " + sqlCMD );
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
@@ -360,7 +360,7 @@ public class DBStorage {
                     "name ASC");
 
 
-            System.out.println("getAllGenes " + sqlCMD );
+        //    System.out.println("getAllGenes " + sqlCMD );
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
@@ -409,7 +409,7 @@ public class DBStorage {
                     "Gene.name ASC");
 
 
-            System.out.println("getAllGenes " + sqlCMD );
+          //  System.out.println("getAllGenes " + sqlCMD );
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
@@ -497,7 +497,7 @@ public class DBStorage {
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
-            System.out.println(sqlCMD);
+           // System.out.println(sqlCMD);
             while (rs.next())
             {
 
@@ -545,7 +545,7 @@ public class DBStorage {
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
-            System.out.println(sqlCMD);
+         //   System.out.println(sqlCMD);
 
             while (rs.next())
             {
@@ -583,7 +583,7 @@ public class DBStorage {
                     " Artwork ");
 
 
-            System.out.println("getAllArtworks " + sqlCMD);
+           // System.out.println("getAllArtworks " + sqlCMD);
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
@@ -690,7 +690,7 @@ public class DBStorage {
                     "title ASC");
 
 
-            System.out.println("getAllArtworksByArtist " + sqlCMD);
+         //   System.out.println("getAllArtworksByArtist " + sqlCMD);
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
@@ -872,7 +872,7 @@ public class DBStorage {
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
-            System.out.println(sqlCMD);
+           // System.out.println(sqlCMD);
 
             while (rs.next())
             {
@@ -1015,7 +1015,8 @@ public class DBStorage {
 
             ResultSet rs= MyDBUtils.exec_query(connection,sqlCMD);
 
-            System.out.println(sqlCMD);
+         //   System.out.println(sqlCMD);
+
             while (rs.next())
             {
 
@@ -1094,11 +1095,12 @@ public class DBStorage {
                     artist.getId() +
                     "');";
 
-            System.out.println("insert into Created_By (id_Artwork, id_Artist)  " + sqlInsert);
+          //  System.out.println("insert into Created_By (id_Artwork, id_Artist)  " + sqlInsert);
 
             try (Connection connection  = getConnection())
             {
                 MyDBUtils.exec_sql(connection, sqlInsert);
+
             } catch (SQLException e) {
                 System.out.println("exec_sql:" + sqlInsert + " Error: " + e.getMessage());
             }
@@ -1121,11 +1123,12 @@ public class DBStorage {
                     exhibition.getId() +
                     "');";
 
-            System.out.println("insert into Exhibition_Artwork (id_Artwork, id_Exhibition) )  " + sqlInsert);
+        //    System.out.println("insert into Exhibition_Artwork (id_Artwork, id_Exhibition) )  " + sqlInsert);
 
             try (Connection connection  = getConnection())
             {
                 MyDBUtils.exec_sql(connection, sqlInsert);
+
             } catch (SQLException e) {
                 System.out.println("exec_sql:" + sqlInsert + " Error: " + e.getMessage());
             }
@@ -1244,7 +1247,7 @@ public class DBStorage {
                     gene.getId () +
                     "');";
 
-            System.out.println("insert into Artwork_Gene (id_Artwork, id_Gene)  " + sqlInsert);
+          //  System.out.println("insert into Artwork_Gene (id_Artwork, id_Gene)  " + sqlInsert);
 
             try (Connection connection  = getConnection())
             {
@@ -1265,7 +1268,7 @@ public class DBStorage {
 
         String update = "Update Artwork set id_partner= '"+partner.getId() + "' WHERE id_artwork = '"+ artwork.getId() +"'";
 
-        System.out.println("update " + update);
+       // System.out.println("update " + update);
 
         try(Connection connection  = getConnection())
         {
@@ -1361,7 +1364,7 @@ public class DBStorage {
 
                 MyDBUtils.exec_sql(connection, sql);
 
-                System.out.println("createExhibition " + sql);
+            //    System.out.println("createExhibition " + sql);
 
             } catch (SQLException e) {
                 System.out.println("exec_sql:" + sql + " Error: " + e.getMessage());
@@ -1371,7 +1374,8 @@ public class DBStorage {
         // para cada artwork fazer a correspondência na tabela Exhibition_Artwork
         for (Artwork artwork: artworks) {
 
-            System.out.println("createExhibition" + artwork);
+       //     System.out.println("createExhibition" + artwork);
+
             insertExhibitionArtwork(artwork, newExhibition);
         }
 

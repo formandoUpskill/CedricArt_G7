@@ -39,7 +39,7 @@ public class MyDBUtils {
 
             file.close();
         } catch (IOException e) {
-            System.out.println("Config file not found "+  e.getMessage());
+            System.out.println("MyDBUtils Config file not found "+  e.getMessage());
         }
 
         System.out.println("DB_SERVER " + DB_SERVER);

@@ -32,7 +32,7 @@ public class LigacaoArtsy {
     public LigacaoArtsy() {
         try {
             this.config= new Properties();
-            FileReader file = new FileReader("CedricArt.config");
+            FileReader file = new FileReader("resources/config/CedricArt.config");
             config.load(file);
             CLIENT_ID = this.config.getProperty("CLIENT_ID");
             CLIENT_SECRET = this.config.getProperty("CLIENT_SECRET");
@@ -40,7 +40,7 @@ public class LigacaoArtsy {
 
             file.close();
         } catch (IOException e) {
-            System.out.println("Config file not found "+  e.getMessage());
+            System.out.println("APP Server Config file not found "+  e.getMessage());
         }
 
         //this.client = new OkHttpClient();

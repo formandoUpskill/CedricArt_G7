@@ -18,6 +18,7 @@ public class FifthLoadShows {
      */
     public static void main(String[] args) {
 
+
         // Inicia o servidor da API
         RunAPIServer server = new RunAPIServer();
         server.run();

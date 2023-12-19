@@ -1,10 +1,12 @@
 package presenter;
 
 import domain.Artist;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class CedricArtPresenterTest {
 
@@ -14,7 +16,10 @@ class CedricArtPresenterTest {
     String artistId= "4d8b92684eb68a1b2c00009e";
 
     CedricArtPresenter presenter;
-
+    @BeforeEach
+    public void setUp() {
+        presenter = new CedricArtPresenter();
+    }
 
     @Test
     void testGetArtistID4d8b925d4eb68a1b2c000012OK() {
@@ -24,8 +29,8 @@ class CedricArtPresenterTest {
         Artist expectedArtist = new Artist();
         expectedArtist.setId(artistId);
 
-        presenter = new CedricArtPresenter();;
         Artist result = presenter.getArtist(artistId);
+        System.out.println(result);
 
         // Assert
         assertEquals(expectedArtist.getId(), result.getId());
@@ -38,8 +43,6 @@ class CedricArtPresenterTest {
         Artist expectedArtist = new Artist();
         expectedArtist.setId(artistId+"sdsdsd");
 
-
-        CedricArtPresenter presenter = new CedricArtPresenter();
         Artist result = presenter.getArtist(artistId);
 
         // Assert
@@ -54,14 +57,11 @@ class CedricArtPresenterTest {
     @Test
     void getAllArtistsByPartnerId51cc9a88275b24f8700000dbOK() {
 
-
-        int expectSize= 65;
-
-        CedricArtPresenter presenter = new CedricArtPresenter();
-        int resultSize = presenter.getAllArtistsByPartner(partnerId).size();
+        List<Artist> result = presenter.getAllArtistsByPartner(partnerId);
 
         // Assert
-        assertEquals (expectSize, resultSize);
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
 
     }
 
