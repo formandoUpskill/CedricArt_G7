@@ -113,7 +113,7 @@ public class ArtworkInfo extends Application {
 
             Image image = new Image(artwork1.getThumbnail());
 
-            Text name = new Text("Titulo: ");
+            Text name = new Text("Title: ");
             name.setStyle("-fx-font-weight: bold;");
             Text value = new Text(artwork1.getTitle());
             value.setFont(new Font(16));
