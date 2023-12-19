@@ -9,6 +9,11 @@ import util.AppUtils;
 
 import java.util.List;
 
+/**
+ * Presenter class for Cedric Art API.
+ * This class provides methods to interact with the Cedric Art API
+ * and retrieve data about artists, artworks, exhibitions, and partners.
+ */
 public class CedricArtPresenter {
 
    // private ArtworkPresenter artworkPresenter;
@@ -20,13 +25,14 @@ public class CedricArtPresenter {
     private GenericPresenter<Exhibition>  exhibitionPresenter;
 
     private GenericPresenter<Artist> artistPresenter;
+
+
     /**
-     *
+     * Constructor for initializing presenters.
      */
     public CedricArtPresenter(){
 
         loadConfig();
-
 
         partnerPresenter = new GenericPresenter<>();
         exhibitionPresenter = new GenericPresenter<>();
@@ -36,7 +42,7 @@ public class CedricArtPresenter {
     }
 
     /**
-     *
+     * Loads configuration settings.
      */
     private void loadConfig()
     {
@@ -45,9 +51,10 @@ public class CedricArtPresenter {
 
 
     /**
+     * Retrieves an artist by their ID.
      *
-     * @param artistId
-     * @return
+     * @param artistId The ID of the artist.
+     * @return The Artist object corresponding to the specified ID.
      */
     public Artist getArtist(String artistId) {
 
@@ -58,8 +65,9 @@ public class CedricArtPresenter {
     }
 
     /**
+     * Retrieves all available artists.
      *
-     * @return
+     * @return A list of all Artists.
      */
     public List<Artist> getAllArtists ()
     {
@@ -69,32 +77,36 @@ public class CedricArtPresenter {
 
 
     /**
+     * Retrieves all artists associated with a specific partner.
      *
-     * @param partner_id
-     * @return
+     * @param partnerId The ID of the partner.
+     * @return A list of Artists associated with the given partner ID.
      */
-    public List<Artist> getAllArtistsByPartner (String partner_id)
+    public List<Artist> getAllArtistsByPartner (String partnerId)
     {
-        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artists?partner_id=" + partner_id;
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artists?partner_id=" + partnerId;
         return artistPresenter.getAll(apiUrl, new TypeToken<List<Artist>>(){});
     }
 
-
-    public List<Artist> getAllArtistsByExhibition (String exhibition_id)
+    /**
+     * Retrieves all artists participating in a specific exhibition.
+     *
+     * @param exhibitionId The ID of the exhibition.
+     * @return A list of Artists participating in the given exhibition.
+     */
+    public List<Artist> getAllArtistsByExhibition (String exhibitionId)
     {
-        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artists?show_id=" + exhibition_id;
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artists?show_id=" + exhibitionId;
 
         return artistPresenter.getAll(apiUrl, new TypeToken<List<Artist>>(){});
     }
-
-
-
-
 
 
     /**
+     * Retrieves an artwork by its ID.
      *
-     * @param artworkId
+     * @param artworkId The ID of the artwork.
+     * @return The Artwork object corresponding to the specified ID.
      */
     public Artwork getArtwork(String artworkId) {
 
@@ -104,8 +116,9 @@ public class CedricArtPresenter {
     }
 
     /**
+     * Retrieves all available artworks.
      *
-     * @return
+     * @return A list of all Artworks.
      */
     public List<Artwork> getAllArtworks ()
     {
@@ -115,43 +128,54 @@ public class CedricArtPresenter {
     }
 
 
-
-    public List<Artwork> getAllArtworksByPartner (String partner_id)
+    /**
+     * Retrieves all artworks associated with a specific partner.
+     *
+     * @param partnerId The ID of the partner.
+     * @return A list of Artworks associated with the given partner ID.
+     */
+    public List<Artwork> getAllArtworksByPartner (String partnerId)
     {
-        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?partner_id=" + partner_id;
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?partner_id=" + partnerId;
 
         return artworkPresenter.getAll(apiUrl, new TypeToken<List<Artwork>>(){});
 
     }
 
-
-    public List<Artwork> getAllArtworksByArtist (String artist_id)
+    /**
+     * Retrieves all artworks created by a specific artist.
+     *
+     * @param artistId The ID of the artist.
+     * @return A list of Artworks created by the given artist.
+     */
+    public List<Artwork> getAllArtworksByArtist (String artistId)
     {
-        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?artist_id=" + artist_id;
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?artist_id=" + artistId;
 
         return artworkPresenter.getAll(apiUrl, new TypeToken<List<Artwork>>(){});
 
 
     }
-
-
-
-    public List<Artwork> getAllArtworksByExhibition (String exhibition_id)
-    {
-        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?show_id=" + exhibition_id;
-        return artworkPresenter.getAll(apiUrl, new TypeToken<List<Artwork>>(){});
-
-    }
-
-
-
-
 
 
     /**
+     * Retrieves all artworks featured in a specific exhibition.
      *
-     * @param partnerId
-     * @return
+     * @param exhibitionId The ID of the exhibition.
+     * @return A list of Artworks featured in the given exhibition.
+     */
+    public List<Artwork> getAllArtworksByExhibition (String exhibitionId)
+    {
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/artworks?show_id=" + exhibitionId;
+        return artworkPresenter.getAll(apiUrl, new TypeToken<List<Artwork>>(){});
+
+    }
+
+    /**
+     * Retrieves a partner by their ID.
+     *
+     * @param partnerId The ID of the partner.
+     * @return The Partner object corresponding to the specified ID.
      */
     public Partner getPartner(String partnerId) {
 
@@ -162,8 +186,9 @@ public class CedricArtPresenter {
     }
 
     /**
+     * Retrieves all available partners.
      *
-     * @return
+     * @return A list of all Partners.
      */
     public List<Partner> getAllPartners ()
     {
@@ -173,11 +198,11 @@ public class CedricArtPresenter {
 
 
 
-
     /**
+     * Retrieves an exhibition by its ID.
      *
-     * @param exhibitionId
-     * @return
+     * @param exhibitionId The ID of the exhibition.
+     * @return The Exhibition object corresponding to the specified ID.
      */
     public Exhibition getExhibition(String exhibitionId) {
 
@@ -188,8 +213,9 @@ public class CedricArtPresenter {
     }
 
     /**
+     * Retrieves all available exhibitions.
      *
-     * @return
+     * @return A list of all Exhibitions.
      */
     public List<Exhibition> getAllExhibitions ()
     {
@@ -197,20 +223,17 @@ public class CedricArtPresenter {
         return exhibitionPresenter.getAll(apiUrl, new TypeToken<List<Exhibition>>(){});
     }
 
-
-    public List<Exhibition> getAllExhibitionsByPartner (String partner_id)
+    /**
+     * Retrieves all exhibitions associated with a specific partner.
+     *
+     * @param partnerId The ID of the partner.
+     * @return A list of Exhibitions associated with the given partner ID.
+     */
+    public List<Exhibition> getAllExhibitionsByPartner (String partnerId)
     {
-        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/shows?partner_id=" + partner_id;
+        String apiUrl = AppUtils.CEDRIC_ART_API_HOST+ "/shows?partner_id=" + partnerId;
         return exhibitionPresenter.getAll(apiUrl, new TypeToken<List<Exhibition>>(){});
     }
 
 
-
-
-
-    public static void main(String[] args) {
-
-
-
-    }
 }
