@@ -13,6 +13,10 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service class for handling operations related to Artwork entities.
+ * Implements the IService interface for artworks.
+ */
 public class ArtworkService implements IService<Artwork> {
 
     private static final OkHttpClient httpClient = new OkHttpClient();
@@ -20,6 +24,12 @@ public class ArtworkService implements IService<Artwork> {
             .registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter())
             .create();
 
+    /**
+     * Creates a new Artwork in the persistent storage.
+     *
+     * @param apiUrl The URL of the API where the artwork is to be created.
+     * @param artwork The artwork object to be created.
+     */
     public void create(String apiUrl, Artwork artwork) {
         String json = gson.toJson(artwork);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), json);
@@ -37,6 +47,13 @@ public class ArtworkService implements IService<Artwork> {
         }
     }
 
+
+    /**
+     * Retrieves all artworks from the persistent storage.
+     *
+     * @param apiUrl The URL of the API from where artworks are to be fetched.
+     * @return A list of Artwork objects.
+     */
     public List<Artwork> getAll(String apiUrl) {
         List<Artwork> all = new ArrayList<>();
         Request getRequest = new Request.Builder().url(apiUrl).build();
