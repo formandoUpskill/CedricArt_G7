@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
+/**
+ * Constructor for MyDBUtils.
+ * Initializes database configurations from a properties file.
+ */
 public class MyDBUtils {
 
     public static  String DB_SERVER;
@@ -16,6 +20,11 @@ public class MyDBUtils {
     public static String DB_PWD;
 
     Properties config;
+
+    /**
+     * Constructor for MyDBUtils.
+     * Initializes database configurations from a properties file.
+     */
     public MyDBUtils()
     {
         try {
@@ -37,9 +46,23 @@ public class MyDBUtils {
     }
 
 
-
+    /**
+     * Enum for specifying database types.
+     */
     public enum db_type {DB_MYSQL, DB_SQLSERVER, DB_SQLITE}
 
+
+    /**
+     * Constructs a connection string for the specified database type.
+     *
+     * @param type Database type.
+     * @param server Database server address.
+     * @param port Database server port.
+     * @param db Database name.
+     * @param user Database user.
+     * @param pwd Database password.
+     * @return Connection string for the database.
+     */
     private static String get_connection_string (db_type type, String server, String port, String db, String user, String pwd){
         switch (type){
             case DB_MYSQL: return  "jdbc:mysql://"+ server +":"+ port+"/"+db;
@@ -48,15 +71,16 @@ public class MyDBUtils {
     }
 
     /**
+     * Establishes a connection to the database.
      *
-     * @param type
-     * @param server
-     * @param port
-     * @param db
-     * @param user
-     * @param pwd
-     * @return
-     * @throws SQLException
+     * @param type Database type.
+     * @param server Database server address.
+     * @param port Database server port.
+     * @param db Database name.
+     * @param user Database user.
+     * @param pwd Database password.
+     * @return A Connection object to the database.
+     * @throws SQLException If a database access error occurs.
      */
     public static Connection get_connection(db_type type, String server, String port, String db, String user, String pwd) throws SQLException
 
@@ -68,10 +92,12 @@ public class MyDBUtils {
     }
 
     /**
-     * executa na BD o comando (não query) armazenado na string sqlCmd, que associada à conexão enviada como parâmetro.
-     * @param conn
-     * @param sqlCmd
-     * @return Devolve o número de registos afetado pela execução do comando ou -1, em caso de erro.
+     * Executes a SQL command that does not return a result set.
+     *
+     * @param conn Connection object.
+     * @param sqlCmd SQL command to execute.
+     * @return Number of records affected by the command, or -1 in case of an error.
+     * @throws SQLException If a database access error occurs.
      */
     public static int exec_sql (Connection conn,String sqlCmd) throws SQLException
     {
@@ -83,11 +109,12 @@ public class MyDBUtils {
     }
 
     /**
-     * @author Maria Spínola
-     * @param conn
-     * @param sqlCmd
-     * @return
-     * @throws SQLException
+     * Executes a SQL query command.
+     *
+     * @param conn Connection object.
+     * @param sqlCmd SQL query command to execute.
+     * @return A ResultSet object containing the data produced by the query.
+     * @throws SQLException If a database access error occurs.
      */
     public static ResultSet exec_query(Connection conn,String sqlCmd) throws SQLException
     {
@@ -148,12 +175,13 @@ public class MyDBUtils {
 
 
     /**
+     * Checks if a record exists in the database.
      *
-     * @param conn
-     * @param table
-     * @param where
-     * @return
-     * @throws SQLException
+     * @param conn Connection object.
+     * @param table Table name to check.
+     * @param where WHERE condition for checking existence.
+     * @return true if the record exists, false otherwise.
+     * @throws SQLException If a database access error occurs.
      */
 
     public static boolean exist(Connection conn, String table, String where) throws SQLException
@@ -167,7 +195,15 @@ public class MyDBUtils {
     }
 
 
-
+    /**
+     * Performs a lookup operation in the database.
+     *
+     * @param conn Connection object.
+     * @param field Field name to retrieve.
+     * @param table Table name to lookup.
+     * @return ResultSet containing the result of the lookup.
+     * @throws SQLException If a database access error occurs.
+     */
     public static ResultSet lookup(Connection conn, String field, String table) throws SQLException
     {
         String cmdSQL = get_select_command(field, table);
@@ -179,17 +215,15 @@ public class MyDBUtils {
 
 
     /**
-     * Crie o método público Object lookup que devolve o valor do campo field existente na tabela
-     * ou o valor de default, caso não exista o registo.
-     * @param conn
-     * @param field
-     * @param table
-     * @param where_cond
-     * @param default_value
-     * @return
+     * Performs a lookup operation in the database with a default value.
      *
-     * Exemplo int cod_cor = 194;
-     * String color_description = lookup(conn, "colorName", "TColor", "id_cor=" + cod_cor, "NO COLOR FOUND")
+     * @param conn Connection object.
+     * @param field Field name to retrieve.
+     * @param table Table name to lookup.
+     * @param where_cond WHERE condition for the lookup.
+     * @param default_value Default value to return if no record is found.
+     * @return The value of the field or the default value if no record is found.
+     * @throws SQLException If a database access error occurs.
      */
     public static Object lookup(Connection conn, String field, String table, String where_cond,String default_value) throws SQLException
     {
