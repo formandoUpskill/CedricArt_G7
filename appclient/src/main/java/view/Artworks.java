@@ -30,6 +30,7 @@ import java.util.List;
  */
 
 public class Artworks extends Application {
+
     private List<Artwork> artworks;
     private ComboBox<Artwork> cmbArtworks;
     private Stage primaryStage;
