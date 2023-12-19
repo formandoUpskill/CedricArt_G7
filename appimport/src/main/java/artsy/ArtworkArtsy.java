@@ -13,6 +13,10 @@ import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+/**
+ * Implementation of the IArtsy interface for Artwork entities.
+ * Handles the retrieval of artwork data from the Artsy API.
+ */
 public class ArtworkArtsy implements IArtsy<Artwork> {
 
     private static final OkHttpClient client = new OkHttpClient();
@@ -20,6 +24,14 @@ public class ArtworkArtsy implements IArtsy<Artwork> {
             .registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter())
             .create();
 
+    /**
+     * Retrieves the partner link for a specific artwork from the Artsy API.
+     *
+     * @param apiUrl    The API URL for the specific artwork.
+     * @param xappToken The XAPP token for Artsy API authentication.
+     * @return The partner link for the given artwork.
+     * @throws ArtsyException If an error occurs during the API request.
+     */
     public String getPartnerLinks(String apiUrl, String xappToken) throws ArtsyException {
         System.out.println(apiUrl);
 
@@ -72,7 +84,15 @@ public class ArtworkArtsy implements IArtsy<Artwork> {
     }
 
 
-
+    /**
+     * Retrieves all artworks from the Artsy API.
+     *
+     * @param apiUrl       The API URL to fetch artworks from.
+     * @param xappToken    The XAPP token for Artsy API authentication.
+     * @param artworkList  A list to store the retrieved artwork data.
+     * @return The next API URL for pagination, or an empty string if there are no more pages.
+     * @throws ArtsyException If an error occurs during the API request.
+     */
     public String getAll(String apiUrl, String xappToken, List<Artwork> artworkList) throws ArtsyException {
         System.out.println(apiUrl);
 
@@ -131,7 +151,11 @@ public class ArtworkArtsy implements IArtsy<Artwork> {
 
     }
 
-
+    /**
+     * Cleans and standardizes the data of an Artwork object.
+     *
+     * @param artwork The artwork object whose data is to be cleaned.
+     */
     private void cleanArtworkData(Artwork artwork) {
 
         artwork.setTitle(ImportUtils.cleanString(artwork.getTitle()));
