@@ -4,7 +4,6 @@ public class MainImport {
 
     public static void main(String[] args) {
 
-
         RunAPIServer server=  new RunAPIServer();
         //RunServer server= new RunServer();
         server.run();
@@ -14,20 +13,21 @@ public class MainImport {
 
         System.out.println(" APP IMPORT:"+ System.getProperty("user.dir"));
 
-   importArtsyData.loadAllGenes();
+        importArtsyData.loadAllGenes();
 
-   importArtsyData.loadAllArtistsWithArtworks();
+        importArtsyData.loadAllArtistsWithArtworks();
 
-  importArtsyData.loadAllArtworksFromAllLoadedArtists();
+        importArtsyData.loadAllArtworksFromAllLoadedArtists();
 
-    importArtsyData.loadPartnerForAllArtworksLoaded();
+        importArtsyData.loadPartnerForAllArtworksLoaded();
 
-    importArtsyData.loadShowsForAllPartnersLoaded();
+        importArtsyData.loadShowsForAllPartnersLoaded();
 
         System.out.println("importArtsyData finish");
 
 
-       server.stop();
+        server.stop();
+
 
 
 
