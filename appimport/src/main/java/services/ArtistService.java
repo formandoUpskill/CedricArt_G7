@@ -13,6 +13,10 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service class for handling operations related to Artist entities.
+ * Implements the IService interface for artists.
+ */
 public class ArtistService implements IService<Artist> {
 
     private static final OkHttpClient httpClient = new OkHttpClient();
@@ -20,6 +24,12 @@ public class ArtistService implements IService<Artist> {
             .registerTypeAdapter(OffsetDateTime.class, new LocalDateAdapter())
             .create();
 
+    /**
+     * Creates a new Artist in the persistent storage.
+     *
+     * @param apiUrl The URL of the API where the artist is to be created.
+     * @param artist The artist object to be created.
+     */
     public void create(String apiUrl, Artist artist) {
         String json = gson.toJson(artist);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), json);
@@ -37,6 +47,12 @@ public class ArtistService implements IService<Artist> {
         }
     }
 
+    /**
+     * Retrieves all artists from the persistent storage.
+     *
+     * @param apiUrl The URL of the API from where artists are to be fetched.
+     * @return A list of Artist objects.
+     */
     public List<Artist> getAll(String apiUrl) {
         List<Artist> all = new ArrayList<>();
         Request getRequest = new Request.Builder().url(apiUrl).build();
@@ -55,6 +71,12 @@ public class ArtistService implements IService<Artist> {
         return all;
     }
 
+    /**
+     * Logs the error response from the HTTP request.
+     *
+     * @param response The HTTP response to log.
+     * @throws IOException If an I/O error occurs.
+     */
     private void logErrorResponse(Response response) throws IOException {
         // Replace with a proper logging mechanism
         System.out.println("Error: " + response.code() + " - " + response.message());
