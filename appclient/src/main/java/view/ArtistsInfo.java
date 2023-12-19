@@ -24,6 +24,10 @@ import presenter.CedricArtPresenter;
 import javax.swing.border.EmptyBorder;
 import java.util.List;
 
+/**
+ * ArtistsInfo class represents a JavaFX application for displaying detailed information about an artist.
+ * This class extends the Application class.
+ */
 public class ArtistsInfo extends Application {
     private Label lblBiography;
     private ImageView imThumbnail;
@@ -35,10 +39,22 @@ public class ArtistsInfo extends Application {
         launch(args);
     }
 
+    /**
+     * Constructor for the ArtistsInfo class.
+     *
+     * @param partner The partner associated with the artist.
+     */
+
     public ArtistsInfo(Partner partner) {
         this.partner = partner;
     }
 
+    /**
+     * Overrides the start method from the Application class.
+     *
+     * @param primaryStage The primary stage for the application.
+     * @throws Exception If an error occurs during the start process.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -89,6 +105,12 @@ public class ArtistsInfo extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+    /**
+     * Updates the displayed information with details about the selected artist.
+     *
+     * @param artist The artist whose information will be displayed.
+     */
 
     public void updateInfo(Artist artist) {
         Platform.runLater(() -> {

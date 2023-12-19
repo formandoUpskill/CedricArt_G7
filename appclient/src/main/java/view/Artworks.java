@@ -24,6 +24,11 @@ import util.AppUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Artworks class represents a JavaFX application for displaying a collection of artworks.
+ * This class extends the Application class.
+ */
+
 public class Artworks extends Application {
     private List<Artwork> artworks;
     private ComboBox<Artwork> cmbArtworks;
@@ -34,9 +39,21 @@ public class Artworks extends Application {
     private static final int NUM_MAX_ARTWORKS_TO_DISPLAY = 10;
     private int numberArtworks;
 
+    /**
+     * Constructor for the Artworks class with a list of artworks.
+     *
+     * @param artworks The list of artworks to be displayed.
+     */
+
     public Artworks(List<Artwork> artworks){
         this.artworks = artworks != null ? artworks : new ArrayList<>();
     }
+
+    /**
+     * Constructor for the Artworks class with a single artwork.
+     *
+     * @param artwork The single artwork to be displayed.
+     */
 
     public Artworks(Artwork artwork){
         this.artworks = new ArrayList<>();
@@ -59,6 +76,13 @@ public class Artworks extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    /**
+     * Overrides the start method from the Application class.
+     *
+     * @param primaryStage The primary stage for the application.
+     * @throws Exception If an error occurs during the start process.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
@@ -132,11 +156,21 @@ public class Artworks extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Fetches a list of random artworks and adds them to the ComboBox.
+     *
+     * @param lArtwork The list of artworks to be added.
+     */
     private void fetchRandomArtworks(List<Artwork> lArtwork ) {
         overArtwork.addAll(lArtwork);
     }
 
 
+    /**
+     * Retrieves a list of artworks for a specific partner.
+     *
+     * @return A list of artworks.
+     */
     private List<Artwork> listArtwork(){
         CedricArtPresenter presenter = new CedricArtPresenter();
 
@@ -145,6 +179,9 @@ public class Artworks extends Application {
         return allArtworks;
     }
 
+    /**
+     * Displays detailed information about the selected artwork.
+     */
     private void showArtworkInfoForm(){
         Artwork selectArtwork = cmbArtworks.getValue();
 
@@ -156,6 +193,4 @@ public class Artworks extends Application {
             throw new RuntimeException(e);
         }
     }
-
-
 }

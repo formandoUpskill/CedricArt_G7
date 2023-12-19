@@ -17,7 +17,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import server.RunAPIServer;
 
-
+/**
+ * Main class represents the entry point of the CedricArt application.
+ * This class extends the Application class and launches the user interface.
+ */
 public class Main extends Application {
     private Stage primaryStage;
 
@@ -25,6 +28,13 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    /**
+     * Overrides the start method from the Application class.
+     *
+     * @param primaryStage The primary stage for the application.
+     * @throws Exception If an error occurs during the start process.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -48,7 +58,7 @@ public class Main extends Application {
             btnStart.setOnAction(e -> {
                 btnStart.setStyle("-fx-border-color: green; -fx-border-width: 4px;" + "-fx-pref-width: 100px; -fx-pref-height: 100px;" + "-fx-shape: \"M15 0 L29.39 9.39 L24.1 25.45 L9.9 25.45 L4.61 9.39 Z\";");
                 PauseTransition pause = new PauseTransition(Duration.millis(500));
-                pause.setOnFinished(event -> openForm2());
+                pause.setOnFinished(event -> openGalleriesForm());
                 pause.play();
             });
 
@@ -82,12 +92,18 @@ public class Main extends Application {
     }
 
 
+    /**
+     * Stops the application, closing any running processes.
+     */
     public void stop() {
         System.out.println("The program is now stopping.");
        server.stop();
         // Add any cleanup code here
     }
-    private void openForm2() {
+    /**
+     * Opens the second form (Galeries) of the application.
+     */
+    private void openGalleriesForm() {
         Galeries galeries = new Galeries();
         try {
             galeries.start(new Stage());
