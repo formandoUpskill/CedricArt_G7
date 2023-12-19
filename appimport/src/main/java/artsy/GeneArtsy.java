@@ -11,11 +11,25 @@ import util.ImportUtils;
 import java.lang.reflect.Type;
 import java.util.List;
 
+/**
+ * Implementation of the IArtsy interface for Gene entities.
+ * Handles the retrieval of gene data from the Artsy API.
+ */
 public class GeneArtsy implements IArtsy<Gene> {
 
     private static final OkHttpClient client = new OkHttpClient();
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+
+    /**
+     * Retrieves all genes from the Artsy API.
+     *
+     * @param apiUrl    The API URL to fetch genes from.
+     * @param xappToken The XAPP token for Artsy API authentication.
+     * @param geneList  A list to store the retrieved gene data.
+     * @return The next API URL for pagination, or an empty string if there are no more pages.
+     * @throws ArtsyException If an error occurs during the API request.
+     */
     public String getAll(String apiUrl, String xappToken, List<Gene> geneList) throws ArtsyException{
         System.out.println(apiUrl);
 
@@ -73,7 +87,11 @@ public class GeneArtsy implements IArtsy<Gene> {
         return apiUrl;
     }
 
-
+    /**
+     * Cleans and standardizes the data of a Gene object.
+     *
+     * @param gene The gene object whose data is to be cleaned.
+     */
     private void cleanGeneData(Gene gene) {
         gene.setDescription(ImportUtils.cleanString(gene.getDescription()));
         gene.setName(ImportUtils.cleanString(gene.getName()));
