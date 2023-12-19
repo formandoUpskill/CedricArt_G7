@@ -10,9 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class for handling database storage operations.
+ * This class provides methods to interact with the database for various domain objects.
+ */
 public class DBStorage {
+
     /**
-     *
+     * Constructor for DBStorage.
+     * Initializes utility class MyDBUtils.
      */
     public DBStorage()
     {
@@ -21,9 +27,10 @@ public class DBStorage {
 
 
     /**
+     * Retrieves a database connection.
      *
-     * @return
-     * @throws SQLException
+     * @return A Connection object to the database.
+     * @throws SQLException If a database access error occurs.
      */
     private Connection getConnection() throws SQLException {
         return MyDBUtils.get_connection(MyDBUtils.db_type.DB_MYSQL,
@@ -39,10 +46,11 @@ public class DBStorage {
      */
 
     /**
+     * Extracts an Artist object from a ResultSet.
      *
-     * @param rs
-     * @return
-     * @throws SQLException
+     * @param rs The ResultSet from which to extract the artist data.
+     * @return An Artist object.
+     * @throws SQLException If a database access error occurs.
      */
     private Artist extractArtistFromResultSet(ResultSet rs) throws SQLException {
 
@@ -66,9 +74,10 @@ public class DBStorage {
     }
 
     /**
+     * Retrieves all artists associated with a specific partner.
      *
-     * @param partner_id
-     * @return
+     * @param partner_id The ID of the partner.
+     * @return A list of Artist objects.
      */
     public List<Artist> getAllArtistsByPartner(String partner_id)
     {
@@ -123,8 +132,9 @@ public class DBStorage {
     }
 
     /**
+     * Retrieves all artists from the database.
      *
-     * @return
+     * @return A list of all Artist objects.
      */
     public List<Artist> getAllArtists()
 
@@ -162,9 +172,10 @@ public class DBStorage {
 
 
     /**
+     * Retrieves a specific artist by their ID.
      *
-     * @param idArtist
-     * @return
+     * @param idArtist The ID of the artist to retrieve.
+     * @return An Artist object.
      */
     public Artist getArtist(String idArtist)  {
 
@@ -201,8 +212,10 @@ public class DBStorage {
 
 
     /**
+     * Creates a new artist in the database.
      *
-     * @param newArtist
+     * @param newArtist The Artist object to create in the database.
+     * @return The created Artist object.
      */
     public Artist createArtist(Artist newArtist) {
 
@@ -256,9 +269,10 @@ public class DBStorage {
  */
 
     /**
+     * Creates a new gene in the database.
      *
-     * @param newGene
-     * @return
+     * @param newGene The Gene object to create.
+     * @return The created Gene object.
      */
     public Gene createGene(Gene newGene) {
 
@@ -286,9 +300,10 @@ public class DBStorage {
     }
 
     /**
+     * Retrieves a specific gene by its ID.
      *
-     * @param id
-     * @return
+     * @param id The ID of the gene.
+     * @return A Gene object.
      */
     public Gene getGene(String id){
 
@@ -326,10 +341,10 @@ public class DBStorage {
     }
 
     /**
+     * Retrieves all genes from the database.
      *
-     * @return
+     * @return A list of all Gene objects.
      */
-
     public List<Gene> getAllGenes(){
 
         List<Gene> listGenes = new ArrayList<>();
@@ -369,12 +384,11 @@ public class DBStorage {
     }
 
 
-
-
     /**
+     * Retrieves all genes associated with a specific artwork.
      *
-     * @param artwork
-     * @return
+     * @param artwork The Artwork object.
+     * @return A list of Gene objects associated with the artwork.
      */
     public List<Gene> getAllGenes(Artwork artwork){
 
@@ -427,7 +441,13 @@ public class DBStorage {
      * ---------------------------------------
      */
 
-
+    /**
+     * Extracts an Artwork object from a ResultSet.
+     *
+     * @param rs The ResultSet from which to extract the artwork data.
+     * @return An Artwork object.
+     * @throws SQLException If a database access error occurs.
+     */
     private Artwork extractArtworkFromResultSet(ResultSet rs) throws SQLException {
 
         Artwork artwork = new Artwork();
@@ -445,9 +465,9 @@ public class DBStorage {
 
 
     /**
-     *
-     * @param artworkId
-     * @return
+     * Retrieves an Artwork along with its associated Partner and Genes using the artwork's ID.
+     * @param artworkId The ID of the artwork.
+     * @return An Artwork object with its partner and genes.
      */
 
     public Artwork getArtworkWithPartnerAndGenes(String artworkId)  {
@@ -504,9 +524,9 @@ public class DBStorage {
 
 
     /**
-     *
-     * @param artworkId
-     * @return
+     * Retrieves a specific Artwork by its ID.
+     * @param artworkId The ID of the artwork.
+     * @return An Artwork object.
      */
     public Artwork getArtwork(String artworkId)  {
 
@@ -544,14 +564,11 @@ public class DBStorage {
     }
 
 
-
-
     /**
-     *
-     * @return
+     * Retrieves all Artworks from the database.
+     * @return A list of all Artwork objects.
      */
     public List<Artwork> getAllArtworks()
-
     {
 
         List<Artwork> listArtwork = new ArrayList<>();
@@ -587,9 +604,9 @@ public class DBStorage {
 
 
     /**
-     *
-     * @param partner_id
-     * @return
+     * Retrieves all Artworks associated with a given Partner.
+     * @param partner_id The ID of the partner.
+     * @return A list of Artwork objects associated with the specified partner.
      */
     public List<Artwork> getAllArtworksByPartner(String partner_id)
     {
@@ -646,9 +663,9 @@ public class DBStorage {
 
 
     /**
-     *
-     * @param artist_id
-     * @return
+     * Retrieves all Artworks created by a specific Artist.
+     * @param artist_id The ID of the artist.
+     * @return A list of Artwork objects created by the specified artist.
      */
     public List<Artwork> getAllArtworksByArtist(String artist_id)
     {
@@ -695,11 +712,10 @@ public class DBStorage {
 
 
 
-
     /**
-     *
-     * @param exhibition_id
-     * @return
+     * Retrieves all Artworks associated with a specific Exhibition.
+     * @param exhibition_id The ID of the exhibition.
+     * @return A list of Artwork objects associated with the specified exhibition.
      */
     public List<Artwork> getAllArtworksByExhibition(String exhibition_id)
     {
@@ -744,9 +760,9 @@ public class DBStorage {
 
 
     /**
-     *
-     * @param newArtwork
-     * @return
+     * Creates a new Artwork in the database and establishes its relationships with Artists and Genes.
+     * @param newArtwork The Artwork object to be created.
+     * @return The created Artwork object.
      */
     public Artwork createArtwork(Artwork newArtwork) {
 
@@ -799,7 +815,12 @@ public class DBStorage {
      * ---------------------------------------
      */
 
-
+    /**
+     * Extracts an Exhibition object from a SQL ResultSet.
+     * @param rs The ResultSet from which to extract the data.
+     * @return An Exhibition object populated with data from the ResultSet.
+     * @throws SQLException If a SQL error occurs.
+     */
     private Exhibition extractExhibitionFromResultSet(ResultSet rs) throws SQLException {
 
         Exhibition exhibition = new Exhibition();
@@ -822,9 +843,9 @@ public class DBStorage {
     }
 
     /**
-     *
-     * @param exhibitionId
-     * @return
+     * Retrieves an Exhibition by its ID.
+     * @param exhibitionId The ID of the exhibition to retrieve.
+     * @return The Exhibition object corresponding to the specified ID.
      */
     public Exhibition getExhibition(String exhibitionId)  {
 
@@ -869,8 +890,8 @@ public class DBStorage {
     }
 
     /**
-     *
-     * @return
+     * Retrieves all Exhibitions in the database.
+     * @return A list of all Exhibition objects.
      */
     public List<Exhibition> getAllExhibitions()
 
@@ -916,9 +937,9 @@ public class DBStorage {
 
 
     /**
-     *
-     * @param partner_id
-     * @return
+     * Retrieves all Exhibitions associated with a specific Partner.
+     * @param partner_id The ID of the partner whose exhibitions to retrieve.
+     * @return A list of Exhibitions associated with the specified partner.
      */
     public List<Exhibition> getAllExhibitionsByPartner(String partner_id)
 
@@ -974,9 +995,9 @@ public class DBStorage {
 
 
     /**
-     *
-     * @param partnerId
-     * @return
+     * Retrieves a Partner from the database using their ID.
+     * @param partnerId The ID of the partner to retrieve.
+     * @return The Partner object corresponding to the specified ID.
      */
     public Partner getPartner(String partnerId)  {
 
@@ -1016,8 +1037,8 @@ public class DBStorage {
 
 
     /**
-     *
-     * @return
+     * Retrieves all Partners in the database.
+     * @return A list of all Partner objects.
      */
     public List<Partner> getAllPartners()
 
@@ -1059,9 +1080,9 @@ public class DBStorage {
     }
 
     /**
-     *
-     * @param artwork
-     * @param artist
+     * Inserts a relationship between an artwork and an artist into the database.
+     * @param artwork The Artwork object.
+     * @param artist The Artist object.
      */
     private void insertArtworkArtist(Artwork artwork, Artist artist)
     {
@@ -1086,9 +1107,9 @@ public class DBStorage {
     }
 
     /**
-     *
-     * @param artwork
-     * @param exhibition
+     * Inserts a relationship between an artwork and an exhibition into the database.
+     * @param artwork The Artwork object.
+     * @param exhibition The Exhibition object.
      */
     private void insertExhibitionArtwork(Artwork artwork, Exhibition exhibition)
     {
@@ -1113,9 +1134,9 @@ public class DBStorage {
     }
 
     /**
-     *
-     * @param artist
-     * @return
+     * Checks if an artist exists in the database.
+     * @param artist The Artist object to check.
+     * @return True if the artist exists, false otherwise.
      */
     private boolean artistExists(Artist artist)
     {
@@ -1137,9 +1158,9 @@ public class DBStorage {
     }
 
     /**
-     *
-     * @param newArtwork
-     * @return
+     * Checks if an artwork exists in the database.
+     * @param newArtwork The Artwork object to check.
+     * @return True if the artwork exists, false otherwise.
      */
     private boolean artworkExists(Artwork newArtwork)
     {
@@ -1161,9 +1182,9 @@ public class DBStorage {
 
 
     /**
-     *
-     * @param partner
-     * @return
+     * Checks if a partner exists in the database.
+     * @param partner The Partner object to check.
+     * @return True if the partner exists, false otherwise.
      */
     private boolean partnerExists(Partner partner)
     {
@@ -1185,9 +1206,9 @@ public class DBStorage {
 
 
     /**
-     *
-     * @param exhibition
-     * @return
+     * Checks if an exhibition exists in the database.
+     * @param exhibition The Exhibition object to check.
+     * @return True if the exhibition exists, false otherwise.
      */
     private boolean exibitionExists(Exhibition exhibition)
     {
@@ -1210,9 +1231,9 @@ public class DBStorage {
     }
 
     /**
-     *
-     * @param newArtwork
-     * @param geneList
+     * Inserts a list of genes related to an artwork into the database.
+     * @param newArtwork The Artwork object.
+     * @param geneList The list of Gene objects.
      */
     private void insertArtworkGenes(Artwork newArtwork, List<Gene> geneList)
     {
@@ -1236,9 +1257,9 @@ public class DBStorage {
 
 
     /**
-     *
-     * @param partner
-     * @param artwork
+     * Updates the partner associated with an artwork in the database.
+     * @param partner The Partner object.
+     * @param artwork The Artwork object.
      */
     private void updateArtworkPartner(Partner partner, Artwork artwork){
 
@@ -1258,13 +1279,11 @@ public class DBStorage {
     }
 
     /**
-     *
-     * @param newPartner
-     * @return
+     * Creates a new Partner in the database.
+     * @param newPartner The Partner object to create.
+     * @return The created Partner object.
      */
     public Partner createPartner (Partner newPartner){
-
-
 
         Artwork artwork = newPartner.getArtwork();
 
@@ -1303,9 +1322,9 @@ public class DBStorage {
 
 
     /**
-     *
-     * @param newExhibition
-
+     * Creates a new Exhibition in the database.
+     * @param newExhibition The Exhibition object to create.
+     * @return The created Exhibition object.
      */
     public Exhibition createExhibition(Exhibition newExhibition) {
 
