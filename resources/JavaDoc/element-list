@@ -4,6 +4,7 @@ artsy
 domain
 persistence
 presenter
+run
 server
 services
 util
