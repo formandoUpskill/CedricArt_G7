@@ -111,7 +111,11 @@ public class ArtworkInfo extends Application {
             CedricArtPresenter presenter = new CedricArtPresenter();
             Artwork artwork1 = presenter.getArtwork(artwork.getId());
 
-            Image image = new Image(artwork1.getThumbnail());
+            if (!(artwork1.getThumbnail().equals("null") )){
+
+                Image thumbnail = new Image(artwork1.getThumbnail());
+                imThumbnail.setImage(thumbnail);
+            }
 
             Text name = new Text("Title: ");
             name.setStyle("-fx-font-weight: bold;");
@@ -122,7 +126,7 @@ public class ArtworkInfo extends Application {
             lblTitle.setGraphic(textFlow);
             lblTitle.setFont(new Font(20));
 
-            imThumbnail.setImage(image);
+
         });
     }
 }

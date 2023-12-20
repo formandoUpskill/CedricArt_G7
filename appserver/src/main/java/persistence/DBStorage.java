@@ -1195,7 +1195,6 @@ public class DBStorage {
 
         String where= "id_Partner='" + partner.getId()+"'";
 
-
         try (Connection connection  = getConnection()){
 
             exists= MyDBUtils.exist(connection,"partner", where );
@@ -1305,6 +1304,8 @@ public class DBStorage {
                     newPartner.getId_coordinator() +
                     "');";
 
+
+            // System.out.println("createPartner " + sqlInsert);
 
             try (Connection connection  = getConnection())
             {

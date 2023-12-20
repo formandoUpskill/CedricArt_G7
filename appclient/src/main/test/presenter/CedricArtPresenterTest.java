@@ -3,6 +3,7 @@ package presenter;
 import domain.Artist;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import util.GenericLooper;
 
 import java.util.*;
 
@@ -40,13 +41,11 @@ class CedricArtPresenterTest {
     void testGetArtistID4d8b925d4eb68a1b2c000012NotOK() {
         // Arrange
 
-        Artist expectedArtist = new Artist();
-        expectedArtist.setId(artistId+"sdsdsd");
-
-        Artist result = presenter.getArtist(artistId);
+        Artist result = presenter.getArtist(artistId+"dd");
 
         // Assert
-        assertNotEquals (expectedArtist.getId(), result.getId());
+         assertEquals(new Artist().toString(),result.toString());
+
     }
 
 
@@ -58,6 +57,8 @@ class CedricArtPresenterTest {
     void getAllArtistsByPartnerId51cc9a88275b24f8700000dbOK() {
 
         List<Artist> result = presenter.getAllArtistsByPartner(partnerId);
+
+        GenericLooper.forEach(result, artist -> System.out.println(artist.toString()));
 
         // Assert
         assertNotNull(result);

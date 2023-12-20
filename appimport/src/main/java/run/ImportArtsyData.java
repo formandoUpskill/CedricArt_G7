@@ -262,6 +262,8 @@ public class ImportArtsyData {
 
             this.partnerService.create(apiUrl,partner);
 
+
+
         } catch (ArtsyException e) {
             e.printStackTrace();
         }

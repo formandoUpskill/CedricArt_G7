@@ -90,7 +90,7 @@ CREATE TABLE Artwork
   title VARCHAR(500) NOT NULL,
   date VARCHAR(100) NOT NULL,
   id_Artwork CHAR(40) NOT NULL,
-  thumbnail VARCHAR(500) NOT NULL,
+  thumbnail VARCHAR(500) NULL,
   url VARCHAR(250),
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL,

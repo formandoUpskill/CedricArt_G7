@@ -33,6 +33,9 @@ public class ShowArtsy implements IArtsy<Exhibition> {
      * @throws ArtsyException If an error occurs during the API request.
      */
     public String getAll(String apiUrl, String xappToken, List<Exhibition> exhibitionList) throws ArtsyException{
+
+        System.out.println(apiUrl);
+
         Request request = new Request.Builder()
                 .url(apiUrl)
                 .header("X-XAPP-Token", xappToken)

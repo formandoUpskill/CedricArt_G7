@@ -188,6 +188,7 @@ public class MyDBUtils {
     {
 
         String cmdSQL= get_select_command("count(*)", table, where);
+
         ResultSet rs = exec_query(conn,cmdSQL);
 
         return rs.next() && rs.getInt(1) != 0;

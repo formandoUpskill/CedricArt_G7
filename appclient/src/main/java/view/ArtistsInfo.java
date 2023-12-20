@@ -1,8 +1,6 @@
 package view;
 
 import domain.Artist;
-import domain.Artwork;
-import domain.Exhibition;
 import domain.Partner;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -14,15 +12,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import presenter.CedricArtPresenter;
-
-import javax.swing.border.EmptyBorder;
-import java.util.List;
 
 /**
  * ArtistsInfo class represents a JavaFX application for displaying detailed information about an artist.
@@ -117,6 +111,11 @@ public class ArtistsInfo extends Application {
             CedricArtPresenter presenter = new CedricArtPresenter();
             Artist artist1 = presenter.getArtist(artist.getId());
 
+            if (!(artist.getThumbnail().equals("null") )){
+
+                Image thumbnail = new Image(artist.getThumbnail());
+                imThumbnail.setImage(thumbnail);
+            }
             Image thumbnail = new Image(artist1.getThumbnail());
 
             lblName.setText("Name: " + artist1.getName());
@@ -126,7 +125,7 @@ public class ArtistsInfo extends Application {
             lblBiography.setText("Biography: " + artist1.getBiography());
             lblBiography.setFont(new Font(16));
             lblBiography.setWrapText(true);
-            imThumbnail.setImage(thumbnail);
+
         });
     }
 }

@@ -31,6 +31,7 @@ public class GeneArtsy implements IArtsy<Gene> {
      * @throws ArtsyException If an error occurs during the API request.
      */
     public String getAll(String apiUrl, String xappToken, List<Gene> geneList) throws ArtsyException{
+
         System.out.println(apiUrl);
 
         Request request = new Request.Builder()

@@ -38,6 +38,7 @@ public class PartnerService implements IService<Partner> {
         try (Response response = httpClient.newCall(postRequest).execute()) {
             if (response.isSuccessful() && response.body() != null) {
                 Partner created = gson.fromJson(response.body().string(), Partner.class);
+
                 // Handle the created partner object as needed
             } else {
                 logErrorResponse(response);

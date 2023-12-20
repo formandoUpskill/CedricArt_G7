@@ -28,7 +28,6 @@ public class FifthLoadShows {
         importArtsyData.loadShowsForAllPartnersLoaded();
 
         // Mensagem de conclusão do carregamento de dados de exposições
-        System.out.println("Load Shows finished");
 
         // Para o servidor
         server.stop();

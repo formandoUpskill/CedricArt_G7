@@ -31,6 +31,9 @@ public class PartnerArtsy {
      * @throws ArtsyException If an error occurs during the API request.
      */
     public Partner getPartner(String apiUrl, String xappToken, int id_gallerist, int id_Coordinator) throws ArtsyException {
+
+        System.out.println(apiUrl);
+
         Partner partner = new Partner();
 
         Request request = new Request.Builder()
@@ -53,6 +56,7 @@ public class PartnerArtsy {
                 if (response.isSuccessful() && response.body() != null) {
 
                     String responseBody = response.body().string();
+
 
                     JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
 
