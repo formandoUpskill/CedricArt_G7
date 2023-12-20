@@ -114,7 +114,7 @@ public class ExhibitionInfo extends Application {
             CedricArtPresenter presenter = new CedricArtPresenter();
             Exhibition exhibition1 = presenter.getExhibition(exhibition.getId());
 
-            if (!(exhibition1.getThumbnail().equals("null") )){
+            if (!(exhibition1.getThumbnail().equals("") )){
 
                 Image thumbnail = new Image(exhibition1.getThumbnail());
                 imThumbnail.setImage(thumbnail);
