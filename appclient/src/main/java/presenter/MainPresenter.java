@@ -49,10 +49,16 @@ public class MainPresenter {
     artworks= presenter.getAllArtworksByPartner(partnerId);
 
         GenericLooper.forEach(artworks, obj -> System.out.println(obj.toString()));
+        System.out.println("getAllArtworksByPartner " + artworks.size());
 
-      // artworks= presenter.getAllArtworksByExhibition(exhibitionId);
+       artworks= presenter.getAllArtworksByExhibition(exhibitionId);
+
+        GenericLooper.forEach(artworks, obj -> System.out.println(obj.toString()));
+        System.out.println("getAllArtworksByExhibition " + artworks.size());
 
        //  artworks=  presenter.getAllArtworksByArtist(artistId);
+
+
 
 /*
         for (Artwork aArtwork: artworks)
