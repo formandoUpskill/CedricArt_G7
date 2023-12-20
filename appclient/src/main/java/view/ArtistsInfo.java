@@ -111,7 +111,7 @@ public class ArtistsInfo extends Application {
             CedricArtPresenter presenter = new CedricArtPresenter();
             Artist artist1 = presenter.getArtist(artist.getId());
 
-            if (!(artist.getThumbnail().equals("null") )){
+            if (!(artist.getThumbnail().equals("") )){
 
                 Image thumbnail = new Image(artist.getThumbnail());
                 imThumbnail.setImage(thumbnail);

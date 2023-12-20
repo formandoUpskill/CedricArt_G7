@@ -4,6 +4,7 @@ import domain.Artist;
 import domain.Artwork;
 import domain.Exhibition;
 import domain.Partner;
+import util.GenericLooper;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class MainPresenter {
       // server.run();
 
         String artworkId= "4eb2eb13e742d70001007baf";
-        String partnerId="51cc9a88275b24f8700000db";
+        String partnerId="5321cf66275b24683a00022d";
         String exhibitionId="57ec2f87275b2403270003bf";
         String artistId= "4d8b92684eb68a1b2c00009e";
 
@@ -45,12 +46,19 @@ public class MainPresenter {
 
   //   artworks= presenter.getAllArtworks();
 
-   // artworks= presenter.getAllArtworksByPartner(partnerId);
+    artworks= presenter.getAllArtworksByPartner(partnerId);
 
+        GenericLooper.forEach(artworks, obj -> System.out.println(obj.toString()));
+        System.out.println("getAllArtworksByPartner " + artworks.size());
 
-      // artworks= presenter.getAllArtworksByExhibition(exhibitionId);
+       artworks= presenter.getAllArtworksByExhibition(exhibitionId);
+
+        GenericLooper.forEach(artworks, obj -> System.out.println(obj.toString()));
+        System.out.println("getAllArtworksByExhibition " + artworks.size());
 
        //  artworks=  presenter.getAllArtworksByArtist(artistId);
+
+
 
 /*
         for (Artwork aArtwork: artworks)

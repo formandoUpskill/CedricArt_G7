@@ -111,7 +111,7 @@ public class ArtworkInfo extends Application {
             CedricArtPresenter presenter = new CedricArtPresenter();
             Artwork artwork1 = presenter.getArtwork(artwork.getId());
 
-            if (!(artwork1.getThumbnail().equals("null") )){
+            if (!(artwork1.getThumbnail().equals("") )){
 
                 Image thumbnail = new Image(artwork1.getThumbnail());
                 imThumbnail.setImage(thumbnail);
