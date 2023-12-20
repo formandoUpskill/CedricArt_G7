@@ -246,7 +246,7 @@ public class DBStorage {
                 newArtist.getNationality() +
                 "');";
 
-      //  System.out.println("insert " + sql);
+      // System.out.println("insert " + sql);
 
         try (Connection connection  = getConnection())
         {

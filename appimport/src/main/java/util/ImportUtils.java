@@ -140,14 +140,18 @@ public class ImportUtils {
      * @return The cleaned string.
      */
     public static String cleanString(String original) {
-        if (original != null) {
+
+
+        if (original != null && !original.equals("null")) {
             String replaced = original.replace("’", "\\’")
                     .replace("\"", "\\\"")
                     .replace("'", "\\'");
 
             return replaced;
         }
-        return null;
+        else {
+            return "";
+        }
     }
 
 
